@@ -32,7 +32,7 @@ header { position:sticky; top:0; z-index:100; backdrop-filter:blur(8px); backgro
 h1 { font-size:clamp(2.1rem,3.8vw,3.2rem); line-height:1.1; margin:8px 0; text-align:center; }
 h2 { text-align:center; margin-bottom:14px; }
 p { text-align:center; color:var(--muted); margin-top:8px; }
-section { padding:58px 0; border-top:1px solid var(--border); }
+section { padding:50px 0; border-top:1px solid var(--border); }
 .grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
 .card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:18px; }
 .card h3 { text-align:center; margin-bottom:8px; }
@@ -45,8 +45,8 @@ footer { padding:40px 0 60px; text-align:center; color:var(--muted); font-size:.
 
 /* === Form === */
 .form-container{position:relative;overflow:hidden;width:100%;max-width:600px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:30px;box-shadow:0 0 20px rgba(155,140,255,.15);}
+.steps-wrapper{display:flex;transition:transform .5s ease;overflow:hidden;width:100%;}
 .form-step{min-width:100%;transition:transform .5s ease;}
-.steps-wrapper{display:flex;transition:transform .5s ease;}
 .progress{color:var(--muted);font-size:.9rem;text-align:right;margin-bottom:12px;}
 .question{margin-bottom:20px;font-weight:600;font-size:1.1rem;text-align:center;}
 .options{display:flex;flex-direction:column;gap:10px;margin:10px 0;}
@@ -69,14 +69,14 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
   <div class="container nav">
     <div class="brand"><img src="smartigo-logo.png" alt="Smartigo logo" class="logo">Smartigo</div>
     <nav class="navlinks">
-      <a href="#hero">Home</a><a href="#how">How</a><a href="#about">About</a><a href="#stories">Stories</a>
+      <a href="#hero">Home</a><a href="#how">How It Works</a><a href="#about">About</a><a href="#stories">Stories</a>
       <a href="#form" class="btn btn-primary">Start Free</a>
     </nav>
   </div>
 </header>
 
 <main>
-<section id="hero" class="fade-in">
+<section id="hero" class="fade-in" style="padding-bottom:20px;">
   <div class="container">
     <h1>Train Your AI — The Best Version of Your Mind</h1>
     <p>Bring your mind to a new dimension — faster, sharper, and free from mistakes.</p>
@@ -89,13 +89,11 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
 <section id="how" class="fade-in">
   <div class="container">
     <h2>How It Works</h2>
-    <p>We guide you through a 5-day process to train your AI around your intent and thinking style.</p>
     <div class="grid">
-      <div class="card"><h3>Day 1</h3><p>Discover your cognitive blueprint.</p></div>
-      <div class="card"><h3>Day 2</h3><p>Map your decision logic and creative flow.</p></div>
-      <div class="card"><h3>Day 3</h3><p>Refine prompts that match your style.</p></div>
-      <div class="card"><h3>Day 4</h3><p>Test your AI’s understanding of your intent.</p></div>
-      <div class="card"><h3>Day 5</h3><p>Get your personal AI system setup guide.</p></div>
+      <div class="card"><h3>Step 1 — Mind Blueprint</h3><p>Understand how your brain processes information and decisions.</p></div>
+      <div class="card"><h3>Step 2 — Prompt Logic</h3><p>Define your personal reasoning and response style.</p></div>
+      <div class="card"><h3>Step 3 — AI Alignment</h3><p>Train your AI to understand your intent and thinking pattern.</p></div>
+      <div class="card"><h3>Step 4 — Evolution</h3><p>Deploy your enhanced AI to work as the best version of your mind.</p></div>
     </div>
   </div>
 </section>
@@ -245,3 +243,4 @@ document.getElementById('prevBtn').onclick=()=>{if(current>0){current--;updateSt
 </script>
 </body>
 </html>
+
