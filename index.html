@@ -217,44 +217,53 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
 <script>
 window.addEventListener("load", function () {
   const scriptURL = 'PASTE_HERE_YOUR_GOOGLE_WEB_APP_URL';
-  const form = document.getElementById('smartigoForm');
-  const stepsWrapper = form.querySelector('.steps-wrapper');
-  const steps = Array.from(form.querySelectorAll('.form-step'));
-  const progress = document.getElementById('progress');
-  const message = document.getElementById('formMessage');
+  const form = document.getElementById("smartigoForm");
+  const steps = Array.from(form.querySelectorAll(".form-step"));
+  const progress = document.getElementById("progress");
+  const message = document.getElementById("formMessage");
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
   let current = 0;
 
-  function updateStep(n) {
-    stepsWrapper.style.transform = `translateX(-${n * 100}%)`;
-    progress.textContent = `Question ${n + 1} of ${steps.length}`;
-    document.getElementById('prevBtn').style.visibility = n === 0 ? 'hidden' : 'visible';
-    document.getElementById('nextBtn').textContent = n === steps.length - 1 ? 'Submit' : 'Next';
+  // Initialize
+  steps.forEach((s, i) => s.style.display = i === 0 ? "block" : "none");
+  updateProgress();
+
+  function updateProgress() {
+    progress.textContent = `Question ${current + 1} of ${steps.length}`;
+    prevBtn.style.visibility = current === 0 ? "hidden" : "visible";
+    nextBtn.textContent = current === steps.length - 1 ? "Submit" : "Next";
   }
 
-  updateStep(current);
-
-  document.getElementById('nextBtn').addEventListener('click', () => {
-    if (current === steps.length - 1) {
-      message.textContent = 'Submitting...';
-      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-        .then(() => {
-          message.innerHTML = '🎉 <b>Thank you!</b><br>Your personalized 5-Day AI Training Guide is on its way.';
-          form.querySelector('.form-nav').style.display = 'none';
-        })
-        .catch(() => { message.textContent = '❌ Something went wrong. Please try again.'; });
-    } else {
+  nextBtn.addEventListener("click", () => {
+    if (current < steps.length - 1) {
+      steps[current].style.display = "none";
       current++;
-      updateStep(current);
+      steps[current].style.display = "block";
+      updateProgress();
+    } else {
+      message.textContent = "Submitting...";
+      fetch(scriptURL, { method: "POST", body: new FormData(form) })
+        .then(() => {
+          form.style.display = "none";
+          message.innerHTML = "🎉 <b>Thank you!</b><br>Your personalized 5-Day AI Training Guide is on its way.";
+        })
+        .catch(() => {
+          message.textContent = "❌ Something went wrong. Please try again.";
+        });
     }
   });
 
-  document.getElementById('prevBtn').addEventListener('click', () => {
+  prevBtn.addEventListener("click", () => {
     if (current > 0) {
+      steps[current].style.display = "none";
       current--;
-      updateStep(current);
+      steps[current].style.display = "block";
+      updateProgress();
     }
   });
 });
 </script>
+
 </body>
 </html>
