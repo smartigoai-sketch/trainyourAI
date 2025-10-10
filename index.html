@@ -110,20 +110,34 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
   opacity: 0;
   display: none;
 }
- 
+
+  header .btn-primary {
+  background: linear-gradient(135deg,var(--accent1),var(--accent2)) !important;
+  color: #0b0b0f !important;
+}
+
 </style>
 </head>
 
 <body>
 <header>
-  <div class="container nav">
-    <div class="brand"><img src="smartigo-logo.png" alt="Smartigo logo" class="logo">Smartigo</div>
-    <nav class="navlinks">
-      <a href="#hero">Home</a><a href="#how">How It Works</a><a href="#about">About</a><a href="#stories">Stories</a>
-      <a href="#form" class="btn btn-primary">Start Free</a>
+  <div class="nav container">
+    <div class="brand">
+      <div class="logo">
+        <img src="smartigo-logo.png" alt="Smartigo logo" class="logo-img">
+      </div>
+      <span>Smartigo</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#how">How It Works</a>
+      <a href="#stories">Stories</a>
+      <a href="#form">Get Started</a>
     </nav>
+    <a href="#form" class="btn btn-primary">Start Free</a>
   </div>
 </header>
+
 
 <main>
 <section id="hero" class="fade-in" style="padding-bottom:20px;">
