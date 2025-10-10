@@ -68,6 +68,20 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
 .form-nav button{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff;border:none;padding:10px 16px;border-radius:0;cursor:pointer;font-weight:600;transition:opacity .25s;}
 .form-nav button:hover{opacity:.85;}
 #formMessage{text-align:center;margin-top:20px;color:var(--accent1);font-size:1rem;}
+ /* === Smooth fade animation for form steps === */
+.form-step {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.form-step.active {
+  opacity: 1;
+  display: block;
+}
+.form-step.hidden {
+  opacity: 0;
+  display: none;
+}
+ 
 </style>
 </head>
 
@@ -226,7 +240,7 @@ window.addEventListener("load", function () {
   let current = 0;
 
   // Initialize
-  steps.forEach((s, i) => s.style.display = i === 0 ? "block" : "none");
+  steps.forEach((s, i) => s.classList.add(i === 0 ? "active" : "hidden"));
   updateProgress();
 
   function updateProgress() {
@@ -235,11 +249,22 @@ window.addEventListener("load", function () {
     nextBtn.textContent = current === steps.length - 1 ? "Submit" : "Next";
   }
 
+  function showStep(index) {
+    steps.forEach((s, i) => {
+      if (i === index) {
+        s.classList.remove("hidden");
+        s.classList.add("active");
+      } else {
+        s.classList.remove("active");
+        s.classList.add("hidden");
+      }
+    });
+  }
+
   nextBtn.addEventListener("click", () => {
     if (current < steps.length - 1) {
-      steps[current].style.display = "none";
       current++;
-      steps[current].style.display = "block";
+      showStep(current);
       updateProgress();
     } else {
       message.textContent = "Submitting...";
@@ -256,14 +281,14 @@ window.addEventListener("load", function () {
 
   prevBtn.addEventListener("click", () => {
     if (current > 0) {
-      steps[current].style.display = "none";
       current--;
-      steps[current].style.display = "block";
+      showStep(current);
       updateProgress();
     }
   });
 });
 </script>
+
 
 </body>
 </html>
