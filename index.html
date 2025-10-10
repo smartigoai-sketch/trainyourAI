@@ -41,13 +41,47 @@ footer{padding:40px 0 60px;text-align:center;color:var(--muted);font-size:.95rem
 /* === Multi-step form === */
 .form-container{position:relative;overflow:hidden;width:100%;max-width:600px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:30px;box-shadow:0 0 20px rgba(155,140,255,.15)}
 .form-step{min-width:100%;transition:transform .5s ease}
-.form-step.hidden{display:none}
 .steps-wrapper{display:flex;transition:transform .5s ease}
 .progress{color:var(--muted);font-size:.9rem;text-align:right;margin-bottom:12px}
 .question{margin-bottom:20px;font-weight:600;font-size:1.1rem;text-align:center}
-.options{display:flex;flex-direction:column;gap:6px;margin:10px 0}
-.options label{font-weight:400;color:var(--muted);display:flex;align-items:center;gap:8px}
-input[type=checkbox],input[type=radio]{accent-color:var(--accent2);transform:scale(1.1)}
+.options{display:flex;flex-direction:column;gap:10px;margin:10px 0}
+.options label{font-weight:400;color:var(--muted);display:flex;align-items:center;gap:10px;cursor:pointer}
+
+/* custom checkboxes */
+input[type=checkbox], input[type=radio] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  background-color: #1a1a20;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+input[type=checkbox]:checked, input[type=radio]:checked {
+  background-color: var(--accent2);
+  border-color: var(--accent2);
+  box-shadow: 0 0 6px rgba(155,140,255,0.6);
+}
+input[type=checkbox]::after, input[type=radio]::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 4px;
+  height: 8px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+input[type=checkbox]:checked::after, input[type=radio]:checked::after {
+  opacity: 1;
+}
+
 textarea,input[type=email]{width:100%;padding:10px 12px;background:#16161f;border:1px solid var(--border);color:var(--text);border-radius:4px;font-size:1rem}
 textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);box-shadow:0 0 6px rgba(155,140,255,.4)}
 .form-nav{display:flex;justify-content:space-between;margin-top:20px}
@@ -69,9 +103,7 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
 </header>
 
 <main>
-<!-- HERO, HOW, ABOUT, STORIES unchanged -->
-
-<!-- === FORM SECTION UPDATED === -->
+<!-- FORM SECTION -->
 <section id="form" class="fade-in" style="padding:60px 0;border-top:1px solid var(--border);">
   <div class="container">
     <h2>Start Your AI Evolution</h2>
@@ -81,7 +113,7 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
       <form id="smartigoForm">
         <div class="steps-wrapper">
 
-          <!-- Q1 -->
+          <!-- Questions identical to previous version -->
           <div class="form-step">
             <div class="question">What’s your main goal with AI?</div>
             <div class="options">
@@ -93,7 +125,6 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
             </div>
           </div>
 
-          <!-- Q2 -->
           <div class="form-step">
             <div class="question">How would you describe your thinking style?</div>
             <div class="options">
@@ -104,7 +135,6 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
             </div>
           </div>
 
-          <!-- Q3 -->
           <div class="form-step">
             <div class="question">What’s your main field or interest?</div>
             <div class="options">
@@ -117,7 +147,6 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
             </div>
           </div>
 
-          <!-- Q4 -->
           <div class="form-step">
             <div class="question">Have you used ChatGPT or similar tools before?</div>
             <div class="options">
@@ -128,7 +157,6 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
             </div>
           </div>
 
-          <!-- Q5 -->
           <div class="form-step">
             <div class="question">What’s the biggest frustration when using AI tools?</div>
             <div class="options">
@@ -140,13 +168,11 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
             </div>
           </div>
 
-          <!-- Q6 -->
           <div class="form-step">
             <div class="question">If your AI could “think like you”, what would it do first?</div>
             <textarea name="thinkfirst" rows="3" placeholder="Type your answer here..."></textarea>
           </div>
 
-          <!-- Q7 -->
           <div class="form-step">
             <div class="question">How fast would you like to see results?</div>
             <div class="options">
@@ -157,13 +183,12 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
             </div>
           </div>
 
-          <!-- Q8 -->
           <div class="form-step">
             <div class="question">Your email (to receive your 5-day guide)</div>
             <input type="email" name="email" required placeholder="you@example.com">
           </div>
 
-        </div><!-- steps-wrapper -->
+        </div>
         <div class="form-nav">
           <button type="button" id="prevBtn">Back</button>
           <button type="button" id="nextBtn">Next</button>
