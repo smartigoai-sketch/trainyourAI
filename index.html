@@ -41,12 +41,19 @@ section { padding:50px 0; border-top:1px solid var(--border); }
 .btn-primary { background:linear-gradient(135deg,var(--accent1),var(--accent2)); color:#fff!important; }
 .btn-primary:hover { box-shadow:0 0 14px rgba(141,124,251,.4); transform:translateY(-2px); }
 footer { padding:40px 0 60px; text-align:center; color:var(--muted); font-size:.95rem; }
-@media(max-width:640px){ .navlinks{gap:16px;} .card{padding:16px;} }
 
-/* === Form === */
+/* === FORM === */
 .form-container{position:relative;overflow:hidden;width:100%;max-width:600px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:30px;box-shadow:0 0 20px rgba(155,140,255,.15);}
-.steps-wrapper{display:flex;transition:transform .5s ease;overflow:hidden;width:100%;}
-.form-step{min-width:100%;transition:transform .5s ease;}
+.steps-wrapper{
+  display:flex;
+  width:100%;
+  overflow:hidden;
+}
+.form-step{
+  flex:0 0 100%;
+  width:100%;
+  transition:transform 0.5s ease;
+}
 .progress{color:var(--muted);font-size:.9rem;text-align:right;margin-bottom:12px;}
 .question{margin-bottom:20px;font-weight:600;font-size:1.1rem;text-align:center;}
 .options{display:flex;flex-direction:column;gap:10px;margin:10px 0;}
@@ -61,17 +68,6 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
 .form-nav button{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff;border:none;padding:10px 16px;border-radius:0;cursor:pointer;font-weight:600;transition:opacity .25s;}
 .form-nav button:hover{opacity:.85;}
 #formMessage{text-align:center;margin-top:20px;color:var(--accent1);font-size:1rem;}
-.navlinks .btn-primary {
-  background: linear-gradient(135deg, var(--accent1), var(--accent2));
-  color: #fff !important;
-  padding: 10px 18px;
-  border: none;
-}
-.navlinks .btn-primary:hover {
-  box-shadow: 0 0 14px rgba(141,124,251,.4);
-  transform: translateY(-2px);
-}
-
 </style>
 </head>
 
@@ -101,7 +97,7 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
   <div class="container">
     <h2>How It Works</h2>
     <div class="grid">
-      <div class="card"><h3>Step 1 — Mind Blueprint</h3><p>Understand how your brain processes information and decisions.</p></div>
+      <div class="card"><h3>Step 1 — Mind Blueprint</h3><p>Let AI understand how your brain processes information and decisions.</p></div>
       <div class="card"><h3>Step 2 — Prompt Logic</h3><p>Define your personal reasoning and response style.</p></div>
       <div class="card"><h3>Step 3 — AI Alignment</h3><p>Train your AI to understand your intent and thinking pattern.</p></div>
       <div class="card"><h3>Step 4 — Evolution</h3><p>Deploy your enhanced AI to work as the best version of your mind.</p></div>
@@ -116,7 +112,6 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
   </div>
 </section>
 
-
 <section id="stories" class="fade-in">
   <div class="container">
     <h2>Stories from Early Users</h2>
@@ -124,26 +119,12 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
       <div class="card"><p>“I used Smartigo to optimize my creative writing process. It feels like my thoughts are finally streamlined.” — Alex, Writer</p></div>
       <div class="card"><p>“As a parent, I trained my AI to help me plan and manage daily routines. It’s like a calmer version of my brain.” — Jamie, Parent</p></div>
       <div class="card"><p>“I built better business prompts in a week. Smartigo literally saved me hours.” — Lee, Entrepreneur</p></div>
-      <div class="card"><p>“I used Smartigo to understand how I make spending decisions. My AI now helps me plan the week with no stress” — Maria, Parent & Designer</p>
-</div>
-
+      <div class="card"><p>“I used Smartigo to understand how I make spending decisions. My AI now helps me plan the week with no stress.” — Maria, Parent & Designer</p></div>
     </div>
   </div>
 </section>
 
 <!-- === FORM SECTION === -->
-  .steps-wrapper {
-  display: flex;
-  width: 100%;
-  overflow: hidden;
-}
-
-.form-step {
-  flex: 0 0 100%;
-  width: 100%;
-  transition: transform 0.5s ease;
-}
-
 <section id="form" class="fade-in" style="padding:60px 0;border-top:1px solid var(--border);">
   <div class="container">
     <h2>Start Your AI Evolution</h2>
@@ -152,9 +133,8 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
       <div class="progress" id="progress">Question 1 of 8</div>
       <form id="smartigoForm">
         <div class="steps-wrapper">
-
-          <div class="form-step">
-            <div class="question">What’s your main goal with AI?</div>
+          <!-- Questions (unchanged) -->
+          <div class="form-step"><div class="question">What’s your main goal with AI?</div>
             <div class="options">
               <label><input type="checkbox" name="goal" value="Boost productivity"> Boost productivity</label>
               <label><input type="checkbox" name="goal" value="Create faster"> Create faster</label>
@@ -164,8 +144,7 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
             </div>
           </div>
 
-          <div class="form-step">
-            <div class="question">How would you describe your thinking style?</div>
+          <div class="form-step"><div class="question">How would you describe your thinking style?</div>
             <div class="options">
               <label><input type="checkbox" name="style" value="Analytical and structured"> Analytical and structured</label>
               <label><input type="checkbox" name="style" value="Creative and intuitive"> Creative and intuitive</label>
@@ -174,8 +153,7 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
             </div>
           </div>
 
-          <div class="form-step">
-            <div class="question">What’s your main field or interest?</div>
+          <div class="form-step"><div class="question">What’s your main field or interest?</div>
             <div class="options">
               <label><input type="checkbox" name="field" value="Business / Startups"> Business / Startups</label>
               <label><input type="checkbox" name="field" value="Writing / Content creation"> Writing / Content creation</label>
@@ -186,8 +164,7 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
             </div>
           </div>
 
-          <div class="form-step">
-            <div class="question">Have you used ChatGPT or similar tools before?</div>
+          <div class="form-step"><div class="question">Have you used ChatGPT or similar tools before?</div>
             <div class="options">
               <label><input type="checkbox" name="used" value="Yes, regularly"> Yes, regularly</label>
               <label><input type="checkbox" name="used" value="Yes, but just for fun"> Yes, but just for fun</label>
@@ -196,8 +173,7 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
             </div>
           </div>
 
-          <div class="form-step">
-            <div class="question">What’s the biggest frustration when using AI tools?</div>
+          <div class="form-step"><div class="question">What’s the biggest frustration when using AI tools?</div>
             <div class="options">
               <label><input type="checkbox" name="pain" value="It doesn’t understand my intent"> It doesn’t understand my intent</label>
               <label><input type="checkbox" name="pain" value="It gives generic answers"> It gives generic answers</label>
@@ -207,13 +183,11 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
             </div>
           </div>
 
-          <div class="form-step">
-            <div class="question">If your AI could “think like you”, what would it do first?</div>
+          <div class="form-step"><div class="question">If your AI could “think like you”, what would it do first?</div>
             <textarea name="thinkfirst" rows="3" placeholder="Type your answer here..."></textarea>
           </div>
 
-          <div class="form-step">
-            <div class="question">How fast would you like to see results?</div>
+          <div class="form-step"><div class="question">How fast would you like to see results?</div>
             <div class="options">
               <label><input type="checkbox" name="speed" value="Instantly"> Instantly</label>
               <label><input type="checkbox" name="speed" value="Within 5 days"> Within 5 days</label>
@@ -222,8 +196,7 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
             </div>
           </div>
 
-          <div class="form-step">
-            <div class="question">Your email (to receive your 5-day guide)</div>
+          <div class="form-step"><div class="question">Your email (to receive your 5-day guide)</div>
             <input type="email" name="email" required placeholder="you@example.com">
           </div>
         </div>
@@ -240,50 +213,6 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
 </main>
 
 <footer>© 2025 Smartigo — Human intent. AI precision.</footer>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const scriptURL = 'PASTE_HERE_YOUR_GOOGLE_WEB_APP_URL';
-  const form = document.getElementById('smartigoForm');
-  const stepsWrapper = form.querySelector('.steps-wrapper');
-  const steps = form.querySelectorAll('.form-step');
-  const progress = document.getElementById('progress');
-  const message = document.getElementById('formMessage');
-  let current = 0;
-
-  function updateStep(n) {
-    stepsWrapper.style.transform = `translateX(-${n * 100}%)`;
-    progress.textContent = `Question ${n + 1} of ${steps.length}`;
-    document.getElementById('prevBtn').style.visibility = n === 0 ? 'hidden' : 'visible';
-    document.getElementById('nextBtn').textContent = (n === steps.length - 1) ? 'Submit' : 'Next';
-  }
-  updateStep(current);
-
-  document.getElementById('nextBtn').onclick = () => {
-    if (current === steps.length - 1) {
-      message.textContent = 'Submitting...';
-      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-        .then(() => {
-          message.innerHTML = '🎉 <b>Thank you!</b><br>Your personalized 5-Day AI Training Guide is on its way.';
-          form.querySelector('.form-nav').style.display = 'none';
-        })
-        .catch(() => {
-          message.textContent = '❌ Something went wrong. Please try again.';
-        });
-    } else {
-      current++;
-      updateStep(current);
-    }
-  };
-
-  document.getElementById('prevBtn').onclick = () => {
-    if (current > 0) {
-      current--;
-      updateStep(current);
-    }
-  };
-});
-</script>
 
 <script>
 window.addEventListener("load", function () {
@@ -327,7 +256,5 @@ window.addEventListener("load", function () {
   });
 });
 </script>
-
 </body>
 </html>
-
