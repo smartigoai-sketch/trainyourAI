@@ -61,6 +61,17 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
 .form-nav button{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff;border:none;padding:10px 16px;border-radius:0;cursor:pointer;font-weight:600;transition:opacity .25s;}
 .form-nav button:hover{opacity:.85;}
 #formMessage{text-align:center;margin-top:20px;color:var(--accent1);font-size:1rem;}
+.navlinks .btn-primary {
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
+  color: #fff !important;
+  padding: 10px 18px;
+  border: none;
+}
+.navlinks .btn-primary:hover {
+  box-shadow: 0 0 14px rgba(141,124,251,.4);
+  transform: translateY(-2px);
+}
+
 </style>
 </head>
 
@@ -215,32 +226,49 @@ textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);
 <footer>© 2025 Smartigo — Human intent. AI precision.</footer>
 
 <script>
-const scriptURL='PASTE_HERE_YOUR_GOOGLE_WEB_APP_URL';
-const form=document.getElementById('smartigoForm');
-const stepsWrapper=form.querySelector('.steps-wrapper');
-const steps=form.querySelectorAll('.form-step');
-const progress=document.getElementById('progress');
-const message=document.getElementById('formMessage');
-let current=0;
+document.addEventListener("DOMContentLoaded", function() {
+  const scriptURL = 'PASTE_HERE_YOUR_GOOGLE_WEB_APP_URL';
+  const form = document.getElementById('smartigoForm');
+  const stepsWrapper = form.querySelector('.steps-wrapper');
+  const steps = form.querySelectorAll('.form-step');
+  const progress = document.getElementById('progress');
+  const message = document.getElementById('formMessage');
+  let current = 0;
 
-function updateStep(n){
-  stepsWrapper.style.transform=`translateX(-${n*100}%)`;
-  progress.textContent=`Question ${n+1} of ${steps.length}`;
-  document.getElementById('prevBtn').style.visibility=n===0?'hidden':'visible';
-  document.getElementById('nextBtn').textContent=(n===steps.length-1)?'Submit':'Next';
-}
-updateStep(current);
+  function updateStep(n) {
+    stepsWrapper.style.transform = `translateX(-${n * 100}%)`;
+    progress.textContent = `Question ${n + 1} of ${steps.length}`;
+    document.getElementById('prevBtn').style.visibility = n === 0 ? 'hidden' : 'visible';
+    document.getElementById('nextBtn').textContent = (n === steps.length - 1) ? 'Submit' : 'Next';
+  }
+  updateStep(current);
 
-document.getElementById('nextBtn').onclick=()=>{
-  if(current===steps.length-1){
-    message.textContent='Submitting...';
-    fetch(scriptURL,{method:'POST',body:new FormData(form)})
-      .then(()=>{message.innerHTML='🎉 <b>Thank you!</b><br>Your personalized 5-Day AI Training Guide is on its way.';form.querySelector('.form-nav').style.display='none';})
-      .catch(()=>{message.textContent='❌ Something went wrong. Please try again.'});
-  } else {current++;updateStep(current);}
-};
-document.getElementById('prevBtn').onclick=()=>{if(current>0){current--;updateStep(current);}};
+  document.getElementById('nextBtn').onclick = () => {
+    if (current === steps.length - 1) {
+      message.textContent = 'Submitting...';
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(() => {
+          message.innerHTML = '🎉 <b>Thank you!</b><br>Your personalized 5-Day AI Training Guide is on its way.';
+          form.querySelector('.form-nav').style.display = 'none';
+        })
+        .catch(() => {
+          message.textContent = '❌ Something went wrong. Please try again.';
+        });
+    } else {
+      current++;
+      updateStep(current);
+    }
+  };
+
+  document.getElementById('prevBtn').onclick = () => {
+    if (current > 0) {
+      current--;
+      updateStep(current);
+    }
+  };
+});
 </script>
+
 </body>
 </html>
 
