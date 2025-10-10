@@ -2,187 +2,213 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Smartigo — Train Your AI Evolution</title>
-  <meta name="description" content="Train your AI to think with your intent — faster, sharper, and free from mistakes. Unlock a new dimension of your mind with Smartigo." />
-  <link rel="icon" href="smartigo-logo.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smartigo — Train Your AI. Unlock a New Dimension of Thinking.</title>
+  <meta name="description" content="Build an AI that thinks with your intent — faster, sharper, and free from mistakes. Smartigo helps you train your AI to become the best version of your mind."/>
+  <meta property="og:title" content="Smartigo — Train Your AI"/>
+  <meta property="og:description" content="AI that learns from you — not to replace you, but to help you become the best version of yourself."/>
+  <meta property="og:type" content="website"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <link rel="icon" href="smartigo-logo.png" type="image/png"/>
+
   <style>
-    :root {
-      --bg: #0b0b0f;
-      --card: #121218;
-      --text: #eaeaf2;
-      --muted: #a8a8b3;
-      --accent1: #6ee7ff;
-      --accent2: #9b8cff;
-      --border: #1d1d26;
+    :root{
+      --bg:#0b0b0f; --card:#121218; --text:#eaeaf2; --muted:#a8a8b3;
+      --accent1:#6ee7ff; --accent2:#9b8cff; --border:#1d1d26;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-    }
-    a { text-decoration: none; color: inherit; }
-    .container { max-width: 1120px; margin: 0 auto; padding: 20px; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6}
 
-    header {
-      position: sticky;
-      top: 0;
-      backdrop-filter: blur(8px);
-      background: rgba(11,11,15,0.7);
-      border-bottom: 1px solid var(--border);
-      z-index: 100;
-    }
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 0;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-    }
-    .logo {
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
-    }
-    .btn {
-      display: inline-block;
-      padding: 12px 18px;
-      border: 1px solid var(--border);
-      background: #16161f;
-      font-weight: 600;
-      border-radius: 0;
-      transition: all .25s ease;
-    }
-    .btn:hover { box-shadow: 0 0 10px rgba(155,140,255,0.4); }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent1), var(--accent2));
-      color: #0b0b0f;
-      border: none;
-    }
-    .btn-primary:hover { box-shadow: 0 0 18px rgba(155,140,255,0.6); }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1120px;margin:0 auto;padding:20px}
 
-    h1 {
-      font-size: clamp(2.2rem, 3.8vw, 3.2rem);
-      line-height: 1.1;
-      margin: 6px 0;
-      text-align: center;
-    }
-    h2 { margin-bottom: 16px; text-align: center; }
-    p { color: var(--muted); margin-top: 8px; text-align: center; }
+    /* Header & Nav */
+    header{position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);background:rgba(11,11,15,.75);border-bottom:1px solid var(--border)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .logo{width:34px;height:34px;object-fit:contain}
+    .navlinks{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .link{padding:8px 10px;border:1px solid var(--border);background:#16161f;border-radius:0;font-weight:600;transition:box-shadow .25s}
+    .link:hover{box-shadow:0 0 10px rgba(155,140,255,.35)}
+    .btn-primary{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#0b0b0f;border:none}
 
-    section { padding: 60px 0; border-top: 1px solid var(--border); }
-    .centered { text-align: center; }
-    .grid {
-      display: grid;
-      gap: 16px;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 18px;
+    h1{font-size:clamp(2.1rem,3.8vw,3.2rem);line-height:1.1;margin:8px 0;text-align:center}
+    h2{text-align:center;margin-bottom:14px}
+    p{text-align:center;color:var(--muted);margin-top:8px}
+
+    section{padding:58px 0;border-top:1px solid var(--border)}
+    .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px}
+
+    /* Fade-in */
+    .fade-in{opacity:0;transform:translateY(20px);transition:opacity .9s ease,transform .9s ease}
+    .fade-in.visible{opacity:1;transform:translateY(0)}
+
+    /* Testimonials */
+    .quote{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px}
+    .quote p{color:var(--text);text-align:left}
+    .who{margin-top:10px;color:var(--muted);font-size:.95rem;text-align:left}
+
+    /* CTA buttons */
+    .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+    .btn{display:inline-block;padding:12px 18px;border:1px solid var(--border);background:#16161f;font-weight:600;border-radius:0;transition:box-shadow .25s}
+    .btn:hover{box-shadow:0 0 10px rgba(155,140,255,.35)}
+    .btn-primary:hover{box-shadow:0 0 18px rgba(155,140,255,.6)}
+
+    /* Form iframe */
+    .form-wrap{display:flex;justify-content:center}
+    .form-iframe{
+      width:100%; max-width:780px; height:1100px;
+      border:0; border-radius:12px; background-color:var(--card);
+      box-shadow:0 0 20px rgba(155,140,255,.22);
     }
 
-    /* Fade-in animation */
-    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 1s ease, transform 1s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    /* Footer */
+    footer{padding:40px 0 60px;text-align:center;color:var(--muted);font-size:.95rem}
 
-    footer {
-      padding: 40px 0 60px;
-      color: var(--muted);
-      font-size: .9rem;
-      text-align: center;
+    /* Mobile tweaks */
+    @media (max-width:640px){
+      .navlinks .link{padding:8px 12px}
+      .form-iframe{height:1280px}
+      .card{padding:16px}
     }
   </style>
 </head>
 <body>
 
+  <!-- Header -->
   <header>
     <div class="container nav">
       <div class="brand">
         <img src="smartigo-logo.png" alt="Smartigo logo" class="logo">
         Smartigo
       </div>
-      <a href="#form" class="btn btn-primary">Start Free — 5-Day Guide</a>
+      <nav class="navlinks">
+        <a class="link" href="#hero">Home</a>
+        <a class="link" href="#how">How</a>
+        <a class="link" href="#about">About</a>
+        <a class="link" href="#stories">Stories</a>
+        <a class="link btn-primary" href="#form">Start Free</a>
+      </nav>
     </div>
   </header>
 
   <main>
-    <section id="hero" class="centered fade-in">
+    <!-- HERO -->
+    <section id="hero" class="fade-in">
       <div class="container">
         <h1>Train Your AI. Unlock a New Dimension of Thinking.</h1>
-        <p>Build an AI that thinks and creates with your intent — faster, sharper, and without mistakes.</p>
-        <a href="#form" class="btn btn-primary" style="margin-top:24px;">Start Free — 5-Day Guide</a>
-      </div>
-    </section>
-
-    <section id="how" class="centered fade-in">
-      <div class="container">
-        <h2>How Smartigo Works</h2>
-        <p>Smartigo teaches your AI to think with purpose. Step by step, you’ll learn how to refine its logic, align it with your goals, and eliminate wasted output.</p>
-        <div class="grid" style="margin-top:40px;">
-          <div class="card"><h3>Step 1</h3><p>Discover how AI interprets your intent and how to make it understand you better.</p></div>
-          <div class="card"><h3>Step 2</h3><p>Train your prompts to reflect your thought process and creative intuition.</p></div>
-          <div class="card"><h3>Step 3</h3><p>Unlock deeper collaboration between human logic and AI speed.</p></div>
+        <p>Build an AI that thinks and creates with your intent — faster, sharper, and free from mistakes.</p>
+        <div class="cta-row">
+          <a href="#form" class="btn btn-primary">Start Free — 5-Day Guide</a>
+          <a href="#how" class="btn">How it works</a>
         </div>
       </div>
     </section>
 
-    <section id="why" class="centered fade-in">
+    <!-- HOW IT WORKS -->
+    <section id="how" class="fade-in">
+      <div class="container">
+        <h2>How Smartigo Works</h2>
+        <p>We turn your intent into a clear system your AI can learn from — and keep improving every day.</p>
+        <div class="grid" style="margin-top:26px;">
+          <div class="card">
+            <h3>Mind Blueprint</h3>
+            <p>Capture how you think — your logic, tone, and intuition — and translate it into a simple structure.</p>
+          </div>
+          <div class="card">
+            <h3>Intent Alignment</h3>
+            <p>Teach your AI to act with your goals and values, so results feel unmistakably yours.</p>
+          </div>
+          <div class="card">
+            <h3>Error Elimination</h3>
+            <p>Use a feedback loop to remove ambiguity and prevent repeat mistakes.</p>
+          </div>
+          <div class="card">
+            <h3>Daily Amplifier</h3>
+            <p>A 10-minute routine to evolve your AI alongside you — small steps, compounding gains.</p>
+          </div>
+        </div>
+        <div class="cta-row">
+          <a href="#form" class="btn btn-primary">Start Free — 5-Day Guide</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section id="why" class="fade-in">
       <div class="container">
         <h2>Why Train Your AI</h2>
-        <p>Because intelligence alone isn’t enough — precision matters. Smartigo turns your AI into an extension of your mind, amplifying your creativity and decision-making power.</p>
+        <p>Intelligence alone isn’t enough — precision and intent matter. Smartigo turns AI into an extension of your mind, amplifying your creativity and decision-making.</p>
       </div>
     </section>
 
-    <section id="cta" class="centered fade-in">
+    <!-- ABOUT / WHO WE ARE -->
+    <section id="about" class="fade-in">
       <div class="container">
-        <h2>Join the 5-Day AI Training</h2>
-        <p>Learn how to train your AI to think like you — only faster, and without the mistakes.</p>
-        <a href="#form" class="btn btn-primary" style="margin-top:20px;">Start Free — 5-Day Guide</a>
+        <h2>Who We Are</h2>
+        <p>We are a small, passionate team committed to redefining how humans interact with AI. Our mission is to make AI a true amplifier of human potential — not a replacement for creativity, curiosity, and individuality.</p>
+        <p style="margin-top:10px;color:#d9d9e6">We believe in an AI that learns from you — not to replace you, but to help you become the best version of yourself.</p>
       </div>
     </section>
 
-    <!-- Embedded Smartigo Form -->
-    <section id="form" class="centered fade-in" style="padding:60px 0; border-top:1px solid var(--border);">
-      <h2>Start Your AI Evolution</h2>
-      <p>Fill out the quick entry quiz below and get your personalized 5-day training guide.</p>
-      <div style="display:flex;justify-content:center;">
-        <iframe 
-          src="https://docs.google.com/forms/d/e/1FAIpQLScaYfV_z_bZ4bWqjFbz2080J1Tl7aeN689alUs1Jo-3_v-Pjw/viewform?embedded=true"
-          width="100%" height="1100" frameborder="0" marginheight="0" marginwidth="0"
-          style="max-width:780px; border-radius:12px; background-color:var(--card); box-shadow:0 0 20px rgba(155,140,255,0.25);">
-          Loading…
-        </iframe>
+    <!-- TESTIMONIALS / STORIES -->
+    <section id="stories" class="fade-in">
+      <div class="container">
+        <h2>What People Are Saying</h2>
+        <div class="grid" style="margin-top:20px;">
+          <div class="quote">
+            <p>“I used Smartigo to train my AI to plan family meals and keep our monthly budget on track. It feels like a calmer version of me thinking ahead.”</p>
+            <div class="who">— Laura, parent of two</div>
+          </div>
+          <div class="quote">
+            <p>“As a small business owner, I never had time to organize ideas. Now my AI drafts proposals and client replies that sound like me — only sharper.”</p>
+            <div class="who">— Marco, freelance consultant</div>
+          </div>
+          <div class="quote">
+            <p>“I’m not a tech person, but after the 5-day guide I finally knew how to speak to AI. It saves me hours every week.”</p>
+            <div class="who">— Denise, teacher</div>
+          </div>
+          <div class="quote">
+            <p>“Parenting is full of doubts. Smartigo helped me train an AI that reflects our values — I get clarity before I react.”</p>
+            <div class="who">— Ethan, father & writer</div>
+          </div>
+        </div>
+        <div class="cta-row">
+          <a href="#form" class="btn btn-primary">Start Free — 5-Day Guide</a>
+        </div>
       </div>
     </section>
 
+    <!-- EMBEDDED FORM -->
+    <section id="form" class="fade-in" style="padding:60px 0;border-top:1px solid var(--border);">
+      <div class="container">
+        <h2>Start Your AI Evolution</h2>
+        <p>Fill out the quick entry quiz below and get your personalized 5-day training guide.</p>
+        <div class="form-wrap" style="margin-top:18px;">
+          <iframe
+            class="form-iframe"
+            src="https://docs.google.com/forms/d/e/1FAIpQLScaYfV_z_bZ4bWqjFbz2080J1Tl7aeN689alUs1Jo-3_v-Pjw/viewform?embedded=true"
+            title="Smartigo Entry Quiz">
+            Loading…
+          </iframe>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
-    <p>© 2025 Smartigo — Human intent. AI precision.</p>
+    © 2025 Smartigo — Human intent. AI precision.
   </footer>
 
   <script>
-    // Fade-in observer
-    const fadeElements = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.2 });
-    fadeElements.forEach(el => observer.observe(el));
+    // fade-in on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+    },{threshold:.2});
+    document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
   </script>
-
 </body>
 </html>
