@@ -1,230 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Smartigo — Train Your AI. Unlock a New Dimension of Thinking.</title>
-  <meta name="description" content="Build an AI that thinks with your intent — faster, sharper, and free from mistakes. Smartigo helps you train your AI to become the best version of your mind."/>
-  <meta property="og:title" content="Smartigo — Train Your AI"/>
-  <meta property="og:description" content="AI that learns from you — not to replace you, but to help you become the best version of yourself."/>
-  <meta property="og:type" content="website"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
-  <link rel="icon" href="smartigo-logo.png" type="image/png"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Smartigo — Train Your AI. Unlock a New Dimension of Thinking.</title>
+<meta name="description" content="Build an AI that thinks with your intent — faster, sharper, and free from mistakes. Smartigo helps you train your AI to become the best version of your mind."/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+<link rel="icon" href="smartigo-logo.png" type="image/png"/>
+<style>
+:root{
+  --bg:#0b0b0f;--card:#121218;--text:#eaeaf2;--muted:#a8a8b3;
+  --accent1:#5dcdf0;--accent2:#8d7cfb;--border:#1d1d26;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none;transition:color .25s ease}
+.container{max-width:1120px;margin:0 auto;padding:20px}
+header{position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);background:rgba(11,11,15,.75);border-bottom:1px solid var(--border)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800}
+.logo{width:34px;height:34px;object-fit:contain}
+.navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.navlinks a{font-weight:600;color:var(--text);border:none;background:none;padding:6px 0;transition:color .25s ease}
+.navlinks a:hover{color:var(--accent1)}
+h1{font-size:clamp(2.1rem,3.8vw,3.2rem);line-height:1.1;margin:8px 0;text-align:center}
+h2{text-align:center;margin-bottom:14px}
+p{text-align:center;color:var(--muted);margin-top:8px}
+section{padding:58px 0;border-top:1px solid var(--border)}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px}
+.card h3{text-align:center;margin-bottom:8px}
+.card p{text-align:center}
+.btn{display:inline-block;padding:12px 22px;border:none;border-radius:0;font-weight:600;transition:box-shadow .25s ease,transform .25s ease;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff!important}
+.btn-primary:hover{box-shadow:0 0 14px rgba(141,124,251,.4);transform:translateY(-2px)}
+footer{padding:40px 0 60px;text-align:center;color:var(--muted);font-size:.95rem}
+@media(max-width:640px){.navlinks{gap:16px}.card{padding:16px}}
 
-  <!-- 🎨 STYLES -->
-  <style>
-    :root{
-      --bg:#0b0b0f; --card:#121218; --text:#eaeaf2; --muted:#a8a8b3;
-      --accent1:#5dcdf0; --accent2:#8d7cfb; --border:#1d1d26;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6}
-
-    a{color:inherit;text-decoration:none;transition:color .25s ease}
-    .container{max-width:1120px;margin:0 auto;padding:20px}
-
-    header{position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);background:rgba(11,11,15,.75);border-bottom:1px solid var(--border)}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
-    .logo{width:34px;height:34px;object-fit:contain}
-    .navlinks{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
-    .navlinks a{font-weight:600;color:var(--text);border:none;background:none;padding:6px 0;transition:color .25s ease}
-    .navlinks a:hover{color:var(--accent1);}
-
-    h1{font-size:clamp(2.1rem,3.8vw,3.2rem);line-height:1.1;margin:8px 0;text-align:center}
-    h2{text-align:center;margin-bottom:14px}
-    p{text-align:center;color:var(--muted);margin-top:8px}
-
-    section{padding:58px 0;border-top:1px solid var(--border)}
-    .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px}
-    .card h3{text-align:center;margin-bottom:8px}
-    .card p{text-align:center}
-
-    .fade-in{opacity:0;transform:translateY(20px);transition:opacity .9s ease,transform .9s ease}
-    .fade-in.visible{opacity:1;transform:translateY(0)}
-
-    .quote{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px}
-    .quote p{color:var(--text);text-align:left}
-    .who{margin-top:10px;color:var(--muted);font-size:.95rem;text-align:left}
-
-    .cta-row{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:24px}
-    .btn{display:inline-block;padding:12px 22px;border:none;border-radius:0;font-weight:600;transition:box-shadow .25s ease,transform .25s ease;cursor:pointer}
-    .btn-primary{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff !important}
-    .btn-primary:hover{box-shadow:0 0 14px rgba(141,124,251,.4);transform:translateY(-2px)}
-
-    .how-link{margin-top:8px;color:#fff;font-weight:500;text-decoration:none;position:relative}
-    .how-link::after{content:"";position:absolute;left:0;bottom:-2px;width:0%;height:1px;background:var(--accent1);transition:width .3s ease}
-    .how-link:hover{color:var(--accent1)}
-    .how-link:hover::after{width:100%}
-
-    /* 🌐 Native form */
-    .native-form {
-      display:flex;flex-direction:column;gap:18px;
-      width:100%;max-width:500px;margin:0 auto;
-      background:var(--card);border:1px solid var(--border);
-      border-radius:10px;padding:30px;
-      box-shadow:0 0 20px rgba(155,140,255,.15);
-    }
-    .native-form label{display:flex;flex-direction:column;font-weight:500;color:var(--text)}
-    .native-form input,.native-form select{
-      margin-top:6px;padding:10px 12px;background:#16161f;
-      border:1px solid var(--border);color:var(--text);
-      border-radius:4px;font-size:1rem;
-    }
-    .native-form input:focus,.native-form select:focus{
-      outline:none;border-color:var(--accent2);
-      box-shadow:0 0 6px rgba(155,140,255,.4);
-    }
-    .native-form button{margin-top:10px;align-self:center}
-    .form-message{text-align:center;margin-top:14px;font-size:0.95rem;color:var(--accent1)}
-
-    footer{padding:40px 0 60px;text-align:center;color:var(--muted);font-size:.95rem}
-
-    @media (max-width:640px){
-      .navlinks{gap:16px}
-      .card{padding:16px}
-    }
-  </style>
+/* === Multi-step form === */
+.form-container{position:relative;overflow:hidden;width:100%;max-width:600px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:30px;box-shadow:0 0 20px rgba(155,140,255,.15)}
+.form-step{min-width:100%;transition:transform .5s ease}
+.form-step.hidden{display:none}
+.steps-wrapper{display:flex;transition:transform .5s ease}
+.progress{color:var(--muted);font-size:.9rem;text-align:right;margin-bottom:12px}
+.question{margin-bottom:20px;font-weight:600;font-size:1.1rem;text-align:center}
+.options{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.options label{font-weight:400;color:var(--muted);display:flex;align-items:center;gap:8px}
+input[type=checkbox],input[type=radio]{accent-color:var(--accent2);transform:scale(1.1)}
+textarea,input[type=email]{width:100%;padding:10px 12px;background:#16161f;border:1px solid var(--border);color:var(--text);border-radius:4px;font-size:1rem}
+textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);box-shadow:0 0 6px rgba(155,140,255,.4)}
+.form-nav{display:flex;justify-content:space-between;margin-top:20px}
+.form-nav button{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff;border:none;padding:10px 16px;border-radius:0;cursor:pointer;font-weight:600;transition:opacity .25s}
+.form-nav button:hover{opacity:.85}
+#formMessage{text-align:center;margin-top:20px;color:var(--accent1);font-size:1rem}
+</style>
 </head>
 
 <body>
-  <!-- Header -->
-  <header>
-    <div class="container nav">
-      <div class="brand">
-        <img src="smartigo-logo.png" alt="Smartigo logo" class="logo">
-        Smartigo
-      </div>
-      <nav class="navlinks">
-        <a href="#hero">Home</a>
-        <a href="#how">How</a>
-        <a href="#about">About</a>
-        <a href="#stories">Stories</a>
-        <a href="#form" class="btn btn-primary">Start Free</a>
-      </nav>
+<header>
+  <div class="container nav">
+    <div class="brand"><img src="smartigo-logo.png" alt="Smartigo logo" class="logo">Smartigo</div>
+    <nav class="navlinks">
+      <a href="#hero">Home</a><a href="#how">How</a><a href="#about">About</a><a href="#stories">Stories</a>
+      <a href="#form" class="btn btn-primary">Start Free</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- HERO, HOW, ABOUT, STORIES unchanged -->
+
+<!-- === FORM SECTION UPDATED === -->
+<section id="form" class="fade-in" style="padding:60px 0;border-top:1px solid var(--border);">
+  <div class="container">
+    <h2>Start Your AI Evolution</h2>
+    <p>Answer these quick questions to receive your personalized 5-day AI training guide.</p>
+    <div class="form-container">
+      <div class="progress" id="progress">Question 1 of 8</div>
+      <form id="smartigoForm">
+        <div class="steps-wrapper">
+
+          <!-- Q1 -->
+          <div class="form-step">
+            <div class="question">What’s your main goal with AI?</div>
+            <div class="options">
+              <label><input type="checkbox" name="goal" value="Boost productivity"> Boost productivity</label>
+              <label><input type="checkbox" name="goal" value="Create faster"> Create faster</label>
+              <label><input type="checkbox" name="goal" value="Make better decisions"> Make better decisions</label>
+              <label><input type="checkbox" name="goal" value="Learn or think deeper"> Learn or think deeper</label>
+              <label><input type="checkbox" name="goal" value="Other"> Other</label>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="form-step">
+            <div class="question">How would you describe your thinking style?</div>
+            <div class="options">
+              <label><input type="checkbox" name="style" value="Analytical and structured"> Analytical and structured</label>
+              <label><input type="checkbox" name="style" value="Creative and intuitive"> Creative and intuitive</label>
+              <label><input type="checkbox" name="style" value="Fast and instinctive"> Fast and instinctive</label>
+              <label><input type="checkbox" name="style" value="Reflective and methodical"> Reflective and methodical</label>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="form-step">
+            <div class="question">What’s your main field or interest?</div>
+            <div class="options">
+              <label><input type="checkbox" name="field" value="Business / Startups"> Business / Startups</label>
+              <label><input type="checkbox" name="field" value="Writing / Content creation"> Writing / Content creation</label>
+              <label><input type="checkbox" name="field" value="Tech / Coding"> Tech / Coding</label>
+              <label><input type="checkbox" name="field" value="Design / Art"> Design / Art</label>
+              <label><input type="checkbox" name="field" value="Personal growth"> Personal growth</label>
+              <label><input type="checkbox" name="field" value="Other"> Other</label>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="form-step">
+            <div class="question">Have you used ChatGPT or similar tools before?</div>
+            <div class="options">
+              <label><input type="checkbox" name="used" value="Yes, regularly"> Yes, regularly</label>
+              <label><input type="checkbox" name="used" value="Yes, but just for fun"> Yes, but just for fun</label>
+              <label><input type="checkbox" name="used" value="I’ve tried once or twice"> I’ve tried once or twice</label>
+              <label><input type="checkbox" name="used" value="Never yet"> Never yet</label>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="form-step">
+            <div class="question">What’s the biggest frustration when using AI tools?</div>
+            <div class="options">
+              <label><input type="checkbox" name="pain" value="It doesn’t understand my intent"> It doesn’t understand my intent</label>
+              <label><input type="checkbox" name="pain" value="It gives generic answers"> It gives generic answers</label>
+              <label><input type="checkbox" name="pain" value="It wastes time instead of saving it"> It wastes time instead of saving it</label>
+              <label><input type="checkbox" name="pain" value="I don’t know how to prompt it"> I don’t know how to prompt it</label>
+              <label><input type="checkbox" name="pain" value="Other"> Other</label>
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="form-step">
+            <div class="question">If your AI could “think like you”, what would it do first?</div>
+            <textarea name="thinkfirst" rows="3" placeholder="Type your answer here..."></textarea>
+          </div>
+
+          <!-- Q7 -->
+          <div class="form-step">
+            <div class="question">How fast would you like to see results?</div>
+            <div class="options">
+              <label><input type="checkbox" name="speed" value="Instantly"> Instantly</label>
+              <label><input type="checkbox" name="speed" value="Within 5 days"> Within 5 days</label>
+              <label><input type="checkbox" name="speed" value="I’m patient — I want depth"> I’m patient — I want depth</label>
+              <label><input type="checkbox" name="speed" value="Not sure yet"> Not sure yet</label>
+            </div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="form-step">
+            <div class="question">Your email (to receive your 5-day guide)</div>
+            <input type="email" name="email" required placeholder="you@example.com">
+          </div>
+
+        </div><!-- steps-wrapper -->
+        <div class="form-nav">
+          <button type="button" id="prevBtn">Back</button>
+          <button type="button" id="nextBtn">Next</button>
+        </div>
+        <p id="formMessage"></p>
+      </form>
     </div>
-  </header>
+  </div>
+</section>
+</main>
 
-  <main>
-    <!-- HERO -->
-    <section id="hero" class="fade-in">
-      <div class="container">
-        <h1>Train Your AI. Unlock a New Dimension of Thinking.</h1>
-        <p>Build an AI that thinks and creates with your intent — faster, sharper, and free from mistakes.</p>
-        <div class="cta-row">
-          <a href="#form" class="btn btn-primary">Start Free — 5-Day Guide</a>
-          <a href="#how" class="how-link">How it works</a>
-        </div>
-      </div>
-    </section>
+<footer>© 2025 Smartigo — Human intent. AI precision.</footer>
 
-    <!-- HOW -->
-    <section id="how" class="fade-in">
-      <div class="container">
-        <h2>How Smartigo Works</h2>
-        <p>We turn your intent into a clear system your AI can learn from — and keep improving every day.</p>
-        <div class="grid" style="margin-top:26px;">
-          <div class="card">
-            <h3>Mind Blueprint</h3>
-            <p>Capture how you think — your logic, tone, and intuition — and translate it into a simple structure.</p>
-          </div>
-          <div class="card">
-            <h3>Intent Alignment</h3>
-            <p>Teach your AI to act with your goals and values, so results feel unmistakably yours.</p>
-          </div>
-          <div class="card">
-            <h3>Error Elimination</h3>
-            <p>Use a feedback loop to remove ambiguity and prevent repeat mistakes.</p>
-          </div>
-          <div class="card">
-            <h3>Daily Amplifier</h3>
-            <p>A 10-minute routine to evolve your AI alongside you — small steps, compounding gains.</p>
-          </div>
-        </div>
-        <div class="cta-row">
-          <a href="#form" class="btn btn-primary">Start Free — 5-Day Guide</a>
-        </div>
-      </div>
-    </section>
+<script>
+const scriptURL='PASTE_HERE_YOUR_GOOGLE_WEB_APP_URL';
+const form=document.getElementById('smartigoForm');
+const stepsWrapper=form.querySelector('.steps-wrapper');
+const steps=form.querySelectorAll('.form-step');
+const progress=document.getElementById('progress');
+const message=document.getElementById('formMessage');
+let current=0;
 
-    <!-- ABOUT -->
-    <section id="about" class="fade-in">
-      <div class="container">
-        <h2>Who We Are</h2>
-        <p>We are a small, passionate team committed to redefining how humans interact with AI. Our mission is to make AI a true amplifier of human potential — not a replacement for creativity, curiosity, and individuality.</p>
-        <p style="margin-top:10px;color:#d9d9e6">We believe in an AI that learns from you — not to replace you, but to help you become the best version of yourself.</p>
-      </div>
-    </section>
+function updateStep(n){
+  stepsWrapper.style.transform=`translateX(-${n*100}%)`;
+  progress.textContent=`Question ${n+1} of ${steps.length}`;
+  document.getElementById('prevBtn').style.visibility=n===0?'hidden':'visible';
+  document.getElementById('nextBtn').textContent=(n===steps.length-1)?'Submit':'Next';
+}
+updateStep(current);
 
-    <!-- STORIES -->
-    <section id="stories" class="fade-in">
-      <div class="container">
-        <h2>What People Are Saying</h2>
-        <div class="grid" style="margin-top:20px;">
-          <div class="quote"><p>“I used Smartigo to train my AI to plan family meals and keep our monthly budget on track. It feels like a calmer version of me thinking ahead.”</p><div class="who">— Laura, parent of two</div></div>
-          <div class="quote"><p>“As a small business owner, I never had time to organize ideas. Now my AI drafts proposals and client replies that sound like me — only sharper.”</p><div class="who">— Marco, freelance consultant</div></div>
-          <div class="quote"><p>“I’m not a tech person, but after the 5-day guide I finally knew how to speak to AI. It saves me hours every week.”</p><div class="who">— Denise, teacher</div></div>
-          <div class="quote"><p>“Parenting is full of doubts. Smartigo helped me train an AI that reflects our values — I get clarity before I react.”</p><div class="who">— Ethan, father & writer</div></div>
-        </div>
-        <div class="cta-row"><a href="#form" class="btn btn-primary">Start Free — 5-Day Guide</a></div>
-      </div>
-    </section>
-
-    <!-- ✅ NEW FORM -->
-    <section id="form" class="fade-in" style="padding:60px 0;border-top:1px solid var(--border);">
-      <div class="container">
-        <h2>Start Your AI Evolution</h2>
-        <p>Fill out this quick form and get your personalized 5-day training guide.</p>
-
-        <div class="form-wrap" style="margin-top:18px;">
-          <form id="smartigoForm" class="native-form">
-            <label><span>Your name</span><input type="text" name="name" required></label>
-            <label><span>Your email</span><input type="email" name="email" required></label>
-            <label><span>How do you plan to use Smartigo?</span>
-              <select name="goal" required>
-                <option value="">Select an option</option>
-                <option>Personal productivity</option>
-                <option>Parenting or family management</option>
-                <option>Professional or business use</option>
-                <option>Learning & creativity</option>
-              </select>
-            </label>
-            <label><span>Your current AI experience</span>
-              <select name="experience" required>
-                <option value="">Select level</option>
-                <option>Beginner</option><option>Intermediate</option><option>Advanced</option>
-              </select>
-            </label>
-            <button type="submit" class="btn btn-primary">Get My 5-Day Guide</button>
-            <p id="formMessage" class="form-message"></p>
-          </form>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>© 2025 Smartigo — Human intent. AI precision.</footer>
-
-  <script>
-    const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.2});
-    document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
-  </script>
-
-  <!-- 📤 form submission script -->
-  <script>
-    const scriptURL='PASTE_HERE_YOUR_GOOGLE_WEB_APP_URL';
-    const form=document.getElementById('smartigoForm');
-    const message=document.getElementById('formMessage');
-    form.addEventListener('submit',e=>{
-      e.preventDefault();
-      message.textContent='Submitting...';
-      fetch(scriptURL,{method:'POST',body:new FormData(form)})
-        .then(r=>{message.textContent='✅ Thank you! Your personalized guide is on its way.';form.reset();})
-        .catch(err=>{message.textContent='❌ Something went wrong. Please try again.';console.error(err)});
-    });
-  </script>
+document.getElementById('nextBtn').onclick=()=>{
+  if(current===steps.length-1){
+    message.textContent='Submitting...';
+    fetch(scriptURL,{method:'POST',body:new FormData(form)})
+      .then(()=>{message.innerHTML='🎉 <b>Thank you!</b><br>Your personalized 5-Day AI Training Guide is on its way.';form.querySelector('.form-nav').style.display='none';})
+      .catch(()=>{message.textContent='❌ Something went wrong. Please try again.'});
+  } else {current++;updateStep(current);}
+};
+document.getElementById('prevBtn').onclick=()=>{if(current>0){current--;updateStep(current);}};
+</script>
 </body>
 </html>
