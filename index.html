@@ -331,7 +331,8 @@ header .header-cta {
 </section>
 
 <!-- === FORM SECTION === -->
-<section id="form" class="fade-in" style="padding:60px 0;border-top:1px solid var(--border);">
+<!-- === FORM SECTION (SAFE VERSION) === -->
+<section id="form" class="fade-in" style="padding:60px 0; border-top:1px solid var(--border);">
   <div class="container">
     <h2>Start Your AI Evolution</h2>
     <p>Answer these quick questions to receive your personalized 5-day AI training guide.</p>
@@ -339,8 +340,8 @@ header .header-cta {
       <div class="progress" id="progress">Question 1 of 8</div>
       <form id="smartigoForm">
         <div class="steps-wrapper">
-          <!-- Questions (unchanged) -->
-          <div class="form-step"><div class="question">What’s your main goal with AI?</div>
+          <div class="form-step">
+            <div class="question">What’s your main goal with AI?</div>
             <div class="options">
               <label><input type="checkbox" name="goal" value="Boost productivity"> Boost productivity</label>
               <label><input type="checkbox" name="goal" value="Create faster"> Create faster</label>
@@ -349,8 +350,8 @@ header .header-cta {
               <label><input type="checkbox" name="goal" value="Other"> Other</label>
             </div>
           </div>
-
-          <div class="form-step"><div class="question">How would you describe your thinking style?</div>
+          <div class="form-step">
+            <div class="question">How would you describe your thinking style?</div>
             <div class="options">
               <label><input type="checkbox" name="style" value="Analytical and structured"> Analytical and structured</label>
               <label><input type="checkbox" name="style" value="Creative and intuitive"> Creative and intuitive</label>
@@ -358,8 +359,8 @@ header .header-cta {
               <label><input type="checkbox" name="style" value="Reflective and methodical"> Reflective and methodical</label>
             </div>
           </div>
-
-          <div class="form-step"><div class="question">What’s your main field or interest?</div>
+          <div class="form-step">
+            <div class="question">What’s your main field or interest?</div>
             <div class="options">
               <label><input type="checkbox" name="field" value="Business / Startups"> Business / Startups</label>
               <label><input type="checkbox" name="field" value="Writing / Content creation"> Writing / Content creation</label>
@@ -369,8 +370,8 @@ header .header-cta {
               <label><input type="checkbox" name="field" value="Other"> Other</label>
             </div>
           </div>
-
-          <div class="form-step"><div class="question">Have you used ChatGPT or similar tools before?</div>
+          <div class="form-step">
+            <div class="question">Have you used ChatGPT or similar tools before?</div>
             <div class="options">
               <label><input type="checkbox" name="used" value="Yes, regularly"> Yes, regularly</label>
               <label><input type="checkbox" name="used" value="Yes, but just for fun"> Yes, but just for fun</label>
@@ -378,8 +379,8 @@ header .header-cta {
               <label><input type="checkbox" name="used" value="Never yet"> Never yet</label>
             </div>
           </div>
-
-          <div class="form-step"><div class="question">What’s the biggest frustration when using AI tools?</div>
+          <div class="form-step">
+            <div class="question">What’s the biggest frustration when using AI tools?</div>
             <div class="options">
               <label><input type="checkbox" name="pain" value="It doesn’t understand my intent"> It doesn’t understand my intent</label>
               <label><input type="checkbox" name="pain" value="It gives generic answers"> It gives generic answers</label>
@@ -388,12 +389,12 @@ header .header-cta {
               <label><input type="checkbox" name="pain" value="Other"> Other</label>
             </div>
           </div>
-
-          <div class="form-step"><div class="question">If your AI could “think like you”, what would it do first?</div>
+          <div class="form-step">
+            <div class="question">If your AI could “think like you”, what would it do first?</div>
             <textarea name="thinkfirst" rows="3" placeholder="Type your answer here..."></textarea>
           </div>
-
-          <div class="form-step"><div class="question">How fast would you like to see results?</div>
+          <div class="form-step">
+            <div class="question">How fast would you like to see results?</div>
             <div class="options">
               <label><input type="checkbox" name="speed" value="Instantly"> Instantly</label>
               <label><input type="checkbox" name="speed" value="Within 5 days"> Within 5 days</label>
@@ -401,21 +402,21 @@ header .header-cta {
               <label><input type="checkbox" name="speed" value="Not sure yet"> Not sure yet</label>
             </div>
           </div>
-
-          <div class="form-step"><div class="question">Your email (to receive your 5-day guide)</div>
+          <div class="form-step">
+            <div class="question">Your email (to receive your 5-day guide)</div>
             <input type="email" name="email" required placeholder="you@example.com">
           </div>
         </div>
-
         <div class="form-nav">
           <button type="button" id="prevBtn">Back</button>
-          <button type="button" id="nextBtn">Next</button>
+          <button type="button" id the="nextBtn">Next</button>
         </div>
         <p id="formMessage"></p>
       </form>
     </div>
   </div>
 </section>
+
 </main>
 
 <footer>© 2025 Smartigo — Human intent. AI precision.</footer>
@@ -496,6 +497,54 @@ const navLinks = document.querySelector('.navlinks');
 menuToggle.addEventListener('click', () => {
   navLinks.classList.toggle('active');
 });
+  <script>
+window.addEventListener("load", function () {
+  const scriptURL = 'PASTE_HERE_YOUR_GOOGLE_WEB_APP_URL';
+  const form = document.getElementById("smartigoForm");
+  const steps = Array.from(form.querySelectorAll(".form-step"));
+  const progress = document.getElementById("progress");
+  const message = document.getElementById("formMessage");
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  let current = 0;
+
+  function showStep(n) {
+    steps.forEach((s, i) => {
+      s.style.display = i === n ? "block" : "none";
+    });
+    progress.textContent = `Question ${n + 1} of ${steps.length}`;
+    prevBtn.style.visibility = n === 0 ? "hidden" : "visible";
+    nextBtn.textContent = n === steps.length - 1 ? "Submit" : "Next";
+  }
+
+  showStep(0);
+
+  nextBtn.addEventListener("click", () => {
+    if (current < steps.length - 1) {
+      current++;
+      showStep(current);
+    } else {
+      message.textContent = "Submitting...";
+      fetch(scriptURL, { method: "POST", body: new FormData(form) })
+        .then(() => {
+          form.style.display = "none";
+          message.innerHTML = "🎉 <b>Thank you!</b><br>Your personalized 5-Day AI Training Guide is on its way.";
+        })
+        .catch(() => {
+          message.textContent = "❌ Something went wrong. Please try again.";
+        });
+    }
+  });
+
+  prevBtn.addEventListener("click", () => {
+    if (current > 0) {
+      current--;
+      showStep(current);
+    }
+  });
+});
+</script>
+
 
 
 </script>
