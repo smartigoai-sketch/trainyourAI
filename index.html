@@ -140,6 +140,52 @@ header .header-cta {
   margin: 20px auto 28px;
   text-shadow: 0 0 12px rgba(155,140,255,0.15);
 }
+/* ----- Responsive Header ----- */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    flex-wrap: wrap;
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+  }
+
+  .navlinks {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: rgba(18, 18, 24, 0.98);
+    border-top: 1px solid var(--border);
+    padding: 10px 0;
+  }
+
+  .navlinks.active {
+    display: flex;
+  }
+
+  .navlinks a {
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  .header-cta {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+}
 
 
 </style>
@@ -152,15 +198,20 @@ header .header-cta {
       <img src="smartigo-logo.png" alt="Smartigo logo" class="logo">
       <span>Smartigo</span>
     </div>
+
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+
     <nav class="navlinks">
       <a href="#hero">Home</a>
       <a href="#how">How It Works</a>
       <a href="#about">About</a>
       <a href="#stories">Stories</a>
     </nav>
-   <a href="#form" class="btn btn-primary header-cta">Start Free</a>
- </div>
+
+    <a href="#form" class="btn btn-primary header-cta">Start Free</a>
+  </div>
 </header>
+
 
 
 
