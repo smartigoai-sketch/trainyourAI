@@ -186,6 +186,52 @@ header .header-cta {
     margin-top: 10px;
   }
 }
+/* ----- Responsive Header ----- */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    flex-wrap: wrap;
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+    margin-right: 12px; /* sposta leggermente il menu verso sinistra */
+  }
+
+  .navlinks {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: rgba(18, 18, 24, 0.98);
+    border-top: 1px solid var(--border);
+    padding: 10px 0;
+  }
+
+  .navlinks.active {
+    display: flex;
+  }
+
+  .navlinks a {
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  /* Nascondi il pulsante nell'header su mobile */
+  .header-cta {
+    display: none;
+  }
+}
 
 
 </style>
@@ -211,6 +257,7 @@ header .header-cta {
     <a href="#form" class="btn btn-primary header-cta">Start Free</a>
   </div>
 </header>
+
 
 
 
@@ -416,6 +463,14 @@ const navLinks = document.querySelector('.navlinks');
 menuToggle.addEventListener('click', () => {
   navLinks.classList.toggle('active');
 });
+  // Mobile menu toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.navlinks');
+
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+
 
 </script>
 
