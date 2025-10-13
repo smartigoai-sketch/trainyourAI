@@ -38,6 +38,25 @@ section { padding:50px 0; border-top:1px solid var(--border); }
 .card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:18px; }
 .card h3 { text-align:center; margin-bottom:8px; }
 .card p { text-align:center; }
+  /* === Edge luminoso per le card === */
+.card {
+  position: relative;
+  overflow: hidden;
+}
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  border: 1px solid rgba(141,124,251,.18);
+  box-shadow: inset 0 0 0 1px rgba(94,205,240,.08);
+  pointer-events: none;
+}
+.card:hover {
+  transform: translateY(-2px);
+  transition: transform .2s ease;
+}
+
 .btn { display:inline-block; padding:12px 22px; border:none; border-radius:0; font-weight:600; transition:box-shadow .25s ease,transform .25s ease; cursor:pointer; }
 .btn-primary { background:linear-gradient(135deg,var(--accent1),var(--accent2)); color:#fff!important; }
 .btn-primary:hover { box-shadow:0 0 14px rgba(141,124,251,.4); transform:translateY(-2px); }
@@ -138,6 +157,36 @@ textarea:focus, input[type=email]:focus {
 <meta name="twitter:title" content="Train Your AI — Smartigo">
 <meta name="twitter:description" content="Unlock the best version of your mind with AI.">
 <meta name="twitter:image" content="https://smartigoai.eu/smartigo-logo.png">
+  /* Background subtle mesh */
+body::before{
+  content:"";
+  position:fixed; inset:-20% -20% auto -20%;
+  height:80vh;
+  background:
+    radial-gradient(40% 40% at 20% 20%, rgba(141,124,251,.18), transparent 60%),
+    radial-gradient(35% 35% at 80% 10%, rgba(94,205,240,.14), transparent 60%),
+    radial-gradient(45% 45% at 60% 80%, rgba(141,124,251,.12), transparent 65%);
+  filter: blur(40px);
+  z-index:-1;
+}
+
+/* Section separators (hairline glow) */
+section { position: relative; }
+section::before{
+  content:"";
+  position:absolute; left:0; right:0; top:0; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(141,124,251,.35), transparent);
+  opacity:.7;
+}
+.orbs{ position:relative; }
+.orb{
+  position:absolute; border-radius:999px; filter: blur(30px); opacity:.28; pointer-events:none;
+}
+.orb-a{ width:280px; height:280px; left:10%; top:-40px;
+  background: radial-gradient(circle at 30% 30%, rgba(141,124,251,.6), transparent 60%); }
+.orb-b{ width:220px; height:220px; right:8%; top:-60px;
+  background: radial-gradient(circle at 60% 40%, rgba(94,205,240,.55), transparent 60%); }
+
 </style>
 </head>
 
@@ -162,6 +211,11 @@ textarea:focus, input[type=email]:focus {
 <main>
 <section id="hero" class="fade-in" style="padding-bottom:20px;">
   <div class="container">
+    <div class="orbs">
+  <span class="orb orb-a"></span>
+  <span class="orb orb-b"></span>
+</div>
+
     <h1>Train Your AI — The Best Version of Your Mind</h1>
     <p>Bring your mind to a new dimension — faster, sharper, and free from mistakes.</p>
     <div style="text-align:center;margin-top:28px;">
