@@ -282,4 +282,65 @@ window.addEventListener("load", function () {
   const scriptURL = "https://script.google.com/macros/s/AKfycbx_uOflIcGQwg8gFkWuEd1Fv-Og6Dujrz6KsBQQAxwI7ouwHstc0J35mONP4XBgO2v5iQ/exec";
   const form = document.getElementById("smartigoForm");
   const steps = Array.from(form.querySelectorAll(".form-step"));
-  const stepsWrapper = form.query
+  const stepsWrapper = form.querySelector(".steps-wrapper");
+  const progress = document.getElementById("progress");
+  const message = document.getElementById("formMessage");
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  let current = 0;
+
+  // Mostra il primo step
+  steps.forEach((s, i) => s.classList.toggle("active", i === 0));
+  updateProgress();
+  adjustHeight();
+
+  function updateProgress() {
+    progress.textContent = `Question ${current + 1} of ${steps.length}`;
+    prevBtn.style.visibility = current === 0 ? "hidden" : "visible";
+    nextBtn.textContent = current === steps.length - 1 ? "Submit" : "Next";
+  }
+
+  function showStep(index) {
+    steps.forEach((s, i) => s.classList.toggle("active", i === index));
+    requestAnimationFrame(adjustHeight);
+  }
+
+  function adjustHeight() {
+    const h = steps[current].offsetHeight;
+    stepsWrapper.style.height = h + "px";
+  }
+
+  nextBtn.addEventListener("click", () => {
+    if (current < steps.length - 1) {
+      current++;
+      showStep(current);
+      updateProgress();
+    } else {
+      message.textContent = "Submitting...";
+      fetch(scriptURL, { method: "POST", body: new FormData(form) })
+        .then(() => {
+          form.style.display = "none";
+          message.innerHTML = "🎉 <b>Thank you!</b><br>Your personalized 5-Day AI Training Guide is on its way.";
+        })
+        .catch(() => {
+          message.textContent = "❌ Something went wrong. Please try again.";
+        });
+    }
+  });
+
+  prevBtn.addEventListener("click", () => {
+    if (current > 0) {
+      current--;
+      showStep(current);
+      updateProgress();
+    }
+  });
+});
+
+// Mobile menu toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.navlinks');
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+</script>
