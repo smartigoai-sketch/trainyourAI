@@ -7,6 +7,7 @@
 <meta name="description" content="Train your AI to become the best version of your mind — faster, sharper, and free from mistakes."/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
 <link rel="icon" href="smartigo-logo.png" type="image/png"/>
+
 <style>
 :root {
   --bg: #0b0b0f;
@@ -27,7 +28,7 @@ header { position:sticky; top:0; z-index:100; backdrop-filter:blur(8px); backgro
 .brand { display:flex; align-items:center; gap:8px; font-weight:800; }
 .logo { width:32px; height:auto; object-fit:contain; }
 .navlinks { display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
-.navlinks a { font-weight:600; color:var(--text); border:none; background:none; padding:6px 0; transition:color .25s ease; }
+.navlinks a { font-weight:500; color:var(--muted); border:none; background:none; padding:6px 0; transition:color .25s ease; }
 .navlinks a:hover { color:var(--accent1); }
 h1 { font-size:clamp(2.1rem,3.8vw,3.2rem); line-height:1.1; margin:8px 0; text-align:center; }
 h2 { text-align:center; margin-bottom:14px; }
@@ -42,7 +43,6 @@ section { padding:50px 0; border-top:1px solid var(--border); }
 .btn-primary:hover { box-shadow:0 0 14px rgba(141,124,251,.4); transform:translateY(-2px); }
 footer { padding:40px 0 60px; text-align:center; color:var(--muted); font-size:.95rem; }
 
-
 /* === FORM === */
 .form-container {
   background: var(--card);
@@ -54,8 +54,6 @@ footer { padding:40px 0 60px; text-align:center; color:var(--muted); font-size:.
   text-align: left;
   box-shadow: 0 0 30px rgba(0,0,0,0.25);
 }
-
-/* Wrapper keeps one step visible at a time */
 .steps-wrapper {
   position: relative;
   width: 100%;
@@ -63,203 +61,71 @@ footer { padding:40px 0 60px; text-align:center; color:var(--muted); font-size:.
   margin: 0 auto;
   overflow: hidden;
 }
-
-/* Steps overlay each other; only .active is visible */
 .form-step {
   position: absolute;
   inset: 0;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(6px);
   transition: opacity .35s ease, transform .35s ease, visibility .35s ease;
 }
-
-/* Visible step */
 .form-step.active {
   position: relative;
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
+.progress { color:var(--muted); font-size:.9rem; text-align:right; margin-bottom:12px; }
+.question { margin-bottom:20px; font-weight:600; font-size:1.1rem; text-align:center; }
+.options { display:flex; flex-direction:column; gap:10px; margin:10px 0; }
+.options label { font-weight:400; color:var(--muted); display:flex; align-items:center; gap:10px; cursor:pointer; }
+input[type=checkbox], input[type=radio] {
+  appearance:none; -webkit-appearance:none;
+  width:18px; height:18px;
+  border:2px solid var(--border);
+  border-radius:4px;
+  background-color:#1a1a20;
+  cursor:pointer;
+  position:relative;
+  transition:all 0.2s ease;
+}
+input[type=checkbox]:checked, input[type=radio]:checked {
+  background-color:var(--accent2);
+  border-color:var(--accent2);
+  box-shadow:0 0 6px rgba(155,140,255,0.6);
+}
+input[type=checkbox]::after, input[type=radio]::after {
+  content:""; position:absolute; top:2px; left:5px;
+  width:4px; height:8px;
+  border-right:2px solid #fff; border-bottom:2px solid #fff;
+  transform:rotate(45deg); opacity:0; transition:opacity 0.2s ease;
+}
+input[type=checkbox]:checked::after, input[type=radio]:checked::after { opacity:1; }
+textarea, input[type=email] {
+  width:100%; padding:10px 12px;
+  background:#16161f; border:1px solid var(--border);
+  color:var(--text); border-radius:4px; font-size:1rem;
+}
+textarea:focus, input[type=email]:focus {
+  outline:none; border-color:var(--accent2); box-shadow:0 0 6px rgba(155,140,255,.4);
+}
+.form-nav { display:flex; justify-content:space-between; margin-top:20px; }
+.form-nav button {
+  background:linear-gradient(135deg,var(--accent1),var(--accent2));
+  color:#fff; border:none; padding:10px 16px; border-radius:0;
+  cursor:pointer; font-weight:600; transition:opacity .25s;
+}
+.form-nav button:hover { opacity:.85; }
+#formMessage { text-align:center; margin-top:20px; color:var(--accent1); font-size:1rem; }
 
-
-.progress{color:var(--muted);font-size:.9rem;text-align:right;margin-bottom:12px;}
-.question{margin-bottom:20px;font-weight:600;font-size:1.1rem;text-align:center;}
-.options{display:flex;flex-direction:column;gap:10px;margin:10px 0;}
-.options label{font-weight:400;color:var(--muted);display:flex;align-items:center;gap:10px;cursor:pointer;}
-input[type=checkbox],input[type=radio]{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:2px solid var(--border);border-radius:4px;background-color:#1a1a20;cursor:pointer;position:relative;transition:all 0.2s ease;}
-input[type=checkbox]:checked,input[type=radio]:checked{background-color:var(--accent2);border-color:var(--accent2);box-shadow:0 0 6px rgba(155,140,255,0.6);}
-input[type=checkbox]::after,input[type=radio]::after{content:"";position:absolute;top:2px;left:5px;width:4px;height:8px;border-right:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(45deg);opacity:0;transition:opacity 0.2s ease;}
-input[type=checkbox]:checked::after,input[type=radio]:checked::after{opacity:1;}
-textarea,input[type=email]{width:100%;padding:10px 12px;background:#16161f;border:1px solid var(--border);color:var(--text);border-radius:4px;font-size:1rem;}
-textarea:focus,input[type=email]:focus{outline:none;border-color:var(--accent2);box-shadow:0 0 6px rgba(155,140,255,.4);}
-.form-nav{display:flex;justify-content:space-between;margin-top:20px;}
-.form-nav button{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff;border:none;padding:10px 16px;border-radius:0;cursor:pointer;font-weight:600;transition:opacity .25s;}
-.form-nav button:hover{opacity:.85;}
-#formMessage{text-align:center;margin-top:20px;color:var(--accent1);font-size:1rem;}
- /* === Smooth fade animation for form steps === */
-.form-step {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-.form-step.active {
-  opacity: 1;
-  display: block;
-}
-.form-step.hidden {
-  opacity: 0;
-  display: none;
-}
-
-  header .btn-primary {
-  background: linear-gradient(135deg,var(--accent1),var(--accent2)) !important;
-  color: #0b0b0f !important;
-}
-header .header-cta {
-  margin-left: auto;
-  padding: 8px 16px;
-}
-  /* --- Nav link hierarchy --- */
-.navlinks a {
-  font-weight: 500;
-  color: var(--muted);
-  transition: color 0.3s ease;
-}
-
-.navlinks a:hover {
-  color: var(--accent1);
-}
-
-/* --- Payoff emphasis --- */
-#hero p {
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
-  font-weight: 600;
-  color: #f2f2f7;
-  line-height: 1.7;
-  max-width: 700px;
-  margin: 20px auto 28px;
-  text-shadow: 0 0 12px rgba(155,140,255,0.15);
-}
-/* ----- Responsive Header ----- */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  color: var(--text);
-  cursor: pointer;
-}
-
+/* Responsive header & menu */
+.menu-toggle { display:none; background:none; border:none; font-size:1.8rem; color:var(--text); cursor:pointer; }
 @media (max-width: 768px) {
-  .nav {
-    flex-wrap: wrap;
-  }
-
-  .menu-toggle {
-    display: block;
-    margin-left: auto;
-  }
-
-  .navlinks {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background: rgba(18, 18, 24, 0.98);
-    border-top: 1px solid var(--border);
-    padding: 10px 0;
-  }
-
-  .navlinks.active {
-    display: flex;
-  }
-
-  .navlinks a {
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 1rem;
-    color: var(--text);
-  }
-
-  .header-cta {
-    width: 100%;
-    text-align: center;
-    margin-top: 10px;
-  }
+  .menu-toggle { display:block; margin-left:auto; margin-right:12px; }
+  .navlinks { display:none; flex-direction:column; width:100%; background:rgba(18,18,24,0.98); border-top:1px solid var(--border); padding:10px 0; }
+  .navlinks.active { display:flex; }
+  .navlinks a { padding:10px 20px; text-align:center; font-size:1rem; color:var(--text); }
+  .header-cta { display:none; }
 }
-/* ----- Responsive Header ----- */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  color: var(--text);
-  cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  .nav {
-    flex-wrap: wrap;
-  }
-
-  .menu-toggle {
-    display: block;
-    margin-left: auto;
-    margin-right: 12px; /* sposta leggermente il menu verso sinistra */
-  }
-
-  .navlinks {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background: rgba(18, 18, 24, 0.98);
-    border-top: 1px solid var(--border);
-    padding: 10px 0;
-  }
-
-  .navlinks.active {
-    display: flex;
-  }
-
-  .navlinks a {
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 1rem;
-    color: var(--text);
-  }
-
-  /* Nascondi il pulsante nell'header su mobile */
-  .header-cta {
-    display: none;
-  }
-}
-  /* === FIX Smartigo — Google Form invisibile === */
-#form, section#form {
-  position: relative;
-  z-index: 10;
-  overflow: visible !important;
-}
-
-#form iframe {
-  display: block;
-  opacity: 1 !important;
-  visibility: visible !important;
-  position: relative;
-  z-index: 15;
-  width: 100%;
-  max-width: 640px;
-  height: 80vh;
-  margin: 0 auto;
-  border: none;
-}
-
-@media (max-width: 768px) {
-  #form iframe {
-    height: 100vh;
-  }
-}
-
-
-
 </style>
 </head>
 
@@ -270,23 +136,16 @@ header .header-cta {
       <img src="smartigo-logo.png" alt="Smartigo logo" class="logo">
       <span>Smartigo</span>
     </div>
-
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-
     <nav class="navlinks">
       <a href="#hero">Home</a>
       <a href="#how">How It Works</a>
       <a href="#about">About</a>
       <a href="#stories">Stories</a>
     </nav>
-
     <a href="#form" class="btn btn-primary header-cta">Start Free</a>
   </div>
 </header>
-
-
-
-
 
 <main>
 <section id="hero" class="fade-in" style="padding-bottom:20px;">
@@ -330,8 +189,6 @@ header .header-cta {
   </div>
 </section>
 
-<!-- === FORM SECTION === -->
-<!-- === FORM SECTION (SAFE VERSION) === -->
 <section id="form" class="fade-in" style="padding:60px 0; border-top:1px solid var(--border);">
   <div class="container">
     <h2>Start Your AI Evolution</h2>
@@ -340,7 +197,7 @@ header .header-cta {
       <div class="progress" id="progress">Question 1 of 8</div>
       <form id="smartigoForm">
         <div class="steps-wrapper">
-          <div class="form-step">
+          <div class="form-step active">
             <div class="question">What’s your main goal with AI?</div>
             <div class="options">
               <label><input type="checkbox" name="goal" value="Boost productivity"> Boost productivity</label>
@@ -409,147 +266,20 @@ header .header-cta {
         </div>
         <div class="form-nav">
           <button type="button" id="prevBtn">Back</button>
-          <button type="button" id the="nextBtn">Next</button>
+          <button type="button" id="nextBtn">Next</button>
         </div>
         <p id="formMessage"></p>
       </form>
     </div>
   </div>
 </section>
-
 </main>
 
 <footer>© 2025 Smartigo — Human intent. AI precision.</footer>
 
 <script>
 window.addEventListener("load", function () {
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbx_uOflIcGQwg8gFkWuEd1Fv-Og6Dujrz6KsBQQAxwI7ouwHstc0J35mONP4XBgO2v5iQ/exec';
-
-  const form = document.getElementById("smartigoForm");
-  const stepsWrapper = form.querySelector(".steps-wrapper");
-  const steps = Array.from(form.querySelectorAll(".form-step"));
-  const progress = document.getElementById("progress");
-  const message = document.getElementById("formMessage");
-  const nextBtn = document.getElementById("nextBtn");
-  const prevBtn = document.getElementById("prevBtn");
-
-  let current = 0;
-
-  // init
-  steps.forEach((s, i) => s.classList.toggle("active", i === 0));
-  adjustHeight();
-  updateProgress();
-
-  function updateProgress() {
-    progress.textContent = `Question ${current + 1} of ${steps.length}`;
-    prevBtn.style.visibility = current === 0 ? "hidden" : "visible";
-    nextBtn.textContent = current === steps.length - 1 ? "Submit" : "Next";
-  }
-
-  function showStep(index) {
-    steps.forEach((s, i) => s.classList.toggle("active", i === index));
-    // let layout settle, then adjust height for smoothness
-    requestAnimationFrame(adjustHeight);
-  }
-
-  function adjustHeight() {
-    const h = steps[current].offsetHeight;
-    stepsWrapper.style.height = h + "px";
-  }
-
-  nextBtn.addEventListener("click", () => {
-    if (current < steps.length - 1) {
-      current++;
-      showStep(current);
-      updateProgress();
-    } else {
-      message.textContent = "Submitting...";
-      fetch(scriptURL, { method: "POST", body: new FormData(form) })
-        .then(() => {
-          form.style.display = "none";
-          message.innerHTML = "🎉 <b>Thank you!</b><br>Your personalized 5-Day AI Training Guide is on its way.";
-        })
-        .catch(() => {
-          message.textContent = "❌ Something went wrong. Please try again.";
-        });
-    }
-  });
-
-  prevBtn.addEventListener("click", () => {
-    if (current > 0) {
-      current--;
-      showStep(current);
-      updateProgress();
-    }
-  });
-});
-  // Mobile menu toggle
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.navlinks');
-
-menuToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('active');
-});
-  // Mobile menu toggle
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.navlinks');
-
-menuToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('active');
-});
-  <script>
-window.addEventListener("load", function () {
-  const scriptURL = 'PASTE_HERE_YOUR_GOOGLE_WEB_APP_URL';
+  const scriptURL = "https://script.google.com/macros/s/AKfycbx_uOflIcGQwg8gFkWuEd1Fv-Og6Dujrz6KsBQQAxwI7ouwHstc0J35mONP4XBgO2v5iQ/exec";
   const form = document.getElementById("smartigoForm");
   const steps = Array.from(form.querySelectorAll(".form-step"));
-  const progress = document.getElementById("progress");
-  const message = document.getElementById("formMessage");
-  const nextBtn = document.getElementById("nextBtn");
-  const prevBtn = document.getElementById("prevBtn");
-  let current = 0;
-
-  function showStep(n) {
-    steps.forEach((s, i) => {
-      s.style.display = i === n ? "block" : "none";
-    });
-    progress.textContent = `Question ${n + 1} of ${steps.length}`;
-    prevBtn.style.visibility = n === 0 ? "hidden" : "visible";
-    nextBtn.textContent = n === steps.length - 1 ? "Submit" : "Next";
-  }
-
-  showStep(0);
-
-  nextBtn.addEventListener("click", () => {
-    if (current < steps.length - 1) {
-      current++;
-      showStep(current);
-    } else {
-      message.textContent = "Submitting...";
-      fetch(scriptURL, { method: "POST", body: new FormData(form) })
-        .then(() => {
-          form.style.display = "none";
-          message.innerHTML = "🎉 <b>Thank you!</b><br>Your personalized 5-Day AI Training Guide is on its way.";
-        })
-        .catch(() => {
-          message.textContent = "❌ Something went wrong. Please try again.";
-        });
-    }
-  });
-
-  prevBtn.addEventListener("click", () => {
-    if (current > 0) {
-      current--;
-      showStep(current);
-    }
-  });
-});
-</script>
-
-
-
-</script>
-
-
-
-</body>
-</html>
+  const stepsWrapper = form.query
