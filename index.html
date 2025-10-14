@@ -271,9 +271,22 @@ body::before{
   filter: blur(40px);
   z-index:-1;
 }
-Dopo riga 273
+
 /* Section separators (hairline glow) */
 section { position: relative; }
+  /* Section separators (hairline glow) */
+section { position: relative; }
+/* section::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(141,124,251,.35), transparent);
+  opacity: .7;
+} */
+
 .orbs{ position:relative; }
 .orb{
   position:absolute; border-radius:999px; filter: blur(30px); opacity:.28; pointer-events:none;
