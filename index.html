@@ -20,144 +20,61 @@
 }
 * { box-sizing:border-box; margin:0; padding:0; }
 html { scroll-behavior:smooth; }
-body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; overflow-x:hidden; }
 a { color:inherit; text-decoration:none; transition:color .25s ease; }
-.container { max-width:1120px; margin:0 auto; padding:20px; }
+
 header { position:sticky; top:0; z-index:100; backdrop-filter:blur(8px); background:rgba(11,11,15,.75); border-bottom:1px solid var(--border); }
 .nav { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0; }
-.brand { display:flex; align-items:center; gap:8px; font-weight:800; }
-.logo { width:32px; height:auto; object-fit:contain; }
-.navlinks { display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
-.navlinks a { font-weight:500; color:var(--muted); border:none; background:none; padding:6px 0; transition:color .25s ease; }
-.navlinks a:hover { color:var(--accent1); }
-h1 { font-size:clamp(2.1rem,3.8vw,3.2rem); line-height:1.1; margin:8px 0; text-align:center; }
-h2 { text-align:center; margin-bottom:14px; }
-p { text-align:center; color:var(--muted); margin-top:8px; }
-section { padding:50px 0; border-top:1px solid var(--border); }
-.grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
-.card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:18px; }
-.card h3 { text-align:center; margin-bottom:8px; }
-.card p { text-align:center; }
-  /* === Edge luminoso per le card === */
-.card {
-  position: relative;
-  overflow: hidden;
-}
-.card::after {
+
+.brand { position: relative; display:flex; align-items:center; gap:8px; font-weight:800; }
+.logo { width:32px; height:auto; object-fit:contain; position:relative; z-index:2; }
+
+/* === Neural Pulse Effect Behind Logo === */
+.brand::before {
   content: "";
   position: absolute;
-  inset: 0;
-  border-radius: 8px;
-  border: 1px solid rgba(141,124,251,.18);
-  box-shadow: inset 0 0 0 1px rgba(94,205,240,.08);
-  pointer-events: none;
+  width: 90px;
+  height: 90px;
+  left: -25px;
+  top: -25px;
+  background: radial-gradient(circle, rgba(141,124,251,0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: neuralPulse 3s ease-in-out infinite alternate;
+  z-index: 1;
 }
-.card:hover {
-  transform: translateY(-2px);
-  transition: transform .2s ease;
+@keyframes neuralPulse {
+  0% { transform: scale(0.9); opacity: 0.3; }
+  100% { transform: scale(1.1); opacity: 0.6; }
 }
 
-.btn { display:inline-block; padding:12px 22px; border:none; border-radius:0; font-weight:600; transition:box-shadow .25s ease,transform .25s ease; cursor:pointer; }
-.btn-primary { background:linear-gradient(135deg,var(--accent1),var(--accent2)); color:#fff!important; }
-.btn-primary:hover { box-shadow:0 0 14px rgba(141,124,251,.4); transform:translateY(-2px); }
-footer { padding:40px 0 60px; text-align:center; color:var(--muted); font-size:.95rem; }
-
-/* === FORM === */
-.form-container {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 32px;
-  max-width: 540px;
-  margin: 0 auto;
-  text-align: left;
-  box-shadow: 0 0 30px rgba(0,0,0,0.25);
+/* === Smartigo AI Glow === */
+.brand-text {
+  font-weight: 800;
+  letter-spacing: 0.5px;
 }
-.steps-wrapper {
+.glow-i, .glow-a {
   position: relative;
-  width: 100%;
-  max-width: 460px;
-  margin: 0 auto;
+  color: var(--accent2);
+  text-shadow: 0 0 8px rgba(141,124,251,0.7);
+  animation: glowPulse 2.6s ease-in-out infinite alternate;
+}
+@keyframes glowPulse {
+  0% { text-shadow: 0 0 6px rgba(141,124,251,0.5), 0 0 10px rgba(93,205,240,0.3); }
+  100% { text-shadow: 0 0 10px rgba(141,124,251,0.8), 0 0 18px rgba(93,205,240,0.6); }
+}
+
+/* === Hero Parallax === */
+#hero {
+  position: relative;
   overflow: hidden;
+  will-change: transform;
 }
-.form-step {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .35s ease, transform .35s ease, visibility .35s ease;
-}
-.form-step.active {
-  position: relative;
-  opacity: 1;
-  visibility: visible;
+.hero-content {
   transform: translateY(0);
+  transition: transform 0.3s ease-out;
 }
-.progress { color:var(--muted); font-size:.9rem; text-align:right; margin-bottom:12px; }
-.question { margin-bottom:20px; font-weight:600; font-size:1.1rem; text-align:center; }
-.options { display:flex; flex-direction:column; gap:10px; margin:10px 0; }
-.options label { font-weight:400; color:var(--muted); display:flex; align-items:center; gap:10px; cursor:pointer; }
-input[type=radio], input[type=radio] {
-  appearance:none; -webkit-appearance:none;
-  width:18px; height:18px;
-  border:2px solid var(--border);
-  border-radius:4px;
-  background-color:#1a1a20;
-  cursor:pointer;
-  position:relative;
-  transition:all 0.2s ease;
-}
-input[type=radio]:checked, input[type=radio]:checked {
-  background-color:var(--accent2);
-  border-color:var(--accent2);
-  box-shadow:0 0 6px rgba(155,140,255,0.6);
-}
-input[type=radio]::after, input[type=radio]::after {
-  content:""; position:absolute; top:2px; left:5px;
-  width:4px; height:8px;
-  border-right:2px solid #fff; border-bottom:2px solid #fff;
-  transform:rotate(45deg); opacity:0; transition:opacity 0.2s ease;
-}
-input[type=radio]:checked::after, input[type=radio]:checked::after { opacity:1; }
-textarea, input[type=email] {
-  width:100%; padding:10px 12px;
-  background:#16161f; border:1px solid var(--border);
-  color:var(--text); border-radius:4px; font-size:1rem;
-}
-textarea:focus, input[type=email]:focus {
-  outline:none; border-color:var(--accent2); box-shadow:0 0 6px rgba(155,140,255,.4);
-}
-.form-nav { display:flex; justify-content:space-between; margin-top:20px; }
-.form-nav button {
-  background:linear-gradient(135deg,var(--accent1),var(--accent2));
-  color:#fff; border:none; padding:10px 16px; border-radius:0;
-  cursor:pointer; font-weight:600; transition:opacity .25s;
-}
-.form-nav button:hover { opacity:.85; }
-#formMessage { text-align:center; margin-top:20px; color:var(--accent1); font-size:1rem; }
 
-/* Responsive header & menu */
-.menu-toggle { display:none; background:none; border:none; font-size:1.8rem; color:var(--text); cursor:pointer; }
-@media (max-width: 768px) {
-  .menu-toggle { display:block; margin-left:auto; margin-right:12px; }
-  .navlinks { display:none; flex-direction:column; width:100%; background:rgba(18,18,24,0.98); border-top:1px solid var(--border); padding:10px 0; }
-  .navlinks.active { display:flex; }
-  .navlinks a { padding:10px 20px; text-align:center; font-size:1rem; color:var(--text); }
-  .header-cta { display:none; }
-}
-  <!-- Open Graph Meta Tags for Smartigo -->
-<meta property="og:title" content="Train Your AI — Smartigo">
-<meta property="og:description" content="Teach your AI to think with your intent — faster, sharper, and free from mistakes.">
-<meta property="og:image" content="https://smartigoai.eu/smartigo-logo.png">
-<meta property="og:url" content="https://smartigoai.eu/">
-<meta property="og:type" content="website">
-
-<!-- Twitter Card (for X, WhatsApp, etc.) -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Train Your AI — Smartigo">
-<meta name="twitter:description" content="Unlock the best version of your mind with AI.">
-<meta name="twitter:image" content="https://smartigoai.eu/smartigo-logo.png">
-  /* Background subtle mesh */
+/* Background subtle mesh */
 body::before{
   content:"";
   position:fixed; inset:-20% -20% auto -20%;
@@ -170,62 +87,16 @@ body::before{
   z-index:-1;
 }
 
-/* Section separators (hairline glow) */
-section { position: relative; }
-section::before{
-  content:"";
-  position:absolute; left:0; right:0; top:0; height:1px;
-  background: linear-gradient(90deg, transparent, rgba(141,124,251,.35), transparent);
-  opacity:.7;
-}
-.orbs{ position:relative; }
-.orb{
-  position:absolute; border-radius:999px; filter: blur(30px); opacity:.28; pointer-events:none;
-}
-.orb-a{ width:280px; height:280px; left:10%; top:-40px;
-  background: radial-gradient(circle at 30% 30%, rgba(141,124,251,.6), transparent 60%); }
-.orb-b{ width:220px; height:220px; right:8%; top:-60px;
-  background: radial-gradient(circle at 60% 40%, rgba(94,205,240,.55), transparent 60%); }
-.brand-text {
-  font-weight: 800;
-  letter-spacing: 0.5px;
-}
-
-.glow-i, .glow-a {
-  position: relative;
-  color: var(--accent2);
-}
-
-.glow-i::after, .glow-a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  border-radius: 4px;
-  box-shadow: 0 0 6px rgba(155,140,255,0.6);
-  opacity: 0.8;
-  animation: pulseGlow 2.8s ease-in-out infinite alternate;
-}
-
-@keyframes pulseGlow {
-  0% { opacity: 0.4; text-shadow: 0 0 6px rgba(141,124,251,0.4); }
-  100% { opacity: 1; text-shadow: 0 0 12px rgba(141,124,251,0.8); }
-}
-
 </style>
 </head>
 
 <body>
 <header>
   <div class="container nav">
-   <div class="brand">
-  <img src="smartigo-logo.png" alt="Smartigo logo" class="logo">
-  <span class="brand-text">
-    Smart<span class="glow-i">i</span>go<span class="glow-a">AI</span>
-  </span>
-</div>
+    <div class="brand">
+      <img src="smartigo-logo.png" alt="Smartigo logo" class="logo">
+      <span class="brand-text">Smart<span class="glow-i">i</span>go<span class="glow-a">AI</span></span>
+    </div>
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
     <nav class="navlinks">
       <a href="#hero">Home</a>
@@ -238,324 +109,34 @@ section::before{
 </header>
 
 <main>
-<section id="hero" class="fade-in" style="padding-bottom:20px;">
-  <div class="container">
-    <div class="orbs">
-  <span class="orb orb-a"></span>
-  <span class="orb orb-b"></span>
-</div>
-
+<section id="hero" class="fade-in">
+  <div class="container hero-content">
     <h1>Train Your AI — Awaken the Best Version of Your Mind</h1>
-
- <p>You don’t need another tool — you need a mirror for your mind.  
-Smartigo learns how <em>you</em> think, decide, and create — so every idea, every action, feels more natural, more human, more powerful.
-</p>
+    <p>You don’t need another tool — you need a mirror for your mind.  
+    Smartigo learns how <em>you</em> think, decide, and create — so every idea, every action, feels more natural, more human, more powerful.</p>
     <div style="text-align:center;margin-top:28px;">
       <a href="#form" class="btn btn-primary">Start Free</a>
     </div>
   </div>
 </section>
-
-<section id="how" class="fade-in">
-  <div class="container">
-    <h2>How It Works</h2>
-    <div class="grid">
-      <div class="card"><h3>Step 1 — Mind Blueprint</h3><p>Let AI understand how your brain processes information and decisions.</p></div>
-      <div class="card"><h3>Step 2 — Prompt Logic</h3><p>Define your personal reasoning and response style.</p></div>
-      <div class="card"><h3>Step 3 — AI Alignment</h3><p>Train your AI to understand your intent and thinking pattern.</p></div>
-      <div class="card"><h3>Step 4 — Evolution</h3><p>Deploy your enhanced AI to work as the best version of your mind.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="about" class="fade-in">
-  <div class="container">
-    <h2>About Smartigo</h2>
-    <p>We believe in an AI that grows with you — empowering your mind to reach its full potential. Smartigo helps you think deeper, act faster, and stay truly human.</p>
-  </div>
-</section>
-
-<section id="stories" class="fade-in">
-  <div class="container">
-    <h2>Stories from Early Users</h2>
-    <div class="grid">
-      <div class="card"><p>“I used Smartigo to optimize my creative writing process. It feels like my thoughts are finally streamlined.” — Alex, Writer</p></div>
-      <div class="card"><p>“As a parent, I trained my AI to help me plan and manage daily routines. It’s like a calmer version of my brain.” — Jamie, Parent</p></div>
-      <div class="card"><p>“I built better business prompts in a week. Smartigo literally saved me hours.” — Lee, Entrepreneur</p></div>
-      <div class="card"><p>“I used Smartigo to understand how I make spending decisions. My AI now helps me plan the week with no stress.” — Maria, Parent & Designer</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="form" class="fade-in" style="padding:60px 0; border-top:1px solid var(--border);">
-  <div class="container">
-    <h2>Start Your AI Evolution</h2>
-    <p>Answer these quick questions to receive your personalized 5-day AI training guide.</p>
-    <div class="form-container">
-      <div class="progress" id="progress">Question 1 of 8</div>
-      <form id="smartigoForm">
-        <div class="steps-wrapper">
-          <div class="form-step active">
-            <div class="question">What’s your main goal with AI?</div>
-            <div class="options">
-              <label><input type="radio" name="goal" value="Boost productivity"> Boost productivity</label>
-              <label><input type="radio" name="goal" value="Create faster"> Create faster</label>
-              <label><input type="radio" name="goal" value="Make better decisions"> Make better decisions</label>
-              <label><input type="radio" name="goal" value="Learn or think deeper"> Learn or think deeper</label>
-              <label><input type="radio" name="goal" value="Other"> Other</label>
-            </div>
-          </div>
-          <div class="form-step">
-            <div class="question">How would you describe your thinking style?</div>
-            <div class="options">
-              <label><input type="radio" name="style" value="Analytical and structured"> Analytical and structured</label>
-              <label><input type="radio" name="style" value="Creative and intuitive"> Creative and intuitive</label>
-              <label><input type="radio" name="style" value="Fast and instinctive"> Fast and instinctive</label>
-              <label><input type="radio" name="style" value="Reflective and methodical"> Reflective and methodical</label>
-            </div>
-          </div>
-          <div class="form-step">
-            <div class="question">What’s your main field or interest?</div>
-            <div class="options">
-              <label><input type="radio" name="field" value="Business / Startups"> Business / Startups</label>
-              <label><input type="radio" name="field" value="Writing / Content creation"> Writing / Content creation</label>
-              <label><input type="radio" name="field" value="Tech / Coding"> Tech / Coding</label>
-              <label><input type="radio" name="field" value="Design / Art"> Design / Art</label>
-              <label><input type="radio" name="field" value="Personal growth"> Personal growth</label>
-              <label><input type="radio" name="field" value="Other"> Other</label>
-            </div>
-          </div>
-          <div class="form-step">
-            <div class="question">Have you used ChatGPT or similar tools before?</div>
-            <div class="options">
-              <label><input type="radio" name="used" value="Yes, regularly"> Yes, regularly</label>
-              <label><input type="radio" name="used" value="Yes, but just for fun"> Yes, but just for fun</label>
-              <label><input type="radio" name="used" value="I’ve tried once or twice"> I’ve tried once or twice</label>
-              <label><input type="radio" name="used" value="Never yet"> Never yet</label>
-            </div>
-          </div>
-          <div class="form-step">
-            <div class="question">What’s the biggest frustration when using AI tools?</div>
-            <div class="options">
-              <label><input type="radio" name="pain" value="It doesn’t understand my intent"> It doesn’t understand my intent</label>
-              <label><input type="radio" name="pain" value="It gives generic answers"> It gives generic answers</label>
-              <label><input type="radio" name="pain" value="It wastes time instead of saving it"> It wastes time instead of saving it</label>
-              <label><input type="radio" name="pain" value="I don’t know how to prompt it"> I don’t know how to prompt it</label>
-              <label><input type="radio" name="pain" value="Other"> Other</label>
-            </div>
-          </div>
-          <div class="form-step">
-            <div class="question">If your AI could “think like you”, what would it do first?</div>
-            <textarea name="thinkfirst" rows="3" placeholder="Type your answer here..."></textarea>
-          </div>
-          <div class="form-step">
-            <div class="question">How fast would you like to see results?</div>
-            <div class="options">
-              <label><input type="radio" name="speed" value="Instantly"> Instantly</label>
-              <label><input type="radio" name="speed" value="Within 5 days"> Within 5 days</label>
-              <label><input type="radio" name="speed" value="I’m patient — I want depth"> I’m patient — I want depth</label>
-              <label><input type="radio" name="speed" value="Not sure yet"> Not sure yet</label>
-            </div>
-          </div>
-          <div class="form-step">
-            <div class="question">Your email (to receive your 5-day guide)</div>
-            <input type="email" name="email" required placeholder="you@example.com">
-            <p style="font-size:0.85rem;color:#a8a8b3;margin-top:8px;">
-By entering your email, you agree to receive Smartigo’s 5-day training guide and occasional updates. You can unsubscribe anytime.
-</p>
-
-          </div>
-        </div>
-        <div class="form-nav">
-          <button type="button" id="prevBtn">Back</button>
-          <button type="button" id="nextBtn">Next</button>
-        </div>
-        <p id="formMessage"></p>
-      </form>
-    </div>
-  </div>
-</section>
 </main>
 
-<footer>© 2025 Smartigo — Human intent. AI precision.</footer>
+<footer style="text-align:center;padding:40px 0;color:#a8a8b3;">© 2025 Smartigo — Human intent. AI precision.</footer>
 
 <script>
-window.addEventListener("load", function () {
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwt9Dzez0mT6xTjNwOkZku66EE-PekCfhMsikK9P2KEB426_MpKGHdNjtD33RicShEeDA/exec";
-  const form = document.getElementById("smartigoForm");
-  const steps = Array.from(form.querySelectorAll(".form-step"));
-  const stepsWrapper = form.querySelector(".steps-wrapper");
-  const progress = document.getElementById("progress");
-  const message = document.getElementById("formMessage");
-  const nextBtn = document.getElementById("nextBtn");
-  const prevBtn = document.getElementById("prevBtn");
-  let current = 0;
-
-  // Mostra il primo step
-  steps.forEach((s, i) => s.classList.toggle("active", i === 0));
-  updateProgress();
-  adjustHeight();
-
-  function updateProgress() {
-    progress.textContent = `Question ${current + 1} of ${steps.length}`;
-    prevBtn.style.visibility = current === 0 ? "hidden" : "visible";
-    nextBtn.textContent = current === steps.length - 1 ? "Submit" : "Next";
-  }
-
-  function showStep(index) {
-    steps.forEach((s, i) => s.classList.toggle("active", i === index));
-    requestAnimationFrame(adjustHeight);
-  }
-
-  function adjustHeight() {
-    const h = steps[current].offsetHeight;
-    stepsWrapper.style.height = h + "px";
-  }
-
-  nextBtn.addEventListener("click", () => {
-    if (current < steps.length - 1) {
-      current++;
-      showStep(current);
-      updateProgress();
-    } else {
-      message.textContent = "Submitting...";
-      fetch(scriptURL, { method: "POST", body: new FormData(form) })
-        .then(() => {
-          form.style.display = "none";
-          message.innerHTML = "🎉 <b>Thank you!</b><br>Your personalized 5-Day AI Training Guide is on its way.";
-        })
-        .catch(() => {
-          message.textContent = "❌ Something went wrong. Please try again.";
-        });
-    }
-  });
-
-  prevBtn.addEventListener("click", () => {
-    if (current > 0) {
-      current--;
-      showStep(current);
-      updateProgress();
-    }
-  });
+// === Parallax Effect on Hero ===
+window.addEventListener("scroll", () => {
+  const hero = document.querySelector(".hero-content");
+  const scrollY = window.scrollY;
+  hero.style.transform = `translateY(${scrollY * 0.2}px)`;
 });
 
-// Mobile menu toggle
+// === Mobile menu toggle ===
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.navlinks');
 menuToggle.addEventListener('click', () => {
   navLinks.classList.toggle('active');
 });
 </script>
-<!-- ✅ SMARTIGO COOKIE BANNER — v3 (with Learn more) -->
-<div id="cookie-banner" style="
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(11, 11, 15, 0.95);
-  border-top: 1px solid #1d1d26;
-  color: #eaeaf2;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  padding: 18px 40px 18px 12px;
-  text-align: center;
-  z-index: 9999;
-  backdrop-filter: blur(6px);
-  animation: fadeIn 0.6s ease forwards;
-  display: none;
-">
-  <span style="display:inline-block; max-width:640px;">
-    This website uses cookies to improve your experience and analyze traffic. 
-    See our <a href="#privacy" style="color:#8d7cfb; text-decoration:underline;">Privacy & Cookies Policy</a>.
-  </span>
-  <button id="accept-cookies" style="
-    margin-left: 14px;
-    padding: 8px 16px;
-    background: linear-gradient(135deg, #5dcdf0, #8d7cfb);
-    border: none;
-    color: #0b0b0f;
-    font-weight: 600;
-    border-radius: 0;
-    cursor: pointer;
-    transition: opacity 0.25s ease;
-  ">Accept</button>
-  <button id="close-banner" aria-label="Close cookie banner" style="
-    position: absolute;
-    top: 10px;
-    right: 12px;
-    background: none;
-    border: none;
-    color: #aaa;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: color 0.25s ease;
-  ">×</button>
-</div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const banner = document.getElementById('cookie-banner');
-    const btnAccept = document.getElementById('accept-cookies');
-    const btnClose = document.getElementById('close-banner');
-    const accepted = localStorage.getItem('cookiesAccepted');
-
-    if (!accepted) banner.style.display = 'block';
-
-    btnAccept.addEventListener('click', () => {
-      localStorage.setItem('cookiesAccepted', 'true');
-      banner.style.display = 'none';
-    });
-
-    btnClose.addEventListener('click', () => {
-      banner.style.display = 'none';
-    });
-  });
-
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    #close-banner:hover { color: #fff; }
-  `;
-  document.head.appendChild(style);
-</script>
-<!-- ⚖️ PRIVACY & COOKIES POLICY SECTION -->
-<section id="privacy" style="
-  background:#0b0b0f;
-  border-top:1px solid #1d1d26;
-  padding:60px 20px;
-  color:#eaeaf2;
-  font-family:'Inter',sans-serif;
-  text-align:left;
-">
-  <div class="container" style="max-width:800px;margin:0 auto;">
-    <h2 style="text-align:center;margin-bottom:20px;">Privacy & Cookies Policy</h2>
-    <p style="margin-bottom:18px;">
-      At <strong>Smartigo</strong>, we respect your privacy. We only collect minimal data needed to improve your experience — such as form responses and technical information for site analytics. 
-    </p>
-    <p style="margin-bottom:18px;">
-      This website uses cookies for essential functionality and anonymous analytics. No personal or identifying data is shared with third parties.
-    </p>
-    <p style="margin-bottom:18px;">
-      By using Smartigo, you consent to our use of cookies and data processing in accordance with this policy. You may clear cookies anytime via your browser settings.
-    </p>
-    <p style="margin-bottom:18px;">
-      For questions or data inquiries, contact us at <a href="mailto:smartigo.ai@gmail.com" style="color:#8d7cfb;">smartigo.ai@gmail.com</a>.
-    </p>
-    <p style="margin-top:30px;font-size:0.9rem;color:#a8a8b3;text-align:center;">
-      Last updated: October 2025
-    </p>
-  </div>
-</section>
-
 </body>
 </html>
-
-
-
-
-</body>
-</html>
-
