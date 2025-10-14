@@ -320,6 +320,12 @@ footer {
   .navlinks a { padding:10px 20px; text-align:center; font-size:1rem; color:var(--text); }
   .header-cta { display:none; }
 }
+  /* === FORCE REMOVE ALL SECTION LINES === */
+section::before {
+  content: none !important;
+  display: none !important;
+}
+
 </style>
 </head>
 
