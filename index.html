@@ -130,6 +130,187 @@ main, header, footer {
 }
 
 /* === Rest of original styles (cards, form, footer, etc.) === */
+  :root {
+  --bg: #0b0b0f;
+  --card: #121218;
+  --text: #eaeaf2;
+  --muted: #a8a8b3;
+  --accent1: #5dcdf0;
+  --accent2: #8d7cfb;
+  --border: #1d1d26;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; }
+a { color:inherit; text-decoration:none; transition:color .25s ease; }
+.container { max-width:1120px; margin:0 auto; padding:20px; }
+header { position:sticky; top:0; z-index:100; backdrop-filter:blur(8px); background:rgba(11,11,15,.75); border-bottom:1px solid var(--border); }
+.nav { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0; }
+.brand { display:flex; align-items:center; gap:8px; font-weight:800; }
+.logo { width:32px; height:auto; object-fit:contain; }
+.navlinks { display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+.navlinks a { font-weight:500; color:var(--muted); border:none; background:none; padding:6px 0; transition:color .25s ease; }
+.navlinks a:hover { color:var(--accent1); }
+h1 { font-size:clamp(2.1rem,3.8vw,3.2rem); line-height:1.1; margin:8px 0; text-align:center; }
+h2 { text-align:center; margin-bottom:14px; }
+p { text-align:center; color:var(--muted); margin-top:8px; }
+section { padding:50px 0; border-top:1px solid var(--border); }
+.grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+.card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:18px; }
+.card h3 { text-align:center; margin-bottom:8px; }
+.card p { text-align:center; }
+  /* === Edge luminoso per le card === */
+.card {
+  position: relative;
+  overflow: hidden;
+}
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  border: 1px solid rgba(141,124,251,.18);
+  box-shadow: inset 0 0 0 1px rgba(94,205,240,.08);
+  pointer-events: none;
+}
+.card:hover {
+  transform: translateY(-2px);
+  transition: transform .2s ease;
+}
+
+.btn { display:inline-block; padding:12px 22px; border:none; border-radius:0; font-weight:600; transition:box-shadow .25s ease,transform .25s ease; cursor:pointer; }
+.btn-primary { background:linear-gradient(135deg,var(--accent1),var(--accent2)); color:#fff!important; }
+.btn-primary:hover { box-shadow:0 0 14px rgba(141,124,251,.4); transform:translateY(-2px); }
+footer { padding:40px 0 60px; text-align:center; color:var(--muted); font-size:.95rem; }
+
+/* === FORM === */
+.form-container {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  max-width: 540px;
+  margin: 0 auto;
+  text-align: left;
+  box-shadow: 0 0 30px rgba(0,0,0,0.25);
+}
+.steps-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.form-step {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .35s ease, transform .35s ease, visibility .35s ease;
+}
+.form-step.active {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.progress { color:var(--muted); font-size:.9rem; text-align:right; margin-bottom:12px; }
+.question { margin-bottom:20px; font-weight:600; font-size:1.1rem; text-align:center; }
+.options { display:flex; flex-direction:column; gap:10px; margin:10px 0; }
+.options label { font-weight:400; color:var(--muted); display:flex; align-items:center; gap:10px; cursor:pointer; }
+input[type=radio], input[type=radio] {
+  appearance:none; -webkit-appearance:none;
+  width:18px; height:18px;
+  border:2px solid var(--border);
+  border-radius:4px;
+  background-color:#1a1a20;
+  cursor:pointer;
+  position:relative;
+  transition:all 0.2s ease;
+}
+input[type=radio]:checked, input[type=radio]:checked {
+  background-color:var(--accent2);
+  border-color:var(--accent2);
+  box-shadow:0 0 6px rgba(155,140,255,0.6);
+}
+input[type=radio]::after, input[type=radio]::after {
+  content:""; position:absolute; top:2px; left:5px;
+  width:4px; height:8px;
+  border-right:2px solid #fff; border-bottom:2px solid #fff;
+  transform:rotate(45deg); opacity:0; transition:opacity 0.2s ease;
+}
+input[type=radio]:checked::after, input[type=radio]:checked::after { opacity:1; }
+textarea, input[type=email] {
+  width:100%; padding:10px 12px;
+  background:#16161f; border:1px solid var(--border);
+  color:var(--text); border-radius:4px; font-size:1rem;
+}
+textarea:focus, input[type=email]:focus {
+  outline:none; border-color:var(--accent2); box-shadow:0 0 6px rgba(155,140,255,.4);
+}
+.form-nav { display:flex; justify-content:space-between; margin-top:20px; }
+.form-nav button {
+  background:linear-gradient(135deg,var(--accent1),var(--accent2));
+  color:#fff; border:none; padding:10px 16px; border-radius:0;
+  cursor:pointer; font-weight:600; transition:opacity .25s;
+}
+.form-nav button:hover { opacity:.85; }
+#formMessage { text-align:center; margin-top:20px; color:var(--accent1); font-size:1rem; }
+
+/* Responsive header & menu */
+.menu-toggle { display:none; background:none; border:none; font-size:1.8rem; color:var(--text); cursor:pointer; }
+@media (max-width: 768px) {
+  .menu-toggle { display:block; margin-left:auto; margin-right:12px; }
+  .navlinks { display:none; flex-direction:column; width:100%; background:rgba(18,18,24,0.98); border-top:1px solid var(--border); padding:10px 0; }
+  .navlinks.active { display:flex; }
+  .navlinks a { padding:10px 20px; text-align:center; font-size:1rem; color:var(--text); }
+  .header-cta { display:none; }
+}
+  <!-- Open Graph Meta Tags for Smartigo -->
+<meta property="og:title" content="Train Your AI — Smartigo">
+<meta property="og:description" content="Teach your AI to think with your intent — faster, sharper, and free from mistakes.">
+<meta property="og:image" content="https://smartigoai.eu/smartigo-logo.png">
+<meta property="og:url" content="https://smartigoai.eu/">
+<meta property="og:type" content="website">
+
+<!-- Twitter Card (for X, WhatsApp, etc.) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Train Your AI — Smartigo">
+<meta name="twitter:description" content="Unlock the best version of your mind with AI.">
+<meta name="twitter:image" content="https://smartigoai.eu/smartigo-logo.png">
+  /* Background subtle mesh */
+body::before{
+  content:"";
+  position:fixed; inset:-20% -20% auto -20%;
+  height:80vh;
+  background:
+    radial-gradient(40% 40% at 20% 20%, rgba(141,124,251,.18), transparent 60%),
+    radial-gradient(35% 35% at 80% 10%, rgba(94,205,240,.14), transparent 60%),
+    radial-gradient(45% 45% at 60% 80%, rgba(141,124,251,.12), transparent 65%);
+  filter: blur(40px);
+  z-index:-1;
+}
+
+/* Section separators (hairline glow) */
+section { position: relative; }
+section::before{
+  content:"";
+  position:absolute; left:0; right:0; top:0; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(141,124,251,.35), transparent);
+  opacity:.7;
+}
+.orbs{ position:relative; }
+.orb{
+  position:absolute; border-radius:999px; filter: blur(30px); opacity:.28; pointer-events:none;
+}
+.orb-a{ width:280px; height:280px; left:10%; top:-40px;
+  background: radial-gradient(circle at 30% 30%, rgba(141,124,251,.6), transparent 60%); }
+.orb-b{ width:220px; height:220px; right:8%; top:-60px;
+  background: radial-gradient(circle at 60% 40%, rgba(94,205,240,.55), transparent 60%); }
+.brand-text {
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
 section { padding:50px 0; border-top:1px solid var(--border); }
 .grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
 .card {
