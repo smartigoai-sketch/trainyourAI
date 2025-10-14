@@ -53,40 +53,6 @@ header {
   50% { color: var(--accent2); text-shadow: 0 0 12px rgba(141,124,251,0.8); }
 }
 
-/* === Neural line background === */
-
-#neural-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 200%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    90deg,
-    rgba(141,124,251,0.04) 0%,
-    rgba(94,205,240,0.03) 25%,
-    rgba(141,124,251,0.05) 50%,
-    rgba(94,205,240,0.03) 75%,
-    rgba(141,124,251,0.04) 100%
-  );
-  background-size: 400% 100%;
-  animation: moveNeural 12s ease-in-out infinite alternate;
-  z-index: -2;
-  filter: blur(1px);
-  opacity: 0.35;
-}
-
-@keyframes moveNeural {
-  0% { transform: translateX(0) scaleY(1); opacity: 0.25; }
-  25% { transform: translateX(-15%) scaleY(1.02); opacity: 0.45; }
-  50% { transform: translateX(-30%) scaleY(1.00); opacity: 0.6; }
-  75% { transform: translateX(-45%) scaleY(1.01); opacity: 0.45; }
-  100% { transform: translateX(-60%) scaleY(1); opacity: 0.25; }
-
-}
-
-
-
 /* === Fade-in page === */
 body.loaded main, body.loaded header, body.loaded footer {
   opacity: 1;
