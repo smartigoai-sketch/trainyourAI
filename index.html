@@ -416,7 +416,7 @@ menuToggle.addEventListener('click', () => {
   navLinks.classList.toggle('active');
 });
 </script>
-<!-- Smartigo Cookie Banner -->
+<!-- Smartigo Cookie Banner — DEBUG -->
 <div id="cookie-banner" style="
   position: fixed;
   bottom: 0;
@@ -430,7 +430,6 @@ menuToggle.addEventListener('click', () => {
   padding: 18px 12px;
   text-align: center;
   z-index: 9999;
-  display: none;
   backdrop-filter: blur(6px);
   animation: fadeIn 0.6s ease forwards;
 ">
@@ -447,20 +446,19 @@ menuToggle.addEventListener('click', () => {
     transition: opacity 0.25s ease;
   ">Accept</button>
 </div>
+
 <script>
   const cookieBanner = document.getElementById('cookie-banner');
   const acceptCookies = document.getElementById('accept-cookies');
 
-  if (!localStorage.getItem('cookiesAccepted')) {
-    cookieBanner.style.display = 'block';
-  }
+  // Forza la visualizzazione del banner (debug)
+  cookieBanner.style.display = 'block';
 
   acceptCookies.addEventListener('click', () => {
     localStorage.setItem('cookiesAccepted', 'true');
     cookieBanner.style.display = 'none';
   });
 
-  // fade-in animation
   const style = document.createElement('style');
   style.textContent = `
     @keyframes fadeIn {
@@ -470,5 +468,7 @@ menuToggle.addEventListener('click', () => {
   `;
   document.head.appendChild(style);
 </script>
+
   </body>
+  </html>
   
