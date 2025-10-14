@@ -325,6 +325,15 @@ section::before {
   content: none !important;
   display: none !important;
 }
+/* === FORCE DISABLE ALL SECTION LINES === */
+section::before,
+section::after {
+  content: none !important;
+  background: none !important;
+  display: none !important;
+  border: none !important;
+  opacity: 0 !important;
+}
 
 </style>
 </head>
