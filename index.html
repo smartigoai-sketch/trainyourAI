@@ -4,12 +4,111 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Train Your AI — New Dimension Mind</title>
-<meta name="description" content="Train your AI to become the best version of your mind — faster, sharper, and free from mistakes."/>
+<meta name="description" content="Smartigo turns your AI into an exponential version of your mind — faster, sharper, and endlessly creative."/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
 <link rel="icon" href="smartigo-logo.png" type="image/png"/>
 
 <style>
 :root {
+  --bg: #0b0b0f;
+  --card: #121218;
+  --text: #eaeaf2;
+  --muted: #a8a8b3;
+  --accent1: #5dcdf0;
+  --accent2: #8d7cfb;
+  --border: #1d1d26;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  line-height:1.6;
+  overflow-x:hidden;
+  position:relative;
+}
+a { color:inherit; text-decoration:none; transition:color .25s ease; }
+.container { max-width:1120px; margin:0 auto; padding:20px; }
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+
+/* === Glow intelligente su a e i === */
+.brand-text {
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+.glow-i, .glow-a {
+  color: #fff;
+  animation: smartGlow 4s ease-in-out infinite;
+}
+@keyframes smartGlow {
+  0%, 100% { color:#fff; text-shadow:none; }
+  50% { color: var(--accent2); text-shadow: 0 0 12px rgba(141,124,251,0.8); }
+}
+
+/* === Fade-in page === */
+body.loaded main, body.loaded header, body.loaded footer {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1s ease, transform 1s ease;
+}
+main, header, footer {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* === Hero section === */
+#hero h1 {
+  font-size:clamp(2.1rem,3.8vw,3.2rem);
+  line-height:1.1;
+  margin:8px 0;
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+#hero p {
+  text-align:center;
+  color:var(--muted);
+  margin-top:12px;
+  font-size:1.1rem;
+}
+
+/* === Parallax effect === */
+.parallax {
+  transform: translateY(0);
+  transition: transform 0.3s ease-out;
+}
+
+/* === Buttons === */
+.btn {
+  display:inline-block;
+  padding:12px 22px;
+  border:none;
+  border-radius:0;
+  font-weight:600;
+  transition:box-shadow .25s ease,transform .25s ease;
+  cursor:pointer;
+  text-decoration:none;
+}
+.btn-primary {
+  background:linear-gradient(135deg,var(--accent1),var(--accent2));
+  color:#fff!important;
+}
+.btn-primary:hover {
+  box-shadow:0 0 14px rgba(141,124,251,.4);
+  transform:translateY(-2px);
+  text-decoration:none;
+}
+
+/* === Rest of original styles (cards, form, footer, etc.) === */
+  :root {
   --bg: #0b0b0f;
   --card: #121218;
   --text: #eaeaf2;
@@ -43,19 +142,22 @@ section { padding:50px 0; border-top:1px solid var(--border); }
   position: relative;
   overflow: hidden;
 }
-.card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 8px;
-  border: 1px solid rgba(141,124,251,.18);
-  box-shadow: inset 0 0 0 1px rgba(94,205,240,.08);
-  pointer-events: none;
+.card {
+  background: var(--card);
+  border: none;
+  border-radius: 0;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: none;
+  transition: transform .2s ease, box-shadow .3s ease;
 }
+
 .card:hover {
   transform: translateY(-2px);
-  transition: transform .2s ease;
+  box-shadow: 0 0 12px rgba(141,124,251,0.1);
 }
+
 
 .btn { display:inline-block; padding:12px 22px; border:none; border-radius:0; font-weight:600; transition:box-shadow .25s ease,transform .25s ease; cursor:pointer; }
 .btn-primary { background:linear-gradient(135deg,var(--accent1),var(--accent2)); color:#fff!important; }
@@ -158,7 +260,7 @@ textarea:focus, input[type=email]:focus {
 <meta name="twitter:description" content="Unlock the best version of your mind with AI.">
 <meta name="twitter:image" content="https://smartigoai.eu/smartigo-logo.png">
   /* Background subtle mesh */
-body::before{
+/*body::before{
   content:"";
   position:fixed; inset:-20% -20% auto -20%;
   height:80vh;
@@ -168,16 +270,8 @@ body::before{
     radial-gradient(45% 45% at 60% 80%, rgba(141,124,251,.12), transparent 65%);
   filter: blur(40px);
   z-index:-1;
-}
+}*/
 
-/* Section separators (hairline glow) */
-section { position: relative; }
-section::before{
-  content:"";
-  position:absolute; left:0; right:0; top:0; height:1px;
-  background: linear-gradient(90deg, transparent, rgba(141,124,251,.35), transparent);
-  opacity:.7;
-}
 .orbs{ position:relative; }
 .orb{
   position:absolute; border-radius:999px; filter: blur(30px); opacity:.28; pointer-events:none;
@@ -190,42 +284,60 @@ section::before{
   font-weight: 800;
   letter-spacing: 0.5px;
 }
-
-.glow-i, .glow-a {
-  position: relative;
-  color: var(--accent2);
+section { padding:50px 0; border-top:1px solid var(--border); }
+.grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+.card {
+  background:var(--card);
+  border:none;
+  border-radius:0;
+  padding:18px;
+  position:relative;
+  overflow:hidden;
+}
+.card::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:0;
+  border:none;
+  box-shadow:inset 0 0 0 1px rgba(94,205,240,.08);
+  pointer-events:none;
+}
+.card:hover { transform:translateY(-2px); transition:transform .2s ease; }
+footer {
+  padding:40px 0 60px;
+  text-align:center;
+  color:var(--muted);
+  font-size:.95rem;
 }
 
-.glow-i::after, .glow-a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  border-radius: 4px;
-  box-shadow: 0 0 6px rgba(155,140,255,0.6);
-  opacity: 0.8;
-  animation: pulseGlow 2.8s ease-in-out infinite alternate;
+/* === Mobile menu === */
+.menu-toggle { display:none; background:none; border:none; font-size:1.8rem; color:var(--text); cursor:pointer; }
+@media (max-width: 768px) {
+  .menu-toggle { display:block; margin-left:auto; margin-right:12px; }
+  .navlinks { display:none; flex-direction:column; width:100%; background:rgba(18,18,24,0.98); border-top:1px solid var(--border); padding:10px 0; }
+  .navlinks.active { display:flex; }
+  .navlinks a { padding:10px 20px; text-align:center; font-size:1rem; color:var(--text); }
+  .header-cta { display:none; }
 }
 
-@keyframes pulseGlow {
-  0% { opacity: 0.4; text-shadow: 0 0 6px rgba(141,124,251,0.4); }
-  100% { opacity: 1; text-shadow: 0 0 12px rgba(141,124,251,0.8); }
-}
 
 </style>
 </head>
 
 <body>
+
+
 <header>
   <div class="container nav">
-   <div class="brand">
-  <img src="smartigo-logo.png" alt="Smartigo logo" class="logo">
-  <span class="brand-text">
-    Smart<span class="glow-i">i</span>go<span class="glow-a">AI</span>
-  </span>
-</div>
+    <div class="brand">
+      <a href="#hero" style="display:flex;align-items:center;gap:8px;">
+        <img src="smartigo-logo.png" alt="Smartigo logo" class="logo">
+        <span class="brand-text">
+          Smart<span class="glow-a">a</span>rt<span class="glow-i">i</span>go
+        </span>
+      </a>
+    </div>
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
     <nav class="navlinks">
       <a href="#hero">Home</a>
@@ -240,22 +352,13 @@ section::before{
 <main>
 <section id="hero" class="fade-in" style="padding-bottom:20px;">
   <div class="container">
-    <div class="orbs">
-  <span class="orb orb-a"></span>
-  <span class="orb orb-b"></span>
-</div>
-
-    <h1>Train Your AI — Awaken the Best Version of Your Mind</h1>
-
- <p>You don’t need another tool — you need a mirror for your mind.  
-Smartigo learns how <em>you</em> think, decide, and create — so every idea, every action, feels more natural, more human, more powerful.
-</p>
+    <h1 id="parallaxTitle" class="parallax">Train Your AI — Awaken the Best Version of Your Mind</h1>
+    <p>Smartigo turns your AI into an exponential version of your mind — faster, sharper, and endlessly creative.</p>
     <div style="text-align:center;margin-top:28px;">
       <a href="#form" class="btn btn-primary">Start Free</a>
     </div>
   </div>
 </section>
-
 <section id="how" class="fade-in">
   <div class="container">
     <h2>How It Works</h2>
@@ -378,75 +481,28 @@ By entering your email, you agree to receive Smartigo’s 5-day training guide a
 </main>
 
 <footer>© 2025 Smartigo — Human intent. AI precision.</footer>
-
 <script>
-window.addEventListener("load", function () {
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwt9Dzez0mT6xTjNwOkZku66EE-PekCfhMsikK9P2KEB426_MpKGHdNjtD33RicShEeDA/exec";
-  const form = document.getElementById("smartigoForm");
-  const steps = Array.from(form.querySelectorAll(".form-step"));
-  const stepsWrapper = form.querySelector(".steps-wrapper");
-  const progress = document.getElementById("progress");
-  const message = document.getElementById("formMessage");
-  const nextBtn = document.getElementById("nextBtn");
-  const prevBtn = document.getElementById("prevBtn");
-  let current = 0;
-
-  // Mostra il primo step
-  steps.forEach((s, i) => s.classList.toggle("active", i === 0));
-  updateProgress();
-  adjustHeight();
-
-  function updateProgress() {
-    progress.textContent = `Question ${current + 1} of ${steps.length}`;
-    prevBtn.style.visibility = current === 0 ? "hidden" : "visible";
-    nextBtn.textContent = current === steps.length - 1 ? "Submit" : "Next";
-  }
-
-  function showStep(index) {
-    steps.forEach((s, i) => s.classList.toggle("active", i === index));
-    requestAnimationFrame(adjustHeight);
-  }
-
-  function adjustHeight() {
-    const h = steps[current].offsetHeight;
-    stepsWrapper.style.height = h + "px";
-  }
-
-  nextBtn.addEventListener("click", () => {
-    if (current < steps.length - 1) {
-      current++;
-      showStep(current);
-      updateProgress();
-    } else {
-      message.textContent = "Submitting...";
-      fetch(scriptURL, { method: "POST", body: new FormData(form) })
-        .then(() => {
-          form.style.display = "none";
-          message.innerHTML = "🎉 <b>Thank you!</b><br>Your personalized 5-Day AI Training Guide is on its way.";
-        })
-        .catch(() => {
-          message.textContent = "❌ Something went wrong. Please try again.";
-        });
-    }
-  });
-
-  prevBtn.addEventListener("click", () => {
-    if (current > 0) {
-      current--;
-      showStep(current);
-      updateProgress();
-    }
-  });
+// Fade-in all
+window.addEventListener("load", () => {
+  document.body.classList.add("loaded");
 });
 
-// Mobile menu toggle
+// Parallax effect
+window.addEventListener("scroll", () => {
+  const title = document.getElementById("parallaxTitle");
+  const scrolled = Math.min(window.scrollY * 0.15, 25);
+  title.style.transform = `translateY(${scrolled}px)`;
+});
+
+
+// Mobile menu
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.navlinks');
 menuToggle.addEventListener('click', () => {
   navLinks.classList.toggle('active');
 });
 </script>
-<!-- ✅ SMARTIGO COOKIE BANNER — v3 (with Learn more) -->
+  <!-- ✅ SMARTIGO COOKIE BANNER — v3 (with Learn more) -->
 <div id="cookie-banner" style="
   position: fixed;
   bottom: 0;
@@ -542,7 +598,7 @@ menuToggle.addEventListener('click', () => {
       By using Smartigo, you consent to our use of cookies and data processing in accordance with this policy. You may clear cookies anytime via your browser settings.
     </p>
     <p style="margin-bottom:18px;">
-      For questions or data inquiries, contact us at <a href="mailto:smartigo.ai@gmail.com" style="color:#8d7cfb;">smartigo.ai@gmail.com</a>.
+      For questions or data inquiries, contact us at <a href="mailto:smartigoai@gmail.com" style="color:#8d7cfb;">smartigoai@gmail.com</a>.
     </p>
     <p style="margin-top:30px;font-size:0.9rem;color:#a8a8b3;text-align:center;">
       Last updated: October 2025
@@ -556,5 +612,3 @@ menuToggle.addEventListener('click', () => {
 
 
 
-</body>
-</html>
