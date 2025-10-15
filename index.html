@@ -9,51 +9,68 @@
 <link rel="icon" href="smartigo-logo.png" type="image/png"/>
 
 <style>
-/* === Background neurale visibile e animato === */
-body::before {
+/* === SMARTIGO OVERRIDES vFinal (place LAST in <style>) === */
+
+/* Kill the section/header lines everywhere */
+header, section { border: none !important; }
+section::before, section::after { display: none !important; }
+
+/* Transparent surfaces */
+header,
+.card,
+.form-container,
+#cookie-banner {
+  background: rgba(18,18,24,0.80) !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Form: squared corners (you already did, but force it) */
+.form-container { border-radius: 0 !important; }
+
+/* Tighten mobile spacing */
+@media (max-width: 768px){
+  section { padding: 28px 0 !important; }
+  .form-container { padding: 20px !important; }
+}
+
+/* Neural background image + animated glow.
+   IMPORTANT: rename your file to bg-neural.png (no spaces) and put it next to index.html */
+body::before{
   content: "";
   position: fixed;
   inset: 0;
   z-index: -2;
-  background: url('BG-NEURALE.png') center/cover no-repeat;
-  opacity: 0.65; /* visibilità immagine */
-  filter: brightness(1.1);
+  background: url("./bg-neural.png?v=2") center/cover no-repeat;
+  opacity: 0.28;             /* make image visible under content */
+  filter: brightness(1.08) saturate(1.1);
 }
 
-body::after {
+/* Moving multi-spot glow so it’s NOT radial-only-from-center */
+body::after{
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(circle at 30% 20%, rgba(141,124,251,0.25), transparent 60%),
-    radial-gradient(circle at 80% 70%, rgba(93,205,240,0.25), transparent 60%),
-    radial-gradient(circle at 40% 50%, rgba(141,124,251,0.25), transparent 60%);
+    radial-gradient(18% 22% at 18% 22%, rgba(141,124,251,.35), transparent 60%),
+    radial-gradient(20% 20% at 78% 70%, rgba(93,205,240,.30), transparent 60%),
+    radial-gradient(16% 18% at 40% 80%, rgba(141,124,251,.25), transparent 60%),
+    radial-gradient(22% 24% at 65% 25%, rgba(93,205,240,.22), transparent 60%);
   mix-blend-mode: screen;
-  opacity: 0.35;
-  animation: neuralDrift 16s infinite ease-in-out alternate;
+  opacity: .35;
+  background-size: 200% 200%;
+  animation: neuralDrift 16s ease-in-out infinite alternate;
 }
 
-@keyframes neuralDrift {
-  0% { background-position: 0% 0%; opacity: 0.25; }
-  25% { background-position: 30% 50%; opacity: 0.4; }
-  50% { background-position: 70% 80%; opacity: 0.3; }
-  75% { background-position: 50% 20%; opacity: 0.45; }
-  100% { background-position: 0% 0%; opacity: 0.3; }
-}
- /* --- Trasparenze morbide per armonizzare col background --- */
-header, .card, .form-container, #cookie-banner {
-  background-color: rgba(18, 18, 24, 0.8) !important;
-  backdrop-filter: blur(6px);
+@keyframes neuralDrift{
+  0%   { background-position: 0%   40%; opacity: .28; }
+  25%  { background-position: 40%  60%; opacity: .38; }
+  50%  { background-position: 80%  30%; opacity: .33; }
+  75%  { background-position: 20%  80%; opacity: .40; }
+  100% { background-position: 0%   40%; opacity: .30; }
 }
 
-/* Le card “How it Works” e “Stories” più morbide */
-.card {
-  box-shadow: 0 0 12px rgba(141,124,251,0.08);
-}
- 
-
-  
 :root {
   --bg: #0b0b0f;
   --card: #121218;
