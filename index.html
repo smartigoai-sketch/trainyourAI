@@ -43,6 +43,31 @@ body::after {
   75%  { opacity: 0.48; background-position: 30% 20%; }
   100% { opacity: 0.35; background-position: 0% 0%; }
 }
+/* --- Glow più corposo e diffuso --- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(141,124,251,0.55), transparent 65%),
+    radial-gradient(circle at 75% 40%, rgba(93,205,240,0.45), transparent 65%),
+    radial-gradient(circle at 35% 85%, rgba(141,124,251,0.45), transparent 65%),
+    radial-gradient(circle at 80% 75%, rgba(93,205,240,0.4), transparent 65%);
+  mix-blend-mode: screen;
+  animation: neuralGlow 9s ease-in-out infinite alternate;
+  background-size: 180% 180%;
+  opacity: 0.5;
+}
+
+@keyframes neuralGlow {
+  0%   { background-position: 0% 0%; opacity: 0.45; filter: brightness(1); }
+  25%  { background-position: 40% 60%; opacity: 0.55; filter: brightness(1.1); }
+  50%  { background-position: 80% 40%; opacity: 0.6;  filter: brightness(1.2); }
+  75%  { background-position: 20% 80%; opacity: 0.55; filter: brightness(1.05); }
+  100% { background-position: 0% 0%; opacity: 0.45; filter: brightness(1); }
+}
+  
 
 /* 2️⃣ Trasparenze generali */
 header,
