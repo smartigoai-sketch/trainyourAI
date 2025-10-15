@@ -31,6 +31,20 @@ body::after {
   opacity: 0.3;
   animation: neuralGlow 6s infinite ease-in-out;
 }
+  /* --- Fade-in iniziale del reticolo neurale --- */
+body::before,
+body::after {
+  animation-name: fadeInNeural, neuralGlow;
+  animation-duration: 1.8s, 6s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: 1, infinite;
+}
+
+@keyframes fadeInNeural {
+  from { opacity: 0; filter: brightness(0.8); }
+  to { opacity: 0.35; filter: brightness(1.2); }
+}
+
 
 @keyframes neuralGlow {
   0%, 100% {
