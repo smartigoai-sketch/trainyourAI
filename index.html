@@ -9,65 +9,50 @@
 <link rel="icon" href="smartigo-logo.png" type="image/png"/>
 
 <style>
-/* === Neural Background Animated (random glow) === */
+/* === Background neurale visibile e animato === */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -2;
   background: url('BG-NEURALE.png') center/cover no-repeat;
-  filter: brightness(1.25) saturate(1.2);
-  opacity: 0.4;
-  animation: fadeInNeural 1.8s ease-in-out forwards;
+  opacity: 0.25; /* visibilità immagine */
+  filter: brightness(1.1);
 }
 
-/* Glow leggero e mobile con pattern randomico */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: radial-gradient(circle at 30% 20%, rgba(141,124,251,0.4), transparent 60%),
-              radial-gradient(circle at 70% 80%, rgba(93,205,240,0.4), transparent 60%),
-              radial-gradient(circle at 20% 70%, rgba(141,124,251,0.25), transparent 60%);
+  background:
+    radial-gradient(circle at 30% 20%, rgba(141,124,251,0.25), transparent 60%),
+    radial-gradient(circle at 80% 70%, rgba(93,205,240,0.25), transparent 60%),
+    radial-gradient(circle at 40% 50%, rgba(141,124,251,0.25), transparent 60%);
   mix-blend-mode: screen;
-  opacity: 0.3;
-  animation: neuralRandom 12s infinite ease-in-out alternate;
+  opacity: 0.35;
+  animation: neuralDrift 16s infinite ease-in-out alternate;
 }
 
-@keyframes neuralRandom {
-  0%   { background-position: 0% 50%; opacity: 0.25; }
-  25%  { background-position: 50% 30%; opacity: 0.4; }
-  50%  { background-position: 80% 70%; opacity: 0.35; }
-  75%  { background-position: 20% 80%; opacity: 0.45; }
-  100% { background-position: 0% 50%; opacity: 0.3; }
+@keyframes neuralDrift {
+  0% { background-position: 0% 0%; opacity: 0.25; }
+  25% { background-position: 30% 50%; opacity: 0.4; }
+  50% { background-position: 70% 80%; opacity: 0.3; }
+  75% { background-position: 50% 20%; opacity: 0.45; }
+  100% { background-position: 0% 0%; opacity: 0.3; }
+}
+ /* --- Trasparenze morbide per armonizzare col background --- */
+header, .card, .form-container, #cookie-banner {
+  background-color: rgba(18, 18, 24, 0.8) !important;
+  backdrop-filter: blur(6px);
 }
 
-@keyframes fadeInNeural {
-  from { opacity: 0; filter: brightness(0.8); }
-  to { opacity: 0.4; filter: brightness(1.25); }
+/* Le card “How it Works” e “Stories” più morbide */
+.card {
+  box-shadow: 0 0 12px rgba(141,124,251,0.08);
 }
+ 
 
-
-
-@keyframes neuralGlow {
-  0%, 100% {
-    background-position: 20% 30%;
-    opacity: 0.25;
-  }
-  25% {
-    background-position: 70% 40%;
-    opacity: 0.45;
-  }
-  50% {
-    background-position: 40% 80%;
-    opacity: 0.4;
-  }
-  75% {
-    background-position: 60% 10%;
-    opacity: 0.5;
-  }
-}
   
 :root {
   --bg: #0b0b0f;
@@ -404,9 +389,14 @@ footer {
   0%, 100% { opacity: 0.25; }
   50% {opacity: 0.45; }
 }
-
-/* Parallax leggerissimo su mouse (via transform in JS) */
-
+@media (max-width: 768px) {
+  section {
+    padding: 30px 0 !important;
+  }
+  .form-container {
+    padding: 20px !important;
+  }
+}
 
 </style>
 </head>
