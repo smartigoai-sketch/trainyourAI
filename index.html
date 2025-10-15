@@ -452,8 +452,9 @@ menuToggle.addEventListener('click', () => {
   </div>
 </section>
 <script>
-window.addEventListener("load", function () {
-  const scriptURL = "PASTE_YOUR_NEW_SCRIPT_URL_HERE"; // 👈 sostituisci con il tuo nuovo URL
+<script>
+window.addEventListener("DOMContentLoaded", function () {
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxbXufVyFNJtI-Ywg-E1H2263qboT5aVkmn9V28PIBLmFcWGRQDTr9omCgHESbvuKewZw/exec"; // 🔗 sostituisci col tuo nuovo Apps Script
   const form = document.getElementById("smartigoForm");
   const steps = Array.from(form.querySelectorAll(".form-step"));
   const stepsWrapper = form.querySelector(".steps-wrapper");
@@ -463,7 +464,7 @@ window.addEventListener("load", function () {
   const prevBtn = document.getElementById("prevBtn");
   let current = 0;
 
-  // Mostra il primo step
+  // Setup iniziale
   steps.forEach((s, i) => s.classList.toggle("active", i === 0));
   updateProgress();
   adjustHeight();
@@ -485,11 +486,13 @@ window.addEventListener("load", function () {
   }
 
   nextBtn.addEventListener("click", () => {
+    console.log("Next clicked");
     if (current < steps.length - 1) {
       current++;
       showStep(current);
       updateProgress();
     } else {
+      console.log("Submitting form...");
       message.textContent = "Submitting...";
       fetch(scriptURL, { method: "POST", body: new FormData(form) })
         .then(() => {
@@ -503,6 +506,7 @@ window.addEventListener("load", function () {
   });
 
   prevBtn.addEventListener("click", () => {
+    console.log("Back clicked");
     if (current > 0) {
       current--;
       showStep(current);
