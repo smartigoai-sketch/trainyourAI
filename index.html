@@ -451,6 +451,66 @@ menuToggle.addEventListener('click', () => {
     </p>
   </div>
 </section>
+<script>
+window.addEventListener("load", function () {
+  const scriptURL = "PASTE_YOUR_NEW_SCRIPT_URL_HERE"; // 👈 sostituisci con il tuo nuovo URL
+  const form = document.getElementById("smartigoForm");
+  const steps = Array.from(form.querySelectorAll(".form-step"));
+  const stepsWrapper = form.querySelector(".steps-wrapper");
+  const progress = document.getElementById("progress");
+  const message = document.getElementById("formMessage");
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  let current = 0;
+
+  // Mostra il primo step
+  steps.forEach((s, i) => s.classList.toggle("active", i === 0));
+  updateProgress();
+  adjustHeight();
+
+  function updateProgress() {
+    progress.textContent = `Question ${current + 1} of ${steps.length}`;
+    prevBtn.style.visibility = current === 0 ? "hidden" : "visible";
+    nextBtn.textContent = current === steps.length - 1 ? "Submit" : "Next";
+  }
+
+  function showStep(index) {
+    steps.forEach((s, i) => s.classList.toggle("active", i === index));
+    requestAnimationFrame(adjustHeight);
+  }
+
+  function adjustHeight() {
+    const h = steps[current].offsetHeight;
+    stepsWrapper.style.height = h + "px";
+  }
+
+  nextBtn.addEventListener("click", () => {
+    if (current < steps.length - 1) {
+      current++;
+      showStep(current);
+      updateProgress();
+    } else {
+      message.textContent = "Submitting...";
+      fetch(scriptURL, { method: "POST", body: new FormData(form) })
+        .then(() => {
+          form.style.display = "none";
+          message.innerHTML = "🎉 <b>Thank you!</b><br>Your personalized 5-Day AI Training Guide is on its way.";
+        })
+        .catch(() => {
+          message.textContent = "❌ Something went wrong. Please try again.";
+        });
+    }
+  });
+
+  prevBtn.addEventListener("click", () => {
+    if (current > 0) {
+      current--;
+      showStep(current);
+      updateProgress();
+    }
+  });
+});
+</script>
 
 
 </body>
