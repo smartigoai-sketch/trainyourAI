@@ -270,48 +270,110 @@ menuToggle.addEventListener('click', () => {
 });
 </script>
 
-<!-- COOKIE BANNER -->
+ <!-- ✅ SMARTIGO COOKIE BANNER — v3 (with Learn more) -->
 <div id="cookie-banner" style="
   position: fixed;
-  bottom: 0; left: 0; right: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background: rgba(11, 11, 15, 0.95);
   border-top: 1px solid #1d1d26;
   color: #eaeaf2;
   font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
-  padding: 18px 40px;
+  padding: 18px 40px 18px 12px;
   text-align: center;
   z-index: 9999;
   backdrop-filter: blur(6px);
-  display: none;">
-  This website uses cookies to improve your experience. 
-  <button id="accept-cookies" style="margin-left:14px;padding:8px 16px;background:linear-gradient(135deg,#5dcdf0,#8d7cfb);border:none;color:#0b0b0f;font-weight:600;cursor:pointer;">Accept</button>
+  animation: fadeIn 0.6s ease forwards;
+  display: none;
+">
+  <span style="display:inline-block; max-width:640px;">
+    This website uses cookies to improve your experience and analyze traffic. 
+    See our <a href="#privacy" style="color:#8d7cfb; text-decoration:underline;">Privacy & Cookies Policy</a>.
+  </span>
+  <button id="accept-cookies" style="
+    margin-left: 14px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #5dcdf0, #8d7cfb);
+    border: none;
+    color: #0b0b0f;
+    font-weight: 600;
+    border-radius: 0;
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+  ">Accept</button>
+  <button id="close-banner" aria-label="Close cookie banner" style="
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.25s ease;
+  ">×</button>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const banner = document.getElementById('cookie-banner');
-  const btnAccept = document.getElementById('accept-cookies');
-  const accepted = localStorage.getItem('cookiesAccepted');
-  if (!accepted) banner.style.display = 'block';
-  btnAccept.addEventListener('click', () => {
-    localStorage.setItem('cookiesAccepted', 'true');
-    banner.style.display = 'none';
-  });
-});
-</script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const banner = document.getElementById('cookie-banner');
+    const btnAccept = document.getElementById('accept-cookies');
+    const btnClose = document.getElementById('close-banner');
+    const accepted = localStorage.getItem('cookiesAccepted');
 
-<!-- PRIVACY SECTION -->
-<section id="privacy" style="background:#0b0b0f;border-top:1px solid #1d1d26;padding:60px 20px;color:#eaeaf2;text-align:left;">
+    if (!accepted) banner.style.display = 'block';
+
+    btnAccept.addEventListener('click', () => {
+      localStorage.setItem('cookiesAccepted', 'true');
+      banner.style.display = 'none';
+    });
+
+    btnClose.addEventListener('click', () => {
+      banner.style.display = 'none';
+    });
+  });
+
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    #close-banner:hover { color: #fff; }
+  `;
+  document.head.appendChild(style);
+</script>
+<!-- ⚖️ PRIVACY & COOKIES POLICY SECTION -->
+<section id="privacy" style="
+  background:#0b0b0f;
+  border-top:1px solid #1d1d26;
+  padding:60px 20px;
+  color:#eaeaf2;
+  font-family:'Inter',sans-serif;
+  text-align:left;
+">
   <div class="container" style="max-width:800px;margin:0 auto;">
     <h2 style="text-align:center;margin-bottom:20px;">Privacy & Cookies Policy</h2>
-    <p>At <strong>Smartigo</strong>, we respect your privacy. We only collect minimal data needed to improve your experience — such as form responses and technical information for site analytics.</p>
-    <p>This website uses cookies for essential functionality and anonymous analytics. No personal or identifying data is shared with third parties.</p>
-    <p>By using Smartigo, you consent to our use of cookies and data processing in accordance with this policy. You may clear cookies anytime via your browser settings.</p>
-    <p>For questions or data inquiries, contact us at <a href="mailto:smartigoai@gmail.com" style="color:#8d7cfb;">smartigoai@gmail.com</a>.</p>
-    <p style="margin-top:30px;font-size:0.9rem;color:#a8a8b3;text-align:center;">Last updated: October 2025</p>
+    <p style="margin-bottom:18px;">
+      At <strong>Smartigo</strong>, we respect your privacy. We only collect minimal data needed to improve your experience — such as form responses and technical information for site analytics. 
+    </p>
+    <p style="margin-bottom:18px;">
+      This website uses cookies for essential functionality and anonymous analytics. No personal or identifying data is shared with third parties.
+    </p>
+    <p style="margin-bottom:18px;">
+      By using Smartigo, you consent to our use of cookies and data processing in accordance with this policy. You may clear cookies anytime via your browser settings.
+    </p>
+    <p style="margin-bottom:18px;">
+      For questions or data inquiries, contact us at <a href="mailto:smartigoai@gmail.com" style="color:#8d7cfb;">smartigoai@gmail.com</a>.
+    </p>
+    <p style="margin-top:30px;font-size:0.9rem;color:#a8a8b3;text-align:center;">
+      Last updated: October 2025
+    </p>
   </div>
 </section>
+
 
 </body>
 </html>
