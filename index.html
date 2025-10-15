@@ -485,10 +485,15 @@ body::after {
   object-fit: cover;
   z-index: -2;
   opacity: 0.22; /* regola qui l’intensità del video */
-  filter: brightness(1.1) contrast(1.2);
+  filter: brightness(1.1) contrast(1.2) blur (2px);
   pointer-events: none;
+  animation: subtlePulse 12s ease-in-out infinte;
 }
-
+/* Effetto pulsazione leggerissima sul glow del video */
+@keyframes subtlePulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.22; }
+}
 </style>
 </head>
 
@@ -496,6 +501,7 @@ body::after {
 <!-- 🔮 Video background neurale -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="definitivo.mp4" type="video/mp4">
+    Your browser does not support the video tag.
 </video>
 
 <header>
