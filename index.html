@@ -810,6 +810,12 @@ menuToggle.addEventListener('click', () => {
 
   // next
   nextBtn?.addEventListener("click", () => {
+    document.getElementById("smartigoForm").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+  }
+});
+
     if (current < steps.length - 1) {
       current++;
       show(current);
