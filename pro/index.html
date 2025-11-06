@@ -56,42 +56,40 @@
     </div>
   </main>
  <script>
-  // 1) METTI QUI LA TUA PUBLISHABLE KEY STRIPE (TEST)
+  // 1) TUA PUBLISHABLE KEY (TEST)
   const STRIPE_PK = 'pk_test_51SQ9KiGZ2xVM8libIulUVOWFgwQMpXAbPyOjn2nGWblTpFGbFDlaHwWfMe146sed6cR1TRFqVdZSosP4PD4oBxc100Cy6YllFQ';
 
-  // 2) METTI QUI IL TUO PRICE ID STRIPE (TEST)
+  // 2) TUA PRICE ID STRIPE (TEST)
   const PRICE_ID  = 'price_1SQR3GGZ2xVM8libpFAwKK0z';
 
-  // 3) METTI QUI L’URL DELL’APPS SCRIPT (QUELLO DEL DEPLOY)
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec';
-
-  // Se l’email è in querystring ?email=... la prendiamo.
-  // In alternativa proviamo da localStorage (se l’hai salvata dopo il quiz).
-  function getUserEmail() {
-    const qs = new URLSearchParams(location.search);
-    const fromQS = qs.get('email');
-    if (fromQS) return fromQS;
-    try { return localStorage.getItem('smartigo_email') || ''; } catch(e){ return ''; }
-  }
+  // 3) URL SUCCESS APPS SCRIPT / SITE
+  const SUCCESS_URL = 'https://smartigoai.eu/pro/success.html';
+  const CANCEL_URL  = 'https://smartigoai.eu/pro?canceled=1';
 
   // Inizializza Stripe
   const stripe = Stripe(STRIPE_PK);
 
   async function startProCheckout() {
-    const email = getUserEmail();
+    const emailInput = document.getElementById('proEmail');
+    const email = (emailInput.value || "").trim();
+
     if (!email) {
-      alert('Please enter your email first so we can activate PRO.');
+      alert("Insert your email before continuing.");
+      emailInput.focus();
       return;
     }
 
-    // Apri Checkout Stripe (TEST). Alla fine torna su /pro/success
+    // Salva email per eventuale uso futuro
+    try { localStorage.setItem('smartigo_email', email); } catch(e){}
+
+    // Redirect a Stripe
     await stripe.redirectToCheckout({
       mode: 'payment',
       lineItems: [{ price: PRICE_ID, quantity: 1 }],
       customerEmail: email,
       clientReferenceId: email,
-      successUrl: 'https://smartigoai.eu/pro/success?email=' + encodeURIComponent(email),
-      cancelUrl: 'https://smartigoai.eu/pro?canceled=1'
+      successUrl: SUCCESS_URL + "?email=" + encodeURIComponent(email),
+      cancelUrl: CANCEL_URL
     });
   }
 
@@ -100,6 +98,7 @@
     if (btn) btn.addEventListener('click', startProCheckout);
   });
 </script>
+
  
 </body>
 </html>
