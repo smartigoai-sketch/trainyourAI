@@ -55,31 +55,6 @@
       </p>
     </div>
   </main>
-
-<script>
-(function(){
-  // 1) Precompila email da query (?email=...) o localStorage
-  const params = new URLSearchParams(location.search);
-  const input  = document.getElementById('proEmail');
-  const fromQuery = params.get('email') || '';
-  const saved = localStorage.getItem('smartigo_email') || '';
-  input.value = fromQuery || saved;
-
-  function persistEmail(){
-    const v = (input.value||'').trim();
-    if(v) localStorage.setItem('smartigo_email', v);
-  }
-  input.addEventListener('input', persistEmail);
-
-  // 2) Vai a Stripe Payment Link
-  const STRIPE_LINK = 'https://buy.stripe.com/test_eVq28r9igeUMcmpbCbak001'; // <-- INCOLLA QUI
-  document.getElementById('proCta').addEventListener('click', function(){
-    persistEmail();
-    if(!input.value.trim()){ alert('Please enter your email to proceed.'); input.focus(); return; }
-    window.location.href = STRIPE_LINK;
-  });
-})();
-</script>
  <script>
   // 1) METTI QUI LA TUA PUBLISHABLE KEY STRIPE (TEST)
   const STRIPE_PK = 'pk_test_51SQ9KiGZ2xVM8libIulUVOWFgwQMpXAbPyOjn2nGWblTpFGbFDlaHwWfMe146sed6cR1TRFqVdZSosP4PD4oBxc100Cy6YllFQ';
