@@ -42,13 +42,13 @@
   <main class="container">
     <div class="form">
       <h1>Smartigo PRO</h1>
-      <p class="lead">10 giorni di workflow avanzati, template pronti e guida operativa — <strong>€19.99</strong>.</p>
+      <p class="lead">10 giorni di workflow avanzati, template pronti e guida operativa — <strong>€9.99</strong>.</p>
 
       <label>Email</label>
       <input id="proEmail" type="email" placeholder="your@email.com" />
       <small>La precompiliamo dal percorso free; puoi modificarla.</small>
 
-      <button id="proCta" class="btn">Activate PRO — €19.99</button>
+      <button id="proCta" class="btn">Activate PRO — €9.99</button>
       <p style="color:var(--muted);font-size:.92rem;margin-top:12px;text-align:center">
         Pagamento sicuro con Stripe. Ricevi subito la ricevuta.
       </p>
@@ -71,7 +71,7 @@
   input.addEventListener('input', persistEmail);
 
   // 2) Vai a Stripe Payment Link
-  const STRIPE_LINK = 'https://buy.stripe.com/test_7sYaEXcus6og1HLay7ak000'; // <-- INCOLLA QUI
+  const STRIPE_LINK = 'https://buy.stripe.com/test_eVq28r9igeUMcmpbCbak001'; // <-- INCOLLA QUI
   document.getElementById('proCta').addEventListener('click', function(){
     persistEmail();
     if(!input.value.trim()){ alert('Please enter your email to proceed.'); input.focus(); return; }
