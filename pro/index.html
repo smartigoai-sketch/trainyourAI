@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://js.stripe.com/v3"></script>  
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Smartigo PRO — 10-Day Training</title>
@@ -48,7 +49,7 @@
       <input id="proEmail" type="email" placeholder="your@email.com" />
       <small>La precompiliamo dal percorso free; puoi modificarla.</small>
 
-      <button id="proCta" class="btn">Activate PRO — €9.99</button>
+      <button id="pro-cta" class="btn btn-primary">Go PRO - 9.99</button>
       <p style="color:var(--muted);font-size:.92rem;margin-top:12px;text-align:center">
         Pagamento sicuro con Stripe. Ricevi subito la ricevuta.
       </p>
@@ -79,5 +80,51 @@
   });
 })();
 </script>
+ <script>
+  // 1) METTI QUI LA TUA PUBLISHABLE KEY STRIPE (TEST)
+  const STRIPE_PK = 'pk_test_51SQ9KiGZ2xVM8libIulUVOWFgwQMpXAbPyOjn2nGWblTpFGbFDlaHwWfMe146sed6cR1TRFqVdZSosP4PD4oBxc100Cy6YllFQ';
+
+  // 2) METTI QUI IL TUO PRICE ID STRIPE (TEST)
+  const PRICE_ID  = 'price_1SQR3GGZ2xVM8libpFAwKK0z';
+
+  // 3) METTI QUI L’URL DELL’APPS SCRIPT (QUELLO DEL DEPLOY)
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec';
+
+  // Se l’email è in querystring ?email=... la prendiamo.
+  // In alternativa proviamo da localStorage (se l’hai salvata dopo il quiz).
+  function getUserEmail() {
+    const qs = new URLSearchParams(location.search);
+    const fromQS = qs.get('email');
+    if (fromQS) return fromQS;
+    try { return localStorage.getItem('smartigo_email') || ''; } catch(e){ return ''; }
+  }
+
+  // Inizializza Stripe
+  const stripe = Stripe(STRIPE_PK);
+
+  async function startProCheckout() {
+    const email = getUserEmail();
+    if (!email) {
+      alert('Please enter your email first so we can activate PRO.');
+      return;
+    }
+
+    // Apri Checkout Stripe (TEST). Alla fine torna su /pro/success
+    await stripe.redirectToCheckout({
+      mode: 'payment',
+      lineItems: [{ price: PRICE_ID, quantity: 1 }],
+      customerEmail: email,
+      clientReferenceId: email,
+      successUrl: 'https://smartigoai.eu/pro/success?email=' + encodeURIComponent(email),
+      cancelUrl: 'https://smartigoai.eu/pro?canceled=1'
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('pro-cta');
+    if (btn) btn.addEventListener('click', startProCheckout);
+  });
+</script>
+ 
 </body>
 </html>
