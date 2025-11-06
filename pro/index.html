@@ -59,41 +59,40 @@
   </div>
 </main>
 <script>
-(function(){
-  const input = document.getElementById('proEmail');
-  const btn   = document.getElementById('pro-cta'); // ✅ ID CORRETTO
+  (function(){
+    const input  = document.getElementById('proEmail');
 
-  // PRECOMPILA EMAIL DA QUERY O LOCALSTORAGE
-  const params = new URLSearchParams(location.search);
-  const fromQuery = params.get('email') || '';
-  const saved = localStorage.getItem('smartigo_email') || '';
-
-  input.value = fromQuery || saved;
-
-  function persistEmail(){
-    const v = (input.value||'').trim();
-    if(v) localStorage.setItem('smartigo_email', v);
-  }
-  input.addEventListener('input', persistEmail);
-
-  // ✅ IL TUO PAYMENT LINK
-  const STRIPE_LINK = 'https://buy.stripe.com/test_3cIcN51POdQIdqtcGfak002';
-
-  // ✅ CLICK HANDLER
-  btn.addEventListener('click', function(){
-    const email = input.value.trim();
-    if (!email) {
-      alert("Inserisci la tua email per continuare");
-      return;
+    function persistEmail(){
+      const v = (input.value||'').trim();
+      if(v) localStorage.setItem('smartigo_email', v);
     }
 
-    persistEmail();
+    input.addEventListener('input', persistEmail);
 
-    // ✅ PASSA LA MAIL A STRIPE
-    window.location.href = STRIPE_LINK + '?prefilled_email=' + encodeURIComponent(email);
-  });
-})();
+    const STRIPE_PK = 'pk_test_51SQ9KiGZ2xVM8libIulUVOWFgwQMpXAbPyOjn2nGWblTpFGbFDlaHwWfMe146sed6cR1TRFqVdZSosP4PD4oBxc100Cy6YllFQ';
+    const PRICE_ID  = 'price_1SQR3GGZ2xVM8libpFAwKK0z';
+
+    const stripe = Stripe(STRIPE_PK);
+
+    document.getElementById('pro-cta').addEventListener('click', async function(){
+
+      const email = input.value.trim();
+      if(!email){ alert("Please enter your email"); return; }
+
+      persistEmail();
+
+      await stripe.redirectToCheckout({
+        mode: 'payment',
+        lineItems: [{ price: PRICE_ID, quantity: 1 }],
+        customerEmail: email,
+        clientReferenceId: email,
+        successUrl: 'https://smartigoai.eu/pro/success?email=' + encodeURIComponent(email),
+        cancelUrl: 'https://smartigoai.eu/pro?canceled=1'
+      });
+    });
+  })();
 </script>
+
 
 
 
