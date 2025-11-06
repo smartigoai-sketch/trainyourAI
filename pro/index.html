@@ -55,34 +55,27 @@
       </p>
     </div>
   </main>
- <script>
-  // 1) TUA PUBLISHABLE KEY (TEST)
+<script>
   const STRIPE_PK = 'pk_test_51SQ9KiGZ2xVM8libIulUVOWFgwQMpXAbPyOjn2nGWblTpFGbFDlaHwWfMe146sed6cR1TRFqVdZSosP4PD4oBxc100Cy6YllFQ';
-
-  // 2) TUA PRICE ID STRIPE (TEST)
   const PRICE_ID  = 'price_1SQR3GGZ2xVM8libpFAwKK0z';
 
-  // 3) URL SUCCESS APPS SCRIPT / SITE
   const SUCCESS_URL = 'https://smartigoai.eu/pro/success.html';
   const CANCEL_URL  = 'https://smartigoai.eu/pro?canceled=1';
 
-  // Inizializza Stripe
   const stripe = Stripe(STRIPE_PK);
 
   async function startProCheckout() {
-    const emailInput = document.getElementById('proEmail');
-    const email = (emailInput.value || "").trim();
+    const input = document.getElementById('pro-cta');
+    const emailField = document.getElementById('proEmail');
+    const email = (emailField.value || '').trim();
+
+    console.log("✅ Bottone trovato:", input, "Email:", email);
 
     if (!email) {
       alert("Insert your email before continuing.");
-      emailInput.focus();
       return;
     }
 
-    // Salva email per eventuale uso futuro
-    try { localStorage.setItem('smartigo_email', email); } catch(e){}
-
-    // Redirect a Stripe
     await stripe.redirectToCheckout({
       mode: 'payment',
       lineItems: [{ price: PRICE_ID, quantity: 1 }],
@@ -95,9 +88,11 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     const btn = document.getElementById('pro-cta');
+    console.log("✅ DOM loaded — bottone:", btn);
     if (btn) btn.addEventListener('click', startProCheckout);
   });
 </script>
+
 
  
 </body>
