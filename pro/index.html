@@ -58,35 +58,43 @@
     </p>
   </div>
 </main>
-
 <script>
-  const PAYMENT_LINK = 'https://buy.stripe.com/test_3cIcN51POdQIdqtcGfak002';
+(function(){
+  const input = document.getElementById('proEmail');
+  const btn   = document.getElementById('pro-cta'); // ✅ ID CORRETTO
 
-  const emailInput = document.getElementById('proEmail');
+  // PRECOMPILA EMAIL DA QUERY O LOCALSTORAGE
+  const params = new URLSearchParams(location.search);
+  const fromQuery = params.get('email') || '';
+  const saved = localStorage.getItem('smartigo_email') || '';
 
-  (function preload(){
-    const qs = new URLSearchParams(location.search);
-    const fromQS = qs.get('email') || '';
-    const saved  = localStorage.getItem('smartigo_email') || '';
-    emailInput.value = fromQS || saved || '';
-  })();
+  input.value = fromQuery || saved;
 
-  function goToStripe(){
-    const email = (emailInput.value || '').trim();
-    if (!email) { alert('Per favore inserisci la tua email.'); return; }
-
-    localStorage.setItem('smartigo_email', email);
-
-    const url = PAYMENT_LINK
-      + '?prefilled_email=' + encodeURIComponent(email)
-      + '&client_reference_id=' + encodeURIComponent(email);
-
-   window.location.href = STRIPE_LINK + '?prefilled_email=' + encodeURIComponent(input.value);
+  function persistEmail(){
+    const v = (input.value||'').trim();
+    if(v) localStorage.setItem('smartigo_email', v);
   }
+  input.addEventListener('input', persistEmail);
 
-  document.getElementById('pro-cta')
-    ?.addEventListener('click', goToStripe);
+  // ✅ IL TUO PAYMENT LINK
+  const STRIPE_LINK = 'https://buy.stripe.com/test_3cIcN51POdQIdqtcGfak002';
+
+  // ✅ CLICK HANDLER
+  btn.addEventListener('click', function(){
+    const email = input.value.trim();
+    if (!email) {
+      alert("Inserisci la tua email per continuare");
+      return;
+    }
+
+    persistEmail();
+
+    // ✅ PASSA LA MAIL A STRIPE
+    window.location.href = STRIPE_LINK + '?prefilled_email=' + encodeURIComponent(email);
+  });
+})();
 </script>
+
 
 
 </body>
