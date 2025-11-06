@@ -50,11 +50,22 @@
       <small>La precompiliamo dal percorso free; puoi modificarla.</small>
 
       <button id="pro-cta" class="btn btn-primary">Go PRO - 9.99</button>
-      <p style="color:var(--muted);font-size:.92rem;margin-top:12px;text-align:center">
-        Pagamento sicuro con Stripe. Ricevi subito la ricevuta.
-      </p>
-    </div>
-  </main>
+    <script>
+document.getElementById('pro-cta').addEventListener('click', function () {
+    const email = document.getElementById('proEmail').value.trim();
+    if (!email) {
+        alert("Please enter your email");
+        return;
+    }
+
+    // Salva email localmente per il success
+    localStorage.setItem('smartigo_email', email);
+
+    // ✅ Il tuo Payment Link Stripe
+    window.location.href = "https://buy.stripe.com/test_3cIcN51POdQIdqtcGfak002";
+});
+</script>
+
 <script>
   const STRIPE_PK = 'pk_test_51SQ9KiGZ2xVM8libIulUVOWFgwQMpXAbPyOjn2nGWblTpFGbFDlaHwWfMe146sed6cR1TRFqVdZSosP4PD4oBxc100Cy6YllFQ';
   const PRICE_ID  = 'price_1SQR3GGZ2xVM8libpFAwKK0z';
