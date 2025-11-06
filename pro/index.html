@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Smartigo PRO — 10-Day Training</title>
 
+  <!-- ✅ NECESSARIO: Stripe client -->
+  <script src="https://js.stripe.com/v3"></script>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
   <link rel="icon" href="/smartigo-logo.png" type="image/png"/>
 
@@ -58,43 +61,50 @@
     </p>
   </div>
 </main>
+
 <script>
-  (function(){
-    const input  = document.getElementById('proEmail');
+(function(){
 
-    function persistEmail(){
-      const v = (input.value||'').trim();
-      if(v) localStorage.setItem('smartigo_email', v);
-    }
+  const input = document.getElementById("proEmail");
 
-    input.addEventListener('input', persistEmail);
+  // ✅ Precompila email da querystring o localStorage
+  const qs = new URLSearchParams(location.search);
+  const fromQS = qs.get("email");
+  const saved  = localStorage.getItem("smartigo_email");
 
-    const STRIPE_PK = 'pk_test_51SQ9KiGZ2xVM8libIulUVOWFgwQMpXAbPyOjn2nGWblTpFGbFDlaHwWfMe146sed6cR1TRFqVdZSosP4PD4oBxc100Cy6YllFQ';
-    const PRICE_ID  = 'price_1SQR3GGZ2xVM8libpFAwKK0z';
+  if(fromQS) input.value = fromQS;
+  else if(saved) input.value = saved;
 
-    const stripe = Stripe(STRIPE_PK);
+  function persistEmail(){
+    const v = input.value.trim();
+    if(v) localStorage.setItem("smartigo_email", v);
+  }
+  input.addEventListener("input", persistEmail);
 
-    document.getElementById('pro-cta').addEventListener('click', async function(){
+  // ✅ Stripe config
+  const STRIPE_PK = "pk_test_51SQ9KiGZ2xVM8libIulUVOWFgwQMpXAbPyOjn2nGWblTpFGbFDlaHwWfMe146sed6cR1TRFqVdZSosP4PD4oBxc100Cy6YllFQ";
+  const PRICE_ID  = "price_1SQR3GGZ2xVM8libpFAwKK0z";
 
-      const email = input.value.trim();
-      if(!email){ alert("Please enter your email"); return; }
+  const stripe = Stripe(STRIPE_PK);
 
-      persistEmail();
+  document.getElementById("pro-cta").addEventListener("click", async function(){
+    const email = input.value.trim();
+    if(!email){ alert("Please enter your email"); return; }
 
-      await stripe.redirectToCheckout({
-        mode: 'payment',
-        lineItems: [{ price: PRICE_ID, quantity: 1 }],
-        customerEmail: email,
-        clientReferenceId: email,
-        successUrl: 'https://smartigoai.eu/pro/success?email=' + encodeURIComponent(email),
-        cancelUrl: 'https://smartigoai.eu/pro?canceled=1'
-      });
+    persistEmail();
+
+    await stripe.redirectToCheckout({
+      mode: "payment",
+      lineItems: [{ price: PRICE_ID, quantity: 1 }],
+      customerEmail: email,
+      clientReferenceId: email,
+      successUrl: "https://smartigoai.eu/pro/success?email=" + encodeURIComponent(email),
+      cancelUrl: "https://smartigoai.eu/pro?canceled=1"
     });
-  })();
+  });
+
+})();
 </script>
-
-
-
 
 </body>
 </html>
