@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Smartigo PRO — 10-Day Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+<link rel="icon" href="/smartigo-logo.png" type="image/png"/>
+<style>
+  :root{
+    --bg:#0b0b0f;--card:#121218;--text:#eaeaf2;--muted:#a8a8b3;
+    --accent1:#5dcdf0;--accent2:#8d7cfb;--border:#1d1d26;
+  }
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+  .container{max-width:1120px;margin:0 auto;padding:20px}
+  .form{max-width:720px;margin:60px auto;background:var(--card);border:1px solid var(--border);padding:28px}
+  h1{margin:0 0 8px;font-size:28px;line-height:1.2;text-align:center}
+  p.lead{color:var(--muted);text-align:center;margin:0 0 16px}
+  label{display:block;margin:16px 0 8px;color:var(--muted)}
+  input[type=email]{width:100%;padding:12px;background:#16161f;border:1px solid var(--border);color:var(--text);border-radius:4px}
+  .btn{display:inline-block;width:100%;margin-top:16px;padding:12px 18px;border:none;border-radius:0;
+       font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#0b0b0f}
+  small{color:var(--muted)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}
+  .nav a{color:var(--muted);text-decoration:none}
+</style>
+</head>
+<body>
+  <header class="container">
+    <div class="nav">
+      <a href="/" aria-label="Home" style="display:flex;align-items:center;gap:8px">
+        <img src="/smartigo-logo.png" width="32" height="32" alt="Smartigo"/>
+        <strong style="letter-spacing:.3px;color:var(--text)">Smartigo</strong>
+      </a>
+      <nav style="display:flex;gap:16px">
+        <a href="/">Home</a>
+        <a href="/pro" style="color:var(--accent1)">PRO</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="form">
+      <h1>Smartigo PRO</h1>
+      <p class="lead">10 giorni di workflow avanzati, template pronti e guida operativa — <strong>€19.99</strong>.</p>
+
+      <label>Email</label>
+      <input id="proEmail" type="email" placeholder="your@email.com" />
+      <small>La precompiliamo dal percorso free; puoi modificarla.</small>
+
+      <button id="proCta" class="btn">Activate PRO — €19.99</button>
+      <p style="color:var(--muted);font-size:.92rem;margin-top:12px;text-align:center">
+        Pagamento sicuro con Stripe. Ricevi subito la ricevuta.
+      </p>
+    </div>
+  </main>
+
+<script>
+(function(){
+  // 1) Precompila email da query (?email=...) o localStorage
+  const params = new URLSearchParams(location.search);
+  const input  = document.getElementById('proEmail');
+  const fromQuery = params.get('email') || '';
+  const saved = localStorage.getItem('smartigo_email') || '';
+  input.value = fromQuery || saved;
+
+  function persistEmail(){
+    const v = (input.value||'').trim();
+    if(v) localStorage.setItem('smartigo_email', v);
+  }
+  input.addEventListener('input', persistEmail);
+
+  // 2) Vai a Stripe Payment Link
+  const STRIPE_LINK = 'https://buy.stripe.com/test_7sYaEXcus6og1HLay7ak000'; // <-- INCOLLA QUI
+  document.getElementById('proCta').addEventListener('click', function(){
+    persistEmail();
+    if(!input.value.trim()){ alert('Please enter your email to proceed.'); input.focus(); return; }
+    window.location.href = STRIPE_LINK;
+  });
+})();
+</script>
+</body>
+</html>
