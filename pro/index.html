@@ -81,7 +81,7 @@
       + '?prefilled_email=' + encodeURIComponent(email)
       + '&client_reference_id=' + encodeURIComponent(email);
 
-    window.location.href = url;
+   window.location.href = STRIPE_LINK + '?prefilled_email=' + encodeURIComponent(input.value);
   }
 
   document.getElementById('pro-cta')
