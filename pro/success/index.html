@@ -27,7 +27,8 @@
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec';
 
     const qs = new URLSearchParams(location.search);
-    const email = qs.get('email') || '';
+    const email = qs.get('email') || 
+      qs.get('prefilled_email')||'';
 
     async function activatePro(){
       const msg = document.getElementById('msg');
