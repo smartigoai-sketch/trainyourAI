@@ -92,7 +92,7 @@ document.getElementById("pro-cta").addEventListener("click", () => {
   localStorage.setItem("smartigo_email", email);
 
   // 🔥 Redirect a STRIPE con email in query
-  window.location.href = STRIPE_LINK + "?email=" + encodeURIComponent(input.value.trim);
+  window.location.href = STRIPE_LINK;
 });
 </script>
 
