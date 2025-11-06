@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Smartigo PRO — Success</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    body{margin:0;background:#0b0b0f;color:#eaeaf2;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+    .wrap{max-width:640px;margin:0 auto;padding:40px 16px;}
+    .card{background:#121218;border:1px solid #1d1d26;padding:24px;text-align:center}
+    a.btn{display:inline-block;margin-top:14px;padding:10px 16px;text-decoration:none;
+      background:linear-gradient(135deg,#5dcdf0,#8d7cfb);color:#0b0b0f;font-weight:700}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Payment received ✅</h1>
+      <p>Activating your Smartigo PRO…</p>
+      <p id="msg" style="color:#a8a8b3"></p>
+      <a class="btn" href="https://smartigoai.eu">Back to Smartigo</a>
+    </div>
+  </div>
+
+  <script>
+    // 1) METTI QUI L’URL DELL’APPS SCRIPT (QUELLO DEL DEPLOY)
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec';
+
+    const qs = new URLSearchParams(location.search);
+    const email = qs.get('email') || '';
+
+    async function activatePro(){
+      const msg = document.getElementById('msg');
+      if (!email) {
+        msg.textContent = 'Missing email. Please contact support.';
+        return;
+      }
+      try {
+        // Chiamo il tuo Apps Script: action=prosignup
+        const url = APPS_SCRIPT_URL + '?action=prosignup&email=' + encodeURIComponent(email);
+        const res = await fetch(url, { method: 'GET' });
+        const text = await res.text();
+        if (res.ok && /OK|Welcome|Smartigo PRO/i.test(text)) {
+          msg.textContent = 'PRO is active! You will receive Day 6 within 24h.';
+        } else {
+          msg.textContent = 'Activation returned: ' + text;
+        }
+      } catch (err) {
+        msg.textContent = 'Activation error: ' + err.message;
+      }
+    }
+    activatePro();
+  </script>
+</body>
+</html>
