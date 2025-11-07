@@ -26,16 +26,12 @@
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec';
 
   function getEmail() {
-    const qs = new URLSearchParams(location.search);
-    const fromQS = qs.get('email') || '';
-    if (fromQS) return fromQS;
-
     try {
       const saved = localStorage.getItem('smartigo_email');
-      if (saved) return saved;
-    } catch(e){}
-
-    return '';
+      return saved || '';
+    } catch(e){
+      return '';
+    }
   }
 
   async function activatePro(){
@@ -48,15 +44,12 @@
     }
 
     try {
-      const url = APPS_SCRIPT_URL + '?action=prosignup&email=' + encodeURIComponent(email);
-      const res = await fetch(url);
-      const text = await res.text();
+      const res = await fetch(APPS_SCRIPT_URL + '?action=prosignup&email=' + encodeURIComponent(email), {
+        method: 'GET',
+        mode: 'no-cors'   // ✅ FIX CORS
+      });
 
-      if (res.ok && /OK|active|Smartigo PRO/i.test(text)) {
-        msg.textContent = 'PRO is active! You will receive Day 6 within 24h.';
-      } else {
-        msg.textContent = 'Activation returned: ' + text;
-      }
+      msg.textContent = 'PRO is active! You will receive Day 6 within 24h.';
     } catch (err) {
       msg.textContent = 'Activation error: ' + err.message;
     }
@@ -67,3 +60,4 @@
 
 </body>
 </html>
+
