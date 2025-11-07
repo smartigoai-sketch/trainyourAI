@@ -24,31 +24,33 @@
   </div>
 
 <script>
-  // URL del tuo Apps Script (quello del deploy attivo)
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec';
+  const APPS_SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec";
 
-  function getSessionId(){
-    const qs = new URLSearchParams(location.search);
-    return qs.get('session_id') || '';
-  }
+  const qs = new URLSearchParams(location.search);
+  const sessionId = qs.get("session_id");
 
-  function activatePro(){
-    const msg = document.getElementById('msg');
-    const sid = getSessionId();
+  async function activatePro(){
+    const msg = document.getElementById("msg");
 
-    if (!sid) {
-      msg.textContent = 'Missing session_id. Please contact support.';
+    if(!sessionId){
+      msg.textContent = "Missing session. Contact support.";
       return;
     }
 
-    // NIENTE fetch (CORS). Usiamo un iframe nascosto.
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = APPS_SCRIPT_URL + '?action=pro_from_session&session_id=' + encodeURIComponent(sid);
-    document.body.appendChild(iframe);
+    try {
+      const url = APPS_SCRIPT_URL + "?action=pro_from_session&session_id=" + encodeURIComponent(sessionId);
+      const res = await fetch(url);
+      const text = await res.text();
 
-    // Messaggio utente
-    msg.textContent = 'PRO is active! You will receive Day 6 right now.';
+      if (/OK_PRO/i.test(text)) {
+        msg.textContent = "✅ PRO active! You will receive Day 6 right now.";
+      } else {
+        msg.textContent = "Activation error: " + text;
+      }
+    } catch (err) {
+      msg.textContent = "Activation error: " + err.message;
+    }
   }
 
   activatePro();
@@ -56,3 +58,4 @@
 
 </body>
 </html>
+
