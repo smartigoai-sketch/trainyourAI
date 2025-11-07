@@ -24,13 +24,26 @@
   </div>
 
 <script>
+  // ✅ Web App URL
   const APPS_SCRIPT_URL =
     "https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec";
 
+  // ✅ Recupera email: prima da query, poi da localStorage
   function getEmail(){
+    const qs = new URLSearchParams(location.search);
+    const emailFromQS = qs.get("email");
+
+    // Se Stripe un giorno lo sostituirà, lo useremo:
+    if(emailFromQS && !emailFromQS.includes("{CHECKOUT_SESSION")){
+      return emailFromQS.trim();
+    }
+
+    // Fallback: localStorage
     try {
       return localStorage.getItem("smartigo_email") || "";
-    } catch(e){ return ""; }
+    } catch(e){
+      return "";
+    }
   }
 
   function activatePro(){
@@ -38,20 +51,24 @@
     const email = getEmail();
 
     if(!email){
-      msg.textContent = "Missing email. Please contact support.";
+      msg.textContent = "Missing email. Please contact support at smartigoai@gmail.com";
       return;
     }
 
+    // ✅ INVIA la richiesta al Web App tramite iframe invisibile (ok su Apps Script)
     const iframe = document.createElement("iframe");
     iframe.style.display = "none";
-    iframe.src = APPS_SCRIPT_URL + "?action=prosignup&email=" + encodeURIComponent(email);
+    iframe.src =
+      APPS_SCRIPT_URL +
+      "?action=prosignup&email=" +
+      encodeURIComponent(email);
+
     document.body.appendChild(iframe);
 
-    msg.textContent = "PRO is active! You will receive Day 6 right now.";
+    msg.textContent = "✅ PRO is active! Day 6 will arrive in a few minutes.";
   }
 
   activatePro();
 </script>
 </body>
 </html>
-
