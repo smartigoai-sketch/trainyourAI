@@ -61,36 +61,38 @@
 </main>
 
 <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("proEmail");
+  const btn = document.getElementById("pro-cta");
 
-(function () {
-  const input = document.getElementById('proEmail');
-  const btn   = document.getElementById('pro-cta');
+  // 1. Recupera email salvata (se esiste)
+  try {
+    const saved = localStorage.getItem("smartigo_email");
+    if (saved) input.value = saved;
+  } catch(e){}
+
+  // 2. Salva email quando cambia
+  input.addEventListener("input", () => {
+    localStorage.setItem("smartigo_email", input.value.trim());
+  });
+
+  // 3. Payment link STRIPE
   const PAYMENT_LINK = "https://buy.stripe.com/test_3cIcN51POdQIdqtcGfak002";
 
-  // Precompila email
-  const saved = localStorage.getItem("smartigo_email");
-  if (saved) input.value = saved;
-
-  // Salva email
-  input.addEventListener("input", () => {
-    const v = input.value.trim();
-    if (v) localStorage.setItem("smartigo_email", v);
-  });
-
-  // Reindirizza a Stripe
-  btn.addEventListener("click", function () {
+  btn.addEventListener("click", () => {
     const email = input.value.trim();
     if (!email) {
-      alert("Inserisci la tua email prima di continuare.");
+      alert("Please enter your email.");
       return;
     }
+
+    // Salva email per la pagina success
     localStorage.setItem("smartigo_email", email);
 
-    // Invia direttamente al Payment Link
-    window.location.href = PAYMENT_LINK + "?prefilled_email=" + encodeURIComponent(email);
+    // Apri Stripe
+    window.location.href = PAYMENT_LINK;
   });
-
-})();
+});
 </script>
 
 </body>
