@@ -89,8 +89,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Salva email per la pagina success
     localStorage.setItem("smartigo_email", email);
 
-    // Apri Stripe
-    window.location.href = PAYMENT_LINK;
+// Aggiungo ?email=... al payment link
+const url = PAYMENT_LINK + "?prefilled_email=" + encodeURIComponent(email);
+window.location.href = url;
+   
   });
 });
 </script>
