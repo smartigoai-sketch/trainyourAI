@@ -27,22 +27,20 @@
   const APPS_SCRIPT_URL =
     'https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec';
 
-  // ✅ Legge l’email dal redirect oppure dal localStorage
-  function getEmail() {
-    const qs = new URLSearchParams(location.search);
-    const fromQS = qs.get('email');
+function getEmail() {
+  const qs = new URLSearchParams(location.search);
+  const fromQS = qs.get("email");
 
-    if (fromQS && fromQS !== '{CHECKOUT_SESSION:EMAIL}') {
-      return fromQS;
-    }
+  if (fromQS) return fromQS;
 
-    try {
-      const saved = localStorage.getItem('smartigo_email');
-      if (saved) return saved;
-    } catch(e){}
+  try {
+    const saved = localStorage.getItem("smartigo_email");
+    if (saved) return saved;
+  } catch(e){}
 
-    return '';
-  }
+  return "";
+}
+
 
   // ✅ Attiva lo stato PRO sul foglio Google
   async function activatePro(){
