@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://js.stripe.com/v3"></script> <!-- ✅ FIX FONDAMENTALE -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Smartigo PRO — 10-Day Training</title>
@@ -54,6 +53,7 @@
     <small>La precompiliamo dal percorso free; puoi modificarla.</small>
 
     <button id="pro-cta" class="btn btn-primary">Go PRO — 9.99€</button>
+
     <p style="color:var(--muted);font-size:.92rem;margin-top:12px;text-align:center">
       Pagamento sicuro con Stripe.
     </p>
@@ -61,35 +61,35 @@
 </main>
 
 <script>
-(function(){
-  const input  = document.getElementById('proEmail');
 
-  function persistEmail(){
-    const v = (input.value||'').trim();
-    if(v) localStorage.setItem('smartigo_email', v);
-  }
-  input.addEventListener('input', persistEmail);
+(function () {
+  const input = document.getElementById('proEmail');
+  const btn   = document.getElementById('pro-cta');
+  const PAYMENT_LINK = "https://buy.stripe.com/test_3cIcN51POdQIdqtcGfak002";
 
-  const STRIPE_PK = 'pk_test_51SQ9KiGZ2xVM8libIulUVOWFgwQMpXAbPyOjn2nGWblTpFGbFDlaHwWfMe146sed6cR1TRFqVdZSosP4PD4oBxc100Cy6YllFQ';
-  const PRICE_ID  = 'price_1SQR3GGZ2xVM8libpFAwKK0z';
+  // Precompila email
+  const saved = localStorage.getItem("smartigo_email");
+  if (saved) input.value = saved;
 
-  const stripe = Stripe(STRIPE_PK); // ✅ ora funziona
-
-  document.getElementById('pro-cta').addEventListener('click', async function(){
-    const email = input.value.trim();
-    if(!email){ alert("Please enter your email"); return; }
-
-    persistEmail();
-
-    await stripe.redirectToCheckout({
-      mode: 'payment',
-      lineItems: [{ price: PRICE_ID, quantity: 1 }],
-      customerEmail: email,
-      clientReferenceId: email,
-      successUrl: 'https://smartigoai.eu/pro/success?email=' + encodeURIComponent(email),
-      cancelUrl: 'https://smartigoai.eu/pro?canceled=1'
-    });
+  // Salva email
+  input.addEventListener("input", () => {
+    const v = input.value.trim();
+    if (v) localStorage.setItem("smartigo_email", v);
   });
+
+  // Reindirizza a Stripe
+  btn.addEventListener("click", function () {
+    const email = input.value.trim();
+    if (!email) {
+      alert("Inserisci la tua email prima di continuare.");
+      return;
+    }
+    localStorage.setItem("smartigo_email", email);
+
+    // Invia direttamente al Payment Link
+    window.location.href = PAYMENT_LINK + "?prefilled_email=" + encodeURIComponent(email);
+  });
+
 })();
 </script>
 
