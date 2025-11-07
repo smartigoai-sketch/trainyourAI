@@ -24,51 +24,35 @@
   </div>
 
 <script>
-  // ✅ Web App URL
-  const APPS_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec";
+  // URL del tuo Apps Script (quello del deploy attivo)
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec';
 
-  // ✅ Recupera email: prima da query, poi da localStorage
-  function getEmail(){
+  function getSessionId(){
     const qs = new URLSearchParams(location.search);
-    const emailFromQS = qs.get("email");
-
-    // Se Stripe un giorno lo sostituirà, lo useremo:
-    if(emailFromQS && !emailFromQS.includes("{CHECKOUT_SESSION")){
-      return emailFromQS.trim();
-    }
-
-    // Fallback: localStorage
-    try {
-      return localStorage.getItem("smartigo_email") || "";
-    } catch(e){
-      return "";
-    }
+    return qs.get('session_id') || '';
   }
 
   function activatePro(){
-    const msg = document.getElementById("msg");
-    const email = getEmail();
+    const msg = document.getElementById('msg');
+    const sid = getSessionId();
 
-    if(!email){
-      msg.textContent = "Missing email. Please contact support at smartigoai@gmail.com";
+    if (!sid) {
+      msg.textContent = 'Missing session_id. Please contact support.';
       return;
     }
 
-    // ✅ INVIA la richiesta al Web App tramite iframe invisibile (ok su Apps Script)
-    const iframe = document.createElement("iframe");
-    iframe.style.display = "none";
-    iframe.src =
-      APPS_SCRIPT_URL +
-      "?action=prosignup&email=" +
-      encodeURIComponent(email);
-
+    // NIENTE fetch (CORS). Usiamo un iframe nascosto.
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = APPS_SCRIPT_URL + '?action=pro_from_session&session_id=' + encodeURIComponent(sid);
     document.body.appendChild(iframe);
 
-    msg.textContent = "✅ PRO is active! Day 6 will arrive in a few minutes.";
+    // Messaggio utente
+    msg.textContent = 'PRO is active! You will receive Day 6 right now.';
   }
 
   activatePro();
 </script>
+
 </body>
 </html>
