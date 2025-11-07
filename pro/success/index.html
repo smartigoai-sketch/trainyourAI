@@ -5,7 +5,8 @@
   <title>Smartigo PRO — Success</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <style>
-    body{margin:0;background:#0b0b0f;color:#eaeaf2;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+    body{margin:0;background:#0b0b0f;color:#eaeaf2;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
     .wrap{max-width:640px;margin:0 auto;padding:40px 16px;}
     .card{background:#121218;border:1px solid #1d1d26;padding:24px;text-align:center}
     a.btn{display:inline-block;margin-top:14px;padding:10px 16px;text-decoration:none;
@@ -23,40 +24,46 @@
   </div>
 
 <script>
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec';
+  const APPS_SCRIPT_URL =
+    'https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec';
 
-function getEmail() {
-  const qs = new URLSearchParams(location.search);
-  const fromQS = qs.get('email') || '';
+  // ✅ Legge l’email dal redirect oppure dal localStorage
+  function getEmail() {
+    const qs = new URLSearchParams(location.search);
+    const fromQS = qs.get('email');
 
-  if (fromQS && fromQS !== '{CHECKOUT_SESSION:EMAIL}') 
+    if (fromQS && fromQS !== '{CHECKOUT_SESSION:EMAIL}') {
       return fromQS;
+    }
 
-  try {
-    const saved = localStorage.getItem('smartigo_email');
-    if (saved) return saved;
-  } catch(e){}
+    try {
+      const saved = localStorage.getItem('smartigo_email');
+      if (saved) return saved;
+    } catch(e){}
 
-  return '';
-}
+    return '';
+  }
 
-
+  // ✅ Attiva lo stato PRO sul foglio Google
   async function activatePro(){
     const msg = document.getElementById('msg');
     const email = getEmail();
 
     if (!email) {
-      msg.textContent = 'Missing email. Please contact support (smartigoai@gmail.com).';
+      msg.textContent = 'Missing email. Please contact support.';
       return;
     }
 
     try {
-      const res = await fetch(APPS_SCRIPT_URL + '?action=prosignup&email=' + encodeURIComponent(email), {
-        method: 'GET',
-        mode: 'no-cors'   // ✅ FIX CORS
-      });
+      const url = APPS_SCRIPT_URL + '?action=prosignup&email=' + encodeURIComponent(email);
+      const res = await fetch(url);
+      const text = await res.text();
 
-      msg.textContent = 'PRO is active! Day 6 has just been sent!.';
+      if (res.ok && /PAID|OK|active|Smartigo PRO/i.test(text)) {
+        msg.textContent = '✅ Your PRO access is active. Day 6 arrives immediately.';
+      } else {
+        msg.textContent = 'Activation returned: ' + text;
+      }
     } catch (err) {
       msg.textContent = 'Activation error: ' + err.message;
     }
@@ -67,4 +74,3 @@ function getEmail() {
 
 </body>
 </html>
-
