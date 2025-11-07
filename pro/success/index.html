@@ -26,13 +26,18 @@
 <script>
   const APPS_SCRIPT_URL =
     'https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec';
-
 function getEmail() {
   const qs = new URLSearchParams(location.search);
-  const fromQS = qs.get("email");
+  
+  // Prima priorità: email passata da Stripe
+  const fromStripe = qs.get("prefilled_email");
+  if (fromStripe) return fromStripe;
 
+  // Seconda priorità: email appesa come ?email=
+  const fromQS = qs.get("email");
   if (fromQS) return fromQS;
 
+  // Terza priorità: recupero da localStorage
   try {
     const saved = localStorage.getItem("smartigo_email");
     if (saved) return saved;
@@ -40,6 +45,8 @@ function getEmail() {
 
   return "";
 }
+
+
 
 
   // ✅ Attiva lo stato PRO sul foglio Google
