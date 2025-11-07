@@ -24,38 +24,53 @@
   </div>
 
 <script>
-  const APPS_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec";
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec";
 
+function getEmail() {
   const qs = new URLSearchParams(location.search);
-  const sessionId = qs.get("session_id");
+  const fromSession = qs.get("session_id");
 
-  async function activatePro(){
-    const msg = document.getElementById("msg");
+  if (fromSession) {
+    return "SESSION:" + fromSession; 
+  }
+  try {
+    return localStorage.getItem("smartigo_email") || "";
+  } catch(e){
+    return "";
+  }
+}
 
-    if(!sessionId){
-      msg.textContent = "Missing session. Contact support.";
-      return;
-    }
+function activatePro(){
+  const msg = document.getElementById("msg");
+  const emailOrSession = getEmail();
 
-    try {
-      const url = APPS_SCRIPT_URL + "?action=pro_from_session&session_id=" + encodeURIComponent(sessionId);
-      const res = await fetch(url);
-      const text = await res.text();
-
-      if (/OK_PRO/i.test(text)) {
-        msg.textContent = "✅ PRO active! You will receive Day 6 right now.";
-      } else {
-        msg.textContent = "Activation error: " + text;
-      }
-    } catch (err) {
-      msg.textContent = "Activation error: " + err.message;
-    }
+  if (!emailOrSession) {
+    msg.textContent = "Missing email/session. Please contact support.";
+    return;
   }
 
-  activatePro();
+  // Costruisco URL
+  let url;
+  if (emailOrSession.startsWith("SESSION:")) {
+    const sid = emailOrSession.replace("SESSION:", "");
+    url = APPS_SCRIPT_URL + "?action=pro_from_session&session_id=" + encodeURIComponent(sid);
+  } else {
+    // fallback (localStorage email)
+    url = APPS_SCRIPT_URL + "?action=prosignup&email=" + encodeURIComponent(emailOrSession);
+  }
+
+  // Chiamata invisibile
+  const iframe = document.createElement("iframe");
+  iframe.style.display = "none";
+  iframe.src = url;
+  document.body.appendChild(iframe);
+
+  msg.textContent = "PRO is active! Your Day 6 email will arrive within a few seconds.";
+}
+
+activatePro();
 </script>
 
 </body>
 </html>
-
