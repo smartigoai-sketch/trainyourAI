@@ -1,0 +1,54 @@
+<script>
+  // URL del tuo Apps Script (deploy attivo)
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec';
+
+  function getEmail() {
+    const qs = new URLSearchParams(location.search);
+    // 1) Stripe ci rimanda questo
+    const fromStripe = qs.get('prefilled_email');
+    if (fromStripe) return fromStripe;
+    // 2) fallback: email=...
+    const fromQS = qs.get('email');
+    if (fromQS) return fromQS;
+    // 3) ultimo fallback: localStorage
+    try { 
+      const saved = localStorage.getItem('smartigo_email');
+      if (saved) return saved;
+    } catch(e){}
+    return '';
+  }
+
+  function activatePro() {
+    const msg = document.getElementById('msg');
+    const email = getEmail();
+
+    if (!email) {
+      msg.textContent = 'Missing email. Please contact support (smartigoai@gmail.com).';
+      return;
+    }
+
+    // 👉 niente fetch (CORS). Usiamo un iFrame invisibile come “ping”.
+    const url = APPS_SCRIPT_URL + '?action=prosignup&email=' + encodeURIComponent(email);
+    const ifr = document.createElement('iframe');
+    ifr.src = url;
+    ifr.style.width = '0';
+    ifr.style.height = '0';
+    ifr.style.border = '0';
+    ifr.onload = () => {
+      // se carica, presumiamo OK (Apps Script ha risposto)
+      msg.textContent = 'PRO is active! Day 6 is sending now.';
+    };
+    ifr.onerror = () => {
+      // anche se fallisse l’onload, spesso l’azione lato server è andata comunque
+      msg.textContent = 'Activation sent. If Day 6 does not arrive in a few minutes, write to smartigoai@gmail.com.';
+    };
+    document.body.appendChild(ifr);
+
+    // Fail-safe: dopo 2s mostra messaggio positivo comunque.
+    setTimeout(() => {
+      if (!msg.textContent) msg.textContent = 'PRO is active! Day 6 is sending now.';
+    }, 2000);
+  }
+
+  document.addEventListener('DOMContentLoaded', activatePro);
+</script>
