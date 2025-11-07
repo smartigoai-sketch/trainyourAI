@@ -25,14 +25,21 @@
 <script>
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec';
 
-  function getEmail() {
-    try {
-      const saved = localStorage.getItem('smartigo_email');
-      return saved || '';
-    } catch(e){
-      return '';
-    }
-  }
+function getEmail() {
+  const qs = new URLSearchParams(location.search);
+  const fromQS = qs.get('email') || '';
+
+  if (fromQS && fromQS !== '{CHECKOUT_SESSION:EMAIL}') 
+      return fromQS;
+
+  try {
+    const saved = localStorage.getItem('smartigo_email');
+    if (saved) return saved;
+  } catch(e){}
+
+  return '';
+}
+
 
   async function activatePro(){
     const msg = document.getElementById('msg');
