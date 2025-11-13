@@ -27,21 +27,41 @@
 const APPS_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbwGOZPX8cFOElL1MpHH5YD_SRpD6Jl2zSkoigB8RxQOC1LulqMSZty5A_-yJ4-fvKOKTA/exec";
 
+function getEmail() {
+  const qs = new URLSearchParams(location.search);
+  const fromSession = qs.get("session_id");
+
+  // 🔥 DEBUG FONDAMENTALE
+  console.log("DEBUG session_id =", fromSession);
+
+  if (fromSession) {
+    return "SESSION:" + fromSession;
+  }
+
+  try {
+    return localStorage.getItem("smartigo_email") || "";
+  } catch(e){
+    return "";
+  }
+}
+
 function activatePro(){
   const msg = document.getElementById("msg");
-  const qs = new URLSearchParams(location.search);
-  const sid = qs.get("session_id");
+  const emailOrSession = getEmail();
 
-  if(!sid){
-    msg.textContent = "Missing session ID. Please contact support.";
+  if (!emailOrSession) {
+    msg.textContent = "Missing email/session. Please contact support.";
     return;
   }
 
-  // 🔥 La chiamata corretta che Apps Script si aspetta
-  const url = APPS_SCRIPT_URL +
-    "?action=pro_from_session&session_id=" + encodeURIComponent(sid);
+  let url;
+  if (emailOrSession.startsWith("SESSION:")) {
+    const sid = emailOrSession.replace("SESSION:", "");
+    url = APPS_SCRIPT_URL + "?action=pro_from_session&session_id=" + encodeURIComponent(sid);
+  } else {
+    url = APPS_SCRIPT_URL + "?action=prosignup&email=" + encodeURIComponent(emailOrSession);
+  }
 
-  // Chiamiamo Apps Script invisibilmente
   const iframe = document.createElement("iframe");
   iframe.style.display = "none";
   iframe.src = url;
@@ -52,6 +72,6 @@ function activatePro(){
 
 activatePro();
 </script>
+
 </body>
 </html>
-
